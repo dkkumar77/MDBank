@@ -45,7 +45,7 @@ public class GeneralDatabase {
         table = dynamoDB.getTable(DATABASE_TABLE);
     }
 
-    public boolean grabCredentials(String username, String password) {
+    public boolean verifyCredentials(String username, String password) {
         GetItemSpec spec = new GetItemSpec().withPrimaryKey("username", username);
         try {
             Item outcome = table.getItem(spec);
@@ -143,7 +143,7 @@ public class GeneralDatabase {
 
     public static void main(String[] args) {
         GeneralDatabase e = new GeneralDatabase();
-        System.out.println(e.avoidDuplicate("user1"));
+        System.out.println(e.avoidDuplicate("user"));
 
     }
 
