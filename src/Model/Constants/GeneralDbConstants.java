@@ -1,5 +1,5 @@
 package Model.Constants;
-
+//Represents the column names of the bank server info table
 public enum GeneralDbConstants
 {
 	username,
