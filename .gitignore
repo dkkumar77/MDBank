@@ -1,3 +1,4 @@
 # Project exclude paths
 /out/
 /.idea/
+/lib/aws-java-sdk-1.11.744.jar
