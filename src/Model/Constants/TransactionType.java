@@ -8,5 +8,6 @@ public enum TransactionType
 {
 	DEPOSIT,
 	WITHDRAWAL,
-	OVERDRAFT
+	OVERDRAFT,
+	TRANSFER
 }
