@@ -1,7 +1,8 @@
 package Model.Constants;
 
 /**
- * ENUMERATES TRANSACTION TYPES
+ * ENUMERATES TRANSACTION TYPES,
+ * THIS FILE IS COMPLETED.
  */
 public enum TransactionType
 {
