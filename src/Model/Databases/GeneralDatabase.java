@@ -75,7 +75,7 @@ public class GeneralDatabase {
 
     public void updatePasswordQuery(String username, String newPass){
         UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("username", username)
-                .withUpdateExpression("set password = :l")
+                .withUpdateExpression("set password = :l") // <- and this
                 .withValueMap(new ValueMap().withString(":l",newPass))
                 .withReturnValues(ReturnValue.UPDATED_NEW);
         table.updateItem(updateItemSpec);
