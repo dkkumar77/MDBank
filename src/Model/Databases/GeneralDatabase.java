@@ -11,21 +11,15 @@ package Model.Databases;
  */
 import Model.Constants.DatabaseType;
 
-import com.amazonaws.client.builder.AwsClientBuilder;
+import Model.Constants.GeneralDbConstants;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.regions.Regions;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.document.*;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
 import com.amazonaws.services.dynamodbv2.model.ReturnValue;
-import com.amazonaws.services.glue.model.Database;
-import javax.xml.crypto.Data;
-
-
 
 
 public class GeneralDatabase {
@@ -46,11 +40,11 @@ public class GeneralDatabase {
     }
 
     public boolean verifyCredentials(String username, String password) {
-        GetItemSpec spec = new GetItemSpec().withPrimaryKey("username", username);
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbConstants.username.name(), username);
         try {
             Item outcome = table.getItem(spec);
-            String user = outcome.getString("username");
-            String pass = outcome.getString("password");
+            String user = outcome.getString(GeneralDbConstants.username.name());
+            String pass = outcome.getString(GeneralDbConstants.password.name());
             if (user.equalsIgnoreCase(username) && password.equalsIgnoreCase(pass)) {
                 return true;
             }
@@ -61,7 +55,7 @@ public class GeneralDatabase {
         return false;
     }
 
-
+    // Replace all the "xyz" portion with the proper constants for the rest of the methods
     public boolean avoidDuplicate(String username){
         GetItemSpec spec = new GetItemSpec().withPrimaryKey("username",username);
         Item outcome = table.getItem(spec);
