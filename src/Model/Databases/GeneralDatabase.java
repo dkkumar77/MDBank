@@ -67,7 +67,7 @@ public class GeneralDatabase {
 
     public void updateEmailQuery(String username, String newEmail){
         UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("username", username)
-                .withUpdateExpression("set primaryEmail = :l")
+                .withUpdateExpression("set primaryEmail = :l") // <- ignore this
                 .withValueMap(new ValueMap().withString(":l",newEmail))
                 .withReturnValues(ReturnValue.UPDATED_NEW);
         table.updateItem(updateItemSpec);
