@@ -18,8 +18,8 @@ import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
 import com.amazonaws.services.dynamodbv2.model.ReturnValue;
 import com.amazonaws.services.glue.model.Database;
 import javax.xml.crypto.Data;
-
-
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class AdminDatabase {
@@ -34,15 +34,16 @@ public class AdminDatabase {
      */
 
 
-    public AdminDatabase() {
+    private static void init() {
         client = AmazonDynamoDBClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
         dynamoDB = new DynamoDB(client);
         table = dynamoDB.getTable(DATABASE_TABLE);
     }
 
+    @Deprecated
+    @SuppressWarnings("unused")
     public void addAdminUser(String adminnumber, String emailAddress, String password)
     {
-
         try {
             PutItemOutcome outcome = table
                     .putItem(new Item().withPrimaryKey("admin_number", adminnumber)
@@ -54,29 +55,25 @@ public class AdminDatabase {
         catch (Exception e) {
             System.err.println(e.getMessage());
         }
-
-
     }
 
-    public String returnAdminEmail(String admin){
+    public static List<String> returnAdminInfo(String admin){
+        init();
         GetItemSpec spec = new GetItemSpec().withPrimaryKey("admin_number", admin);
         Item outcome = table.getItem(spec);
-        String admin_email = outcome.getString("email");
-
-        return admin_email;
-
-
+        List<String> accountInfo = new ArrayList<>(2);
+        accountInfo.add(outcome.getString("email"));
+        accountInfo.add(outcome.getString("password"));
+        return accountInfo;
     }
+
+    @SuppressWarnings("unused")
+    @Deprecated
     public String returnAdminPassword(String admin){
         GetItemSpec spec = new GetItemSpec().withPrimaryKey("admin_number", admin);
         Item outcome = table.getItem(spec);
         String admin_password = outcome.getString("password");
-
-
         return admin_password;
-
-
-
     }
 
 }
