@@ -17,5 +17,6 @@
     <orderEntry type="library" name="joda-time-2.10.5" level="project" />
     <orderEntry type="library" name="slf4j-api-1.7.25" level="project" />
     <orderEntry type="library" name="aws-java-sdk-1.11.746" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>

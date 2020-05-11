@@ -9,7 +9,7 @@ package Model.Databases;
  * <p>
  * Brief Description:
  */
-
+import Model.Constants.DatabaseType;
 
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
@@ -29,10 +29,10 @@ import javax.xml.crypto.Data;
 
 
 public class GeneralDatabase {
-    private final static String DATABASE_TABLE = "BANK_SERVER_INFO";
-    private DynamoDB dynamoDB;
-    private AmazonDynamoDB client;
-    private Table table;
+    private final static String DATABASE_TABLE = DatabaseType.BANK_SERVER_INFO.name();
+    private static DynamoDB dynamoDB;
+    private static AmazonDynamoDB client;
+    private static Table table;
     /**
      * Creates a connection with the database and gets the table.
      * USERNAME IS THE PRIMARY KEY AND IS USED TO ACCESS DATA ABOUT A PARTICULAR USER
