@@ -44,7 +44,7 @@ public class GeneralDatabase {
         try {
             Item outcome = table.getItem(spec);
             String user = outcome.getString(GeneralDbConstants.username.name());
-            String pass = outcome.getString(GeneralDbConstants.password.name());
+            String pass = outcome.getString(GeneralDbConstants.hashPassword.name());
             if (user.equalsIgnoreCase(username) && password.equalsIgnoreCase(pass)) {
                 return true;
             }
@@ -54,8 +54,8 @@ public class GeneralDatabase {
         }
         return false;
     }
-
-    // Replace all the "xyz" portion with the proper constants for the rest of the methods
+    //*****************************************
+    // Replace all the "xyz" parameter with the proper constants for the rest of the methods based on the example above
     public boolean avoidDuplicate(String username){
         GetItemSpec spec = new GetItemSpec().withPrimaryKey("username",username);
         Item outcome = table.getItem(spec);

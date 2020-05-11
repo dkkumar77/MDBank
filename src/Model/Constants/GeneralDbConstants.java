@@ -3,7 +3,7 @@ package Model.Constants;
 public enum GeneralDbConstants
 {
 	username,
-	password,
+	hashPassword,
 	firstName,
 	lastName,
 	primaryEmail,
