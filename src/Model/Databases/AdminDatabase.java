@@ -3,6 +3,81 @@ package Model.Databases;
 /**
  * Manages the database used for admin stuff
  */
-public class AdminDatabase
-{
+import Model.Constants.DatabaseType;
+
+import com.amazonaws.client.builder.AwsClientBuilder;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.document.*;
+import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
+import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
+import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
+import com.amazonaws.services.dynamodbv2.model.ReturnValue;
+import com.amazonaws.services.glue.model.Database;
+import javax.xml.crypto.Data;
+
+
+
+
+public class AdminDatabase {
+    private final static String DATABASE_TABLE = DatabaseType.ADMIN_TABLE.name();
+    private static DynamoDB dynamoDB;
+    private static AmazonDynamoDB client;
+    private static Table table;
+
+    /**
+     * Creates a connection with the database and gets the table.
+     * USERNAME IS THE PRIMARY KEY AND IS USED TO ACCESS DATA ABOUT A PARTICULAR USER
+     */
+
+
+    public AdminDatabase() {
+        client = AmazonDynamoDBClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
+        dynamoDB = new DynamoDB(client);
+        table = dynamoDB.getTable(DATABASE_TABLE);
+    }
+
+    public void addAdminUser(String adminnumber, String emailAddress, String password)
+    {
+
+        try {
+            PutItemOutcome outcome = table
+                    .putItem(new Item().withPrimaryKey("admin_number", adminnumber)
+                            .withString("email", emailAddress)
+                            .withString("password",password));
+
+            outcome.getPutItemResult();
+        }
+        catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+
+    }
+
+    public String returnAdminEmail(String admin){
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey("admin_number", admin);
+        Item outcome = table.getItem(spec);
+        String admin_email = outcome.getString("email");
+
+        return admin_email;
+
+
+    }
+    public String returnAdminPassword(String admin){
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey("admin_number", admin);
+        Item outcome = table.getItem(spec);
+        String admin_password = outcome.getString("password");
+
+
+        return admin_password;
+
+
+
+    }
+
 }
+

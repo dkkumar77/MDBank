@@ -71,16 +71,6 @@ public class GeneralDatabase {
         return false;
     }
 
-
-    public String grabFullName(String username){
-        GetItemSpec spec = new GetItemSpec().withPrimaryKey("username", username);
-        Item outcome = table.getItem(spec);
-        String f = outcome.getString("firstName");
-        String l = outcome.getString("lastName");
-
-        return f + " " + l;
-    }
-
     public void updateEmailQuery(String username, String newEmail){
         UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("username", username)
                 .withUpdateExpression("set primaryEmail = :l")
@@ -96,6 +86,19 @@ public class GeneralDatabase {
                 .withReturnValues(ReturnValue.UPDATED_NEW);
         table.updateItem(updateItemSpec);
     }
+
+
+
+
+    public String grabFullName(String username){
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey("username", username);
+        Item outcome = table.getItem(spec);
+        String f = outcome.getString("firstName");
+        String l = outcome.getString("lastName");
+
+        return f + " " + l;
+    }
+
 
     public String returnEmail(String username){
         GetItemSpec spec = new GetItemSpec().withPrimaryKey("username", username);
@@ -140,12 +143,14 @@ public class GeneralDatabase {
 
     }
 
-
     public static void main(String[] args) {
         GeneralDatabase e = new GeneralDatabase();
-        System.out.println(e.avoidDuplicate("user"));
+        System.out.println(e.returnEmail("user"));
 
     }
 
 
-}
+    }
+
+
+
