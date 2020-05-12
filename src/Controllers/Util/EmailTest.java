@@ -24,6 +24,7 @@ public class EmailTest
 		String content = scanner.nextLine();
 
 		List<String> attachments = new ArrayList<>(2);
+		//attachments.add("filepath");
 
 		System.out.println("Creating email");
 		Email email = new Email(emailM,subject,content,attachments);
