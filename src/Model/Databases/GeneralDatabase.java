@@ -25,6 +25,8 @@ import com.amazonaws.services.dynamodbv2.model.ReturnValue;
 import com.amazonaws.services.glue.model.Database;
 import javax.xml.crypto.Data;
 
+import java.util.Random;
+
 
 
 
@@ -39,11 +41,38 @@ public class GeneralDatabase {
      */
 
 
+
+
+
+
+
+    @Deprecated
+    @SuppressWarnings("unused")
+
+    public long createUniqueAccountNumber(){
+        char[] sequenceWriter = new char[12];
+        Random random = new Random();
+        sequenceWriter[0] = (char) (random.nextInt(9) + '1');
+        for (int i = 1; i < sequenceWriter.length; i++) {
+            sequenceWriter[i] = (char) (random.nextInt(10) + '0');
+        }
+        return Long.parseLong(new String(sequenceWriter));
+
+    }
+
+
+
+
+
     public GeneralDatabase() {
         client = AmazonDynamoDBClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
         dynamoDB = new DynamoDB(client);
         table = dynamoDB.getTable(DATABASE_TABLE);
     }
+
+
+
+
 
     public boolean verifyCredentials(String username, String password) {
         GetItemSpec spec = new GetItemSpec().withPrimaryKey("username", username);
@@ -62,6 +91,36 @@ public class GeneralDatabase {
     }
 
 
+
+
+
+
+    public void updateLoggedInQuery(String username){
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey("username", username);
+        Item outcome = table.getItem(spec);
+        boolean loggedInQuery = outcome.getBoolean("isLoggedIn");
+        if(loggedInQuery == true){
+            UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("username", username)
+                    .withUpdateExpression("set isLoggedIn = :l")
+                    .withValueMap(new ValueMap().withBoolean(":l",false))
+                    .withReturnValues(ReturnValue.UPDATED_NEW);
+            table.updateItem(updateItemSpec);
+        }
+        else if(loggedInQuery == false){
+            UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("username", username)
+                    .withUpdateExpression("set isLoggedIn = :l")
+                    .withValueMap(new ValueMap().withBoolean(":l",true))
+                    .withReturnValues(ReturnValue.UPDATED_NEW);
+            table.updateItem(updateItemSpec);
+        }
+
+
+
+    }
+
+
+
+
     public boolean avoidDuplicate(String username){
         GetItemSpec spec = new GetItemSpec().withPrimaryKey("username",username);
         Item outcome = table.getItem(spec);
@@ -71,6 +130,22 @@ public class GeneralDatabase {
         return false;
     }
 
+
+
+    @Deprecated
+    @SuppressWarnings("unused")
+    public void quickUpdateLoginLogoffQuery(String username){
+        UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("username", username)
+                .withUpdateExpression("set isLoggedIn = :l")
+                .withValueMap(new ValueMap().withBoolean(":l",false))
+                .withReturnValues(ReturnValue.UPDATED_NEW);
+        table.updateItem(updateItemSpec);
+
+    }
+
+
+
+
     public void updateEmailQuery(String username, String newEmail){
         UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("username", username)
                 .withUpdateExpression("set primaryEmail = :l")
@@ -79,10 +154,25 @@ public class GeneralDatabase {
         table.updateItem(updateItemSpec);
     }
 
+
+
+
     public void updatePasswordQuery(String username, String newPass){
         UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("username", username)
                 .withUpdateExpression("set password = :l")
                 .withValueMap(new ValueMap().withString(":l",newPass))
+                .withReturnValues(ReturnValue.UPDATED_NEW);
+        table.updateItem(updateItemSpec);
+    }
+
+
+    @Deprecated
+    @SuppressWarnings("unused")
+
+    public void updateBalance(String username, String amount){
+        UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("username", username)
+                .withUpdateExpression("set accountBalance = :l")
+                .withValueMap(new ValueMap().withString(":l", amount))
                 .withReturnValues(ReturnValue.UPDATED_NEW);
         table.updateItem(updateItemSpec);
     }
@@ -100,6 +190,8 @@ public class GeneralDatabase {
     }
 
 
+
+
     public String returnEmail(String username){
         GetItemSpec spec = new GetItemSpec().withPrimaryKey("username", username);
         Item outcome = table.getItem(spec);
@@ -108,6 +200,8 @@ public class GeneralDatabase {
         return email;
 
     }
+
+
 
 
     public String returnHashedPass(String username){
@@ -123,21 +217,41 @@ public class GeneralDatabase {
 
 
 
-    public void addUser(String username, String firstName,String lastName, String password, String primaryEmail, String dateOfBirth)
-    {
 
-        try {
-            PutItemOutcome outcome = table
-                    .putItem(new Item().withPrimaryKey("username", username)
-                            .withString("firstName",firstName)
-                            .withString("lastName",lastName)
-                            .withString("hashedPassword",password)
-                            .withString("primaryEmail",primaryEmail)
-                            .withString("dob",dateOfBirth));
-            outcome.getPutItemResult();
-        }
-        catch (Exception e) {
-            System.err.println(e.getMessage());
+
+    public void addUser(String username,long accountnumber, int loginAttempts, String...data){
+
+
+            String firstName = data[0];
+            String lastName = data[1];
+            String password = data[2];
+            String primaryEmail = data[3];
+            String dateOfBirth = data[4];
+            String creationDate = data[5];
+            String accountBalance = data[6];
+
+        {
+
+            try {
+                PutItemOutcome outcome = table
+                        .putItem(new Item().withPrimaryKey("username", username)
+                                .withString("firstName", firstName)
+                                .withString("lastName", lastName)
+                                .withString("hashedPassword", password)
+                                .withString("primaryEmail", primaryEmail)
+                                .withString("dob", dateOfBirth)
+                                .withString("dateCreated", creationDate)
+                                .withLong("accountNumber", accountnumber)
+                                .withInt("loginAttempts", loginAttempts)
+                                .withString("accountBalance" , accountBalance)
+                                .withBoolean("isLoggedIn", false));
+
+
+                outcome.getPutItemResult();
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+
         }
 
 
@@ -145,7 +259,11 @@ public class GeneralDatabase {
 
     public static void main(String[] args) {
         GeneralDatabase e = new GeneralDatabase();
-        System.out.println(e.returnEmail("user"));
+       String array [] = {"Deepak","Shah","password","dkumar8@masonlive.gmu.edu","09/09/2000","May 11th, 2019","100.00"};
+        e.addUser("admin",e.createUniqueAccountNumber(),0,array);
+
+
+
 
     }
 
