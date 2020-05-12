@@ -10,10 +10,10 @@ public class Customer
 	private String lastName;
 	private String email;
 	private String dateOfBirth;
-	private String customerID;
+	private long customerID;
 
 	public Customer(String username, String fullName, String email, String dateOfBirth,
-	                String customerID)
+	                long customerID)
 	{
 		this.username = username;
 		this.email = email;
@@ -47,7 +47,7 @@ public class Customer
 		return dateOfBirth;
 	}
 
-	public String getCustomerID()
+	public long getCustomerID()
 	{
 		return customerID;
 	}

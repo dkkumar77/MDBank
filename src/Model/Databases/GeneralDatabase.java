@@ -12,6 +12,7 @@ package Model.Databases;
 import Model.Constants.DatabaseType;
 
 import Model.Constants.GeneralDbColumns;
+import Model.Customer;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
@@ -31,44 +32,16 @@ public class GeneralDatabase {
     private static DynamoDB dynamoDB;
     private static AmazonDynamoDB client;
     private static Table table;
+
     /**
      * Creates a connection with the database and gets the table.
      * USERNAME IS THE PRIMARY KEY AND IS USED TO ACCESS DATA ABOUT A PARTICULAR USER
      */
-
-
-
-
-
-
-
-    @Deprecated
-    @SuppressWarnings("unused")
-
-    public long createUniqueAccountNumber(){
-        char[] sequenceWriter = new char[12];
-        Random random = new Random();
-        sequenceWriter[0] = (char) (random.nextInt(9) + '1');
-        for (int i = 1; i < sequenceWriter.length; i++) {
-            sequenceWriter[i] = (char) (random.nextInt(10) + '0');
-        }
-        return Long.parseLong(new String(sequenceWriter));
-
-    }
-
-
-
-
-
     public GeneralDatabase() {
         client = AmazonDynamoDBClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
         dynamoDB = new DynamoDB(client);
         table = dynamoDB.getTable(DATABASE_TABLE);
     }
-
-
-
-
 
     public boolean verifyCredentials(String username, String password) {
         GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
@@ -86,10 +59,51 @@ public class GeneralDatabase {
         return false;
     }
 
+    //***************
+     /*
+     JUSTIFICATION OF CHANGES:
+     THE CUSTOMER CLASS CREATES THE CUSTOMER OBJECT WHICH DEFINES THE CHARACTERISTICS OF CUSTOMER LIKE EMAIL, NAME ETC.
+     WE CAN JUST PASS THAT IN AND USE THAT INSTEAD OF MAKING 50 DIFF PARAMETERS FOR ONE METHOD
 
+     I REMOVED ACCOUNT BALANCE AND LOGIN ATTEMPTS BECAUSE WHEN YOU ARE FIRST CREATING AN ACCOUNT BY DEFAULT YOU'LL
+     HAVE $0 AND YOUR LOGIN ATTEMPTS WOULD BE 0.
+      */
+    public void addUser(Customer customer, String password, String dateCreated)
+    {
+        {
+            try {
+                PutItemOutcome outcome = table
+                        .putItem(new Item().withPrimaryKey(GeneralDbColumns.username.name(), customer.getUsername())
+                                .withString(GeneralDbColumns.firstName.name(), customer.getFirstName())
+                                .withString(GeneralDbColumns.lastName.name(), customer.getLastName())
+                                .withString(GeneralDbColumns.hashedPassword.name(), password)
+                                .withString(GeneralDbColumns.primaryEmail.name(), customer.getEmail())
+                                .withString(GeneralDbColumns.dob.name(), customer.getDateOfBirth())
+                                .withString(GeneralDbColumns.dateCreated.name(), dateCreated)
+                                .withLong(GeneralDbColumns.accountID.name(), customer.getCustomerID())
+                                .withInt(GeneralDbColumns.loginAttempts.name(), 0)
+                                .withString(GeneralDbColumns.currentBalance.name(), "0.00")
+                                .withBoolean(GeneralDbColumns.isLoggedOn.name(), false));
+                outcome.getPutItemResult();
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
 
+        }
+    }
 
+    @Deprecated
+    @SuppressWarnings("unused")
+    public long createUniqueAccountNumber(){
+        char[] sequenceWriter = new char[12];
+        Random random = new Random();
+        sequenceWriter[0] = (char) (random.nextInt(9) + '1');
+        for (int i = 1; i < sequenceWriter.length; i++) {
+            sequenceWriter[i] = (char) (random.nextInt(10) + '0');
+        }
+        return Long.parseLong(new String(sequenceWriter));
 
+    }
 
     public void updateLoggedInQuery(String username){
         GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
@@ -103,9 +117,6 @@ public class GeneralDatabase {
 
     }
 
-
-
-
     public boolean avoidDuplicate(String username){
         GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(),username);
         Item outcome = table.getItem(spec);
@@ -114,8 +125,6 @@ public class GeneralDatabase {
         }
         return false;
     }
-
-
 
     @Deprecated
     @SuppressWarnings("unused")
@@ -128,9 +137,6 @@ public class GeneralDatabase {
 
     }
 
-
-
-
     public void updateEmailQuery(String username, String newEmail){
         UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username)
                 .withUpdateExpression("set primaryEmail = :l")
@@ -138,9 +144,6 @@ public class GeneralDatabase {
                 .withReturnValues(ReturnValue.UPDATED_NEW);
         table.updateItem(updateItemSpec);
     }
-
-
-
 
     public void updatePasswordQuery(String username, String newPass){
         UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username)
@@ -150,10 +153,8 @@ public class GeneralDatabase {
         table.updateItem(updateItemSpec);
     }
 
-
     @Deprecated
     @SuppressWarnings("unused")
-
     public void updateBalance(String username, String amount){
         UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username)
                 .withUpdateExpression("set accountBalance = :l")
@@ -161,9 +162,6 @@ public class GeneralDatabase {
                 .withReturnValues(ReturnValue.UPDATED_NEW);
         table.updateItem(updateItemSpec);
     }
-
-
-
 
     public String grabFullName(String username){
         GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
@@ -174,9 +172,6 @@ public class GeneralDatabase {
         return f + " " + l;
     }
 
-
-
-
     public String returnEmail(String username){
         GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
         Item outcome = table.getItem(spec);
@@ -186,65 +181,11 @@ public class GeneralDatabase {
 
     }
 
-
-
-
     public String returnHashedPass(String username){
         GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
         Item outcome = table.getItem(spec);
         String hashedPass = outcome.getString(GeneralDbColumns.hashedPassword.name());
 
         return hashedPass;
-
-
-
     }
-
-
-
-
-
-    public void addUser(String username,long accountnumber, int loginAttempts, String...data){
-
-
-        String firstName = data[0];
-        String lastName = data[1];
-        String password = data[2];
-        String primaryEmail = data[3];
-        String dateOfBirth = data[4];
-        String creationDate = data[5];
-        String accountBalance = data[6];
-
-        {
-
-            try {
-                PutItemOutcome outcome = table
-                        .putItem(new Item().withPrimaryKey(GeneralDbColumns.username.name(), username)
-                                .withString(GeneralDbColumns.firstName.name(), firstName)
-                                .withString(GeneralDbColumns.lastName.name(), lastName)
-                                .withString(GeneralDbColumns.hashedPassword.name(), password)
-                                .withString(GeneralDbColumns.primaryEmail.name(), primaryEmail)
-                                .withString(GeneralDbColumns.dob.name(), dateOfBirth)
-                                .withString(GeneralDbColumns.dateCreated.name(), creationDate)
-                                .withLong(GeneralDbColumns.accountID.name(), accountnumber)
-                                .withInt(GeneralDbColumns.loginAttempts.name(), loginAttempts)
-                                .withString(GeneralDbColumns.currentBalance.name() , accountBalance)
-                                .withBoolean(GeneralDbColumns.isLoggedOn.name(), false));
-
-
-                outcome.getPutItemResult();
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
-            }
-
-        }
-
-
-    }
-
-
-
 }
-
-
-
