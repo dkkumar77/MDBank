@@ -99,22 +99,11 @@ public class GeneralDatabase {
         GetItemSpec spec = new GetItemSpec().withPrimaryKey("username", username);
         Item outcome = table.getItem(spec);
         boolean loggedInQuery = outcome.getBoolean("isLoggedIn");
-        if(loggedInQuery == true){
-            UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("username", username)
-                    .withUpdateExpression("set isLoggedIn = :l")
-                    .withValueMap(new ValueMap().withBoolean(":l",false))
-                    .withReturnValues(ReturnValue.UPDATED_NEW);
-            table.updateItem(updateItemSpec);
-        }
-        else if(loggedInQuery == false){
-            UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("username", username)
-                    .withUpdateExpression("set isLoggedIn = :l")
-                    .withValueMap(new ValueMap().withBoolean(":l",true))
-                    .withReturnValues(ReturnValue.UPDATED_NEW);
-            table.updateItem(updateItemSpec);
-        }
-
-
+        UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("username", username)
+                .withUpdateExpression("set isLoggedIn = :l")
+                .withValueMap(new ValueMap().withBoolean(":l",!loggedInQuery))
+                .withReturnValues(ReturnValue.UPDATED_NEW);
+        table.updateItem(updateItemSpec);
 
     }
 
