@@ -65,7 +65,7 @@ public class EmailSender
 	public static void main(String[] args)
 	{
 		// TESTING ONLY ALL OF THE CODE BELOW WILL BE DELETED
-		EmailSender emailSender = new EmailSender(new Email("dk.kumar77@yahoo.com","Big Dick Horny Fucker wanting your steamy wet cum","big fat juicy ding dong horse meat, stuffed in my tight little bootyhole nigga slut"));
+		EmailSender emailSender = new EmailSender(new Email("dk.kumar77@yahoo.com","STOP HURTING ME","YOU HURT ME"));
 		emailSender.send();
 		System.out.println("Sending Email");
 
