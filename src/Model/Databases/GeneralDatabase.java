@@ -11,6 +11,7 @@ package Model.Databases;
  */
 import Model.Constants.DatabaseType;
 
+import Model.Constants.GeneralDbConstants;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.regions.Regions;
@@ -75,11 +76,11 @@ public class GeneralDatabase {
 
 
     public boolean verifyCredentials(String username, String password) {
-        GetItemSpec spec = new GetItemSpec().withPrimaryKey("username", username);
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbConstants.username.name(), username);
         try {
             Item outcome = table.getItem(spec);
-            String user = outcome.getString("username");
-            String pass = outcome.getString("password");
+            String user = outcome.getString(GeneralDbConstants.username.name());
+            String pass = outcome.getString(GeneralDbConstants.hashedPassword.name());
             if (user.equalsIgnoreCase(username) && password.equalsIgnoreCase(pass)) {
                 return true;
             }
@@ -96,10 +97,10 @@ public class GeneralDatabase {
 
 
     public void updateLoggedInQuery(String username){
-        GetItemSpec spec = new GetItemSpec().withPrimaryKey("username", username);
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbConstants.username.name(), username);
         Item outcome = table.getItem(spec);
-        boolean loggedInQuery = outcome.getBoolean("isLoggedIn");
-        UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("username", username)
+        boolean loggedInQuery = outcome.getBoolean(GeneralDbConstants.isLoggedOn.name());
+        UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(GeneralDbConstants.username.name(), username)
                 .withUpdateExpression("set isLoggedIn = :l")
                 .withValueMap(new ValueMap().withBoolean(":l",!loggedInQuery))
                 .withReturnValues(ReturnValue.UPDATED_NEW);
@@ -111,7 +112,7 @@ public class GeneralDatabase {
 
 
     public boolean avoidDuplicate(String username){
-        GetItemSpec spec = new GetItemSpec().withPrimaryKey("username",username);
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbConstants.username.name(),username);
         Item outcome = table.getItem(spec);
         if (outcome == null){
             return true;
@@ -124,7 +125,7 @@ public class GeneralDatabase {
     @Deprecated
     @SuppressWarnings("unused")
     public void quickUpdateLoginLogoffQuery(String username){
-        UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("username", username)
+        UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(GeneralDbConstants.username.name(), username)
                 .withUpdateExpression("set isLoggedIn = :l")
                 .withValueMap(new ValueMap().withBoolean(":l",false))
                 .withReturnValues(ReturnValue.UPDATED_NEW);
@@ -136,7 +137,7 @@ public class GeneralDatabase {
 
 
     public void updateEmailQuery(String username, String newEmail){
-        UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("username", username)
+        UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(GeneralDbConstants.username.name(), username)
                 .withUpdateExpression("set primaryEmail = :l")
                 .withValueMap(new ValueMap().withString(":l",newEmail))
                 .withReturnValues(ReturnValue.UPDATED_NEW);
@@ -147,7 +148,7 @@ public class GeneralDatabase {
 
 
     public void updatePasswordQuery(String username, String newPass){
-        UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("username", username)
+        UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(GeneralDbConstants.username.name(), username)
                 .withUpdateExpression("set password = :l")
                 .withValueMap(new ValueMap().withString(":l",newPass))
                 .withReturnValues(ReturnValue.UPDATED_NEW);
@@ -159,7 +160,7 @@ public class GeneralDatabase {
     @SuppressWarnings("unused")
 
     public void updateBalance(String username, String amount){
-        UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey("username", username)
+        UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(GeneralDbConstants.username.name(), username)
                 .withUpdateExpression("set accountBalance = :l")
                 .withValueMap(new ValueMap().withString(":l", amount))
                 .withReturnValues(ReturnValue.UPDATED_NEW);
@@ -170,10 +171,10 @@ public class GeneralDatabase {
 
 
     public String grabFullName(String username){
-        GetItemSpec spec = new GetItemSpec().withPrimaryKey("username", username);
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbConstants.username.name(), username);
         Item outcome = table.getItem(spec);
-        String f = outcome.getString("firstName");
-        String l = outcome.getString("lastName");
+        String f = outcome.getString(GeneralDbConstants.firstName.name());
+        String l = outcome.getString(GeneralDbConstants.lastName.name());
 
         return f + " " + l;
     }
@@ -182,9 +183,9 @@ public class GeneralDatabase {
 
 
     public String returnEmail(String username){
-        GetItemSpec spec = new GetItemSpec().withPrimaryKey("username", username);
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbConstants.username.name(), username);
         Item outcome = table.getItem(spec);
-        String email = outcome.getString("primaryEmail");
+        String email = outcome.getString(GeneralDbConstants.primaryEmail.name());
 
         return email;
 
@@ -194,9 +195,9 @@ public class GeneralDatabase {
 
 
     public String returnHashedPass(String username){
-        GetItemSpec spec = new GetItemSpec().withPrimaryKey("username", username);
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbConstants.username.name(), username);
         Item outcome = table.getItem(spec);
-        String hashedPass = outcome.getString("hashedPassword");
+        String hashedPass = outcome.getString(GeneralDbConstants.hashedPassword.name());
 
         return hashedPass;
 
@@ -223,17 +224,17 @@ public class GeneralDatabase {
 
             try {
                 PutItemOutcome outcome = table
-                        .putItem(new Item().withPrimaryKey("username", username)
-                                .withString("firstName", firstName)
-                                .withString("lastName", lastName)
-                                .withString("hashedPassword", password)
-                                .withString("primaryEmail", primaryEmail)
-                                .withString("dob", dateOfBirth)
-                                .withString("dateCreated", creationDate)
-                                .withLong("accountNumber", accountnumber)
-                                .withInt("loginAttempts", loginAttempts)
-                                .withString("accountBalance" , accountBalance)
-                                .withBoolean("isLoggedIn", false));
+                        .putItem(new Item().withPrimaryKey(GeneralDbConstants.username.name(), username)
+                                .withString(GeneralDbConstants.firstName.name(), firstName)
+                                .withString(GeneralDbConstants.lastName.name(), lastName)
+                                .withString(GeneralDbConstants.hashedPassword.name(), password)
+                                .withString(GeneralDbConstants.primaryEmail.name(), primaryEmail)
+                                .withString(GeneralDbConstants.dob.name(), dateOfBirth)
+                                .withString(GeneralDbConstants.dateCreated.name(), creationDate)
+                                .withLong(GeneralDbConstants.accountID.name(), accountnumber)
+                                .withInt(GeneralDbConstants.loginAttempts.name(), loginAttempts)
+                                .withString(GeneralDbConstants.currentBalance.name() , accountBalance)
+                                .withBoolean(GeneralDbConstants.isLoggedOn.name(), false));
 
 
                 outcome.getPutItemResult();
