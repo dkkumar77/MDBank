@@ -5,4 +5,56 @@ package Model;
  */
 public class Customer
 {
+	private String username;
+	private String firstName;
+	private String lastName;
+	private String email;
+	private String dateOfBirth;
+	private String customerID;
+
+	public Customer(String username, String fullName, String email, String dateOfBirth,
+	                String customerID)
+	{
+		this.username = username;
+		this.email = email;
+		this.dateOfBirth = dateOfBirth;
+		this.customerID = customerID;
+		setNames(fullName);
+	}
+
+	public String getUsername()
+	{
+		return username;
+	}
+
+	public String getFirstName()
+	{
+		return firstName;
+	}
+
+	public String getLastName()
+	{
+		return lastName;
+	}
+
+	public String getEmail()
+	{
+		return email;
+	}
+
+	public String getDateOfBirth()
+	{
+		return dateOfBirth;
+	}
+
+	public String getCustomerID()
+	{
+		return customerID;
+	}
+
+	private void setNames(String fullName)
+	{
+		this.firstName = fullName.split(" ")[0];
+		this.lastName = fullName.split(" ")[1];
+	}
 }
