@@ -70,26 +70,24 @@ public class GeneralDatabase {
       */
     public void addUser(Customer customer, String password, String dateCreated)
     {
-        {
-            try {
-                PutItemOutcome outcome = table
-                        .putItem(new Item().withPrimaryKey(GeneralDbColumns.username.name(), customer.getUsername())
-                                .withString(GeneralDbColumns.firstName.name(), customer.getFirstName())
-                                .withString(GeneralDbColumns.lastName.name(), customer.getLastName())
-                                .withString(GeneralDbColumns.hashedPassword.name(), password)
-                                .withString(GeneralDbColumns.primaryEmail.name(), customer.getEmail())
-                                .withString(GeneralDbColumns.dob.name(), customer.getDateOfBirth())
-                                .withString(GeneralDbColumns.dateCreated.name(), dateCreated)
-                                .withLong(GeneralDbColumns.accountID.name(), customer.getCustomerID())
-                                .withInt(GeneralDbColumns.loginAttempts.name(), 0)
-                                .withString(GeneralDbColumns.currentBalance.name(), "0.00")
-                                .withBoolean(GeneralDbColumns.isLoggedOn.name(), false));
-                outcome.getPutItemResult();
-            } catch (Exception e) {
-                System.err.println(e.getMessage());
-            }
-
+        try {
+            PutItemOutcome outcome = table
+                    .putItem(new Item().withPrimaryKey(GeneralDbColumns.username.name(), customer.getUsername())
+                            .withString(GeneralDbColumns.firstName.name(), customer.getFirstName())
+                            .withString(GeneralDbColumns.lastName.name(), customer.getLastName())
+                            .withString(GeneralDbColumns.hashedPassword.name(), password)
+                            .withString(GeneralDbColumns.primaryEmail.name(), customer.getEmail())
+                            .withString(GeneralDbColumns.dob.name(), customer.getDateOfBirth())
+                            .withString(GeneralDbColumns.dateCreated.name(), dateCreated)
+                            .withLong(GeneralDbColumns.accountID.name(), customer.getCustomerID())
+                            .withInt(GeneralDbColumns.loginAttempts.name(), 0)
+                            .withString(GeneralDbColumns.currentBalance.name(), "0.00")
+                            .withBoolean(GeneralDbColumns.isLoggedOn.name(), false));
+            outcome.getPutItemResult();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
+
     }
 
     @Deprecated
