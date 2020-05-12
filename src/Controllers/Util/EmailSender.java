@@ -4,13 +4,13 @@ package Controllers.Util;
 import Model.Databases.AdminDatabase;
 import Model.Email;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -48,26 +48,31 @@ public class EmailSender
 				message.setRecipients(Message.RecipientType.TO,
 						InternetAddress.parse(email.getEmailAddress()));
 				message.setSubject(email.getSubject());
-				message.setText(email.getContent());
-				System.out.println("Sending message...");
-				long start = System.currentTimeMillis();
+
+				MimeBodyPart messageBodyPart = new MimeBodyPart();
+				messageBodyPart.setText(email.getContent());
+
+				Multipart multipart = new MimeMultipart();
+				multipart.addBodyPart(messageBodyPart);
+
+				if (!email.getAttachments().isEmpty()) {
+					for (int i = 0; i < email.getNumOfAttachments(); i++) {
+						MimeBodyPart attachPart = new MimeBodyPart();
+						try {
+							attachPart.attachFile(email.getAttachments().get(i));
+						} catch (IOException ex) {
+							ex.printStackTrace();
+						}
+						multipart.addBodyPart(attachPart);
+					}
+				}
+				message.setContent(multipart);
 				Transport.send(message);
-				System.out.println(System.currentTimeMillis() - start);
-				System.out.println("Message sent to : " + email.getEmailAddress());
 			}catch (MessagingException | RuntimeException runMsgEx){
 				runMsgEx.printStackTrace();
 			}
 		};
 		Thread mailThread = new Thread(emailTask,"EMAIL_THREAD");
 		mailThread.start();
-	}
-
-	public static void main(String[] args)
-	{
-		// TESTING ONLY ALL OF THE CODE BELOW WILL BE DELETED
-		EmailSender emailSender = new EmailSender(new Email("dk.kumar77@yahoo.com","STOP HURTING ME","YOU HURT ME"));
-		emailSender.send();
-		System.out.println("Sending Email");
-
 	}
 }

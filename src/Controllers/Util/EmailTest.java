@@ -3,6 +3,8 @@ package Controllers.Util;
 
 import Model.Email;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class EmailTest
@@ -21,9 +23,13 @@ public class EmailTest
 		System.out.print("Content:");
 		String content = scanner.nextLine();
 
-		Email email = new Email(emailD,subject,content);
-		EmailSender emailSender = new EmailSender(email);
+		List<String> attachments = new ArrayList<>(2);
 
+		System.out.println("Creating email");
+		Email email = new Email(emailM,subject,content,attachments);
+		System.out.println("Sending email");
+		EmailSender emailSender = new EmailSender(email);
 		emailSender.send();
+		System.out.println("Sent");
 	}
 }
