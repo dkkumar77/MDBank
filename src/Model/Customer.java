@@ -54,7 +54,8 @@ public class Customer
 
 	private void setNames(String fullName)
 	{
-		this.firstName = fullName.split(" ")[0];
-		this.lastName = fullName.split(" ")[1];
+		String[] name = fullName.split(" ");
+		this.firstName = name[0];
+		this.lastName = name[1];
 	}
 }
