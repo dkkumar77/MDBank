@@ -57,7 +57,7 @@ public class ReportBugController implements Initializable
 	public void handleSubmit(ActionEvent actionEvent)
 	{
 		String subject = "Bug Report SEVERITY: " + getRadioButtonSelection();
-		Email bugEmail = new Email("dk.kumar77@yahoo.com", subject,
+		Email bugEmail = new Email(AdminDatabase.returnAdminInfo("admin1").get(0), subject,
 				dateLabel.getText()+"\n"+nameField.getText()+"-"+titleField.getText() +"\n"+descriptionField.getText(),null);
 		EmailSender emailSender = new EmailSender(bugEmail);
 		emailSender.send();
