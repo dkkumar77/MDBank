@@ -1,58 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.effect.GaussianBlur?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.RadialGradient?>
-<?import javafx.scene.paint.Stop?>
-<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="650.0" fitWidth="700.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@../Images/homeScreenImage.jpg" />
-         </image>
-      </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ddddddc2" height="312.0" layoutX="203.0" layoutY="172.0" strokeType="INSIDE" width="317.0">
-         <effect>
-            <GaussianBlur radius="63.0" />
-         </effect>
-         <stroke>
-            <RadialGradient centerX="0.4592592451307509" centerY="0.26031748453776044" cycleMethod="REPEAT" proportional="false" radius="0.5">
-               <stops>
-                  <Stop color="#22609a" />
-                  <Stop color="RED" offset="1.0" />
-               </stops>
-            </RadialGradient>
-         </stroke>
-      </Rectangle>
-      <Circle fill="#acadae" layoutX="363.0" layoutY="324.0" radius="178.0" stroke="BLACK" strokeType="INSIDE">
-         <effect>
-            <GaussianBlur radius="63.0" />
-         </effect>
-      </Circle>
-      <JFXTextField fx:id="usernameField" alignment="CENTER" labelFloat="true" layoutX="253.0" layoutY="217.0" prefHeight="32.0" prefWidth="202.0" promptText="username">
-         <font>
-            <Font name="Bookman Old Style" size="17.0" />
-         </font>
-      </JFXTextField>
-      <JFXPasswordField fx:id="passwordField" alignment="CENTER" labelFloat="true" layoutX="254.0" layoutY="300.0" promptText="password">
-         <font>
-            <Font name="Book Antiqua" size="17.0" />
-         </font>
-      </JFXPasswordField>
-      <JFXButton fx:id="loginButton" layoutX="276.0" layoutY="378.0" prefHeight="34.0" prefWidth="165.0" text="L O G I N">
-         <font>
-            <Font name="Book Antiqua" size="17.0" />
-         </font>
-      </JFXButton>
+      <VBox layoutX="619.0" layoutY="313.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox prefHeight="820.0" prefWidth="1034.0">
+               <children>
+                  <AnchorPane prefHeight="430.0" prefWidth="1000.0">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b5c3d0" height="355.0" layoutX="332.0" layoutY="184.0" opacity="0.38" stroke="BLACK" strokeType="INSIDE" width="346.0" />
+                        <JFXTextField alignment="CENTER" labelFloat="true" layoutX="440.0" layoutY="249.0" promptText="Username" />
+                        <JFXTextField alignment="CENTER" labelFloat="true" layoutX="438.0" layoutY="329.0" promptText="Password" />
+                        <JFXButton layoutX="485.0" layoutY="410.0" />
+                     </children>
+                  </AnchorPane>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin></HBox>
+         </children></VBox>
    </children>
 </AnchorPane>

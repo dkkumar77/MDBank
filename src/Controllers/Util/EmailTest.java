@@ -13,7 +13,8 @@ public class EmailTest
 
 	public static void main(String[] args)
 	{
-		//choose who you want to send it to and change first arg on line 24
+		//choose who you wa
+		// nt to send it to and change first arg on line 24
 		String emailM = "mani.shah23@gmail.com";
 		String emailD = "dk.kumar77@yahoo.com";
 
