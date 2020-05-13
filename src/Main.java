@@ -11,11 +11,11 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("View/ApplicationBootScene.fxml"));
         primaryStage.setTitle("lol_lol");
 
-        primaryStage.setScene(new Scene(root, 700, 650));
-        primaryStage.setMinWidth(700);
-        primaryStage.setMinHeight(650);
-        primaryStage.setMaxWidth(700);
-        primaryStage.setMaxHeight(650);
+        primaryStage.setScene(new Scene(root, 1000, 812));
+        primaryStage.setMinWidth(1000);
+        primaryStage.setMinHeight(817);
+        primaryStage.setMaxWidth(1000);
+        primaryStage.setMaxHeight(817);
         primaryStage.show();
     }
 
