@@ -19,8 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ReportBugController">
    <children>
       <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
          <image>
@@ -35,9 +34,9 @@
                      <children>
                         <AnchorPane prefHeight="91.0" prefWidth="600.0">
                            <children>
-                              <JFXTextField labelFloat="true" layoutX="12.0" layoutY="46.0" prefHeight="25.0" prefWidth="576.0" promptText="Title" styleClass="regular-text-field" stylesheets="@ui.css" />
-                              <JFXTextField alignment="CENTER" labelFloat="true" layoutX="233.0" layoutY="14.0" promptText="Name" styleClass="regular-text-field" stylesheets="@ui.css" />
-                              <Label layoutX="506.0" layoutY="18.0" prefHeight="17.0" prefWidth="80.0" text="DATE LABEL" textFill="#c3baba" />
+                              <JFXTextField fx:id="nameField" alignment="CENTER" labelFloat="true" layoutX="233.0" layoutY="14.0" promptText="Name" styleClass="regular-text-field" stylesheets="@ui.css" />
+                              <JFXTextField fx:id="titleField" labelFloat="true" layoutX="12.0" layoutY="46.0" prefHeight="25.0" prefWidth="576.0" promptText="Title" styleClass="regular-text-field" stylesheets="@ui.css" />
+                              <Label fx:id="dateLabel" layoutX="506.0" layoutY="18.0" prefHeight="17.0" prefWidth="80.0" text="DATE LABEL" textFill="#c3baba" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -48,8 +47,8 @@
                      <children>
                         <AnchorPane prefHeight="200.0" prefWidth="600.0">
                            <children>
-                              <JFXButton buttonType="RAISED" defaultButton="true" layoutX="271.0" layoutY="11.0" ripplerFill="#74a3d2" text="SUBMIT" textFill="#c3baba" />
-                              <JFXButton buttonType="RAISED" layoutX="516.0" layoutY="11.0" ripplerFill="#53799f" text="CANCEL" textFill="#c3baba" />
+                              <JFXButton fx:id="submitButton" buttonType="RAISED" defaultButton="true" layoutX="271.0" layoutY="11.0" ripplerFill="#74a3d2" text="SUBMIT" textFill="#c3baba" />
+                              <JFXButton fx:id="cancelButton" buttonType="RAISED" layoutX="516.0" layoutY="11.0" ripplerFill="#53799f" text="CANCEL" textFill="#c3baba" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -81,17 +80,17 @@
                                           <Insets bottom="15.0" />
                                        </GridPane.margin>
                                     </Label>
-                                    <JFXRadioButton prefHeight="17.0" prefWidth="67.0" text="H I G H" textFill="RED" GridPane.rowIndex="1">
+                                    <JFXRadioButton fx:id="highOpt" prefHeight="17.0" prefWidth="67.0" text="H I G H" textFill="RED" GridPane.rowIndex="1">
                                        <GridPane.margin>
                                           <Insets left="15.0" />
                                        </GridPane.margin>
                                     </JFXRadioButton>
-                                    <JFXRadioButton prefHeight="17.0" prefWidth="77.0" text="M E D I U M" textFill="#ffa600" GridPane.rowIndex="2">
+                                    <JFXRadioButton fx:id="mediumOpt" prefHeight="17.0" prefWidth="77.0" text="M E D I U M" textFill="#ffa600" GridPane.rowIndex="2">
                                        <GridPane.margin>
                                           <Insets left="15.0" />
                                        </GridPane.margin>
                                     </JFXRadioButton>
-                                    <JFXRadioButton prefHeight="17.0" prefWidth="72.0" text="L O W" textFill="#ffef00" GridPane.rowIndex="3">
+                                    <JFXRadioButton fx:id="lowOption" prefHeight="17.0" prefWidth="72.0" text="L O W" textFill="#ffef00" GridPane.rowIndex="3">
                                        <GridPane.margin>
                                           <Insets left="15.0" />
                                        </GridPane.margin>
@@ -106,7 +105,7 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXTextArea labelFloat="true" promptText="Bug Description" styleClass="regular-text-field" stylesheets="@ui.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0" />
+                        <JFXTextArea fx:id="descriptionField" labelFloat="true" promptText="Bug Description" styleClass="regular-text-field" stylesheets="@ui.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </center>

@@ -55,7 +55,7 @@ public class EmailSender
 				Multipart multipart = new MimeMultipart();
 				multipart.addBodyPart(messageBodyPart);
 
-				if (!email.getAttachments().isEmpty()) {
+				if (email.getAttachments() != null) {
 					for (int i = 0; i < email.getNumOfAttachments(); i++) {
 						MimeBodyPart attachPart = new MimeBodyPart();
 						try {
@@ -68,6 +68,7 @@ public class EmailSender
 				}
 				message.setContent(multipart);
 				Transport.send(message);
+				System.out.println("Email Sent");
 			}catch (MessagingException | RuntimeException runMsgEx){
 				runMsgEx.printStackTrace();
 			}
