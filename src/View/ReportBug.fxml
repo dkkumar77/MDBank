@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
+         <image>
+            <Image url="@../Images/800252.png" />
+         </image>
+      </ImageView>
+      <AnchorPane>
+         <children>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <top>
+                  <HBox prefHeight="91.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane prefHeight="91.0" prefWidth="600.0">
+                           <children>
+                              <JFXTextField labelFloat="true" layoutX="12.0" layoutY="46.0" prefHeight="25.0" prefWidth="576.0" promptText="Title" styleClass="regular-text-field" stylesheets="@ui.css" />
+                              <JFXTextField alignment="CENTER" labelFloat="true" layoutX="233.0" layoutY="14.0" promptText="Name" styleClass="regular-text-field" stylesheets="@ui.css" />
+                              <Label layoutX="506.0" layoutY="18.0" prefHeight="17.0" prefWidth="80.0" text="DATE LABEL" textFill="#c3baba" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+               </top>
+               <bottom>
+                  <HBox prefHeight="46.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="600.0">
+                           <children>
+                              <JFXButton buttonType="RAISED" defaultButton="true" layoutX="271.0" layoutY="11.0" ripplerFill="#74a3d2" text="SUBMIT" textFill="#c3baba" />
+                              <JFXButton buttonType="RAISED" layoutX="516.0" layoutY="11.0" ripplerFill="#53799f" text="CANCEL" textFill="#c3baba" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+               </bottom>
+               <left>
+                  <VBox prefHeight="263.0" prefWidth="144.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane prefHeight="266.0" prefWidth="144.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#40454a" height="263.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="144.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <effect>
+                                    <GaussianBlur radius="18.0" />
+                                 </effect>
+                              </Rectangle>
+                              <GridPane layoutY="100.0" prefHeight="163.0" prefWidth="100.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="100.0" text="Priority Level" textFill="#c3baba">
+                                       <GridPane.margin>
+                                          <Insets bottom="15.0" />
+                                       </GridPane.margin>
+                                    </Label>
+                                    <JFXRadioButton prefHeight="17.0" prefWidth="67.0" text="H I G H" textFill="RED" GridPane.rowIndex="1">
+                                       <GridPane.margin>
+                                          <Insets left="15.0" />
+                                       </GridPane.margin>
+                                    </JFXRadioButton>
+                                    <JFXRadioButton prefHeight="17.0" prefWidth="77.0" text="M E D I U M" textFill="#ffa600" GridPane.rowIndex="2">
+                                       <GridPane.margin>
+                                          <Insets left="15.0" />
+                                       </GridPane.margin>
+                                    </JFXRadioButton>
+                                    <JFXRadioButton prefHeight="17.0" prefWidth="72.0" text="L O W" textFill="#ffef00" GridPane.rowIndex="3">
+                                       <GridPane.margin>
+                                          <Insets left="15.0" />
+                                       </GridPane.margin>
+                                    </JFXRadioButton>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </left>
+               <center>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXTextArea labelFloat="true" promptText="Bug Description" styleClass="regular-text-field" stylesheets="@ui.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+               </center>
+            </BorderPane>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
