@@ -47,8 +47,8 @@
                      <children>
                         <AnchorPane prefHeight="200.0" prefWidth="600.0">
                            <children>
-                              <JFXButton fx:id="submitButton" buttonType="RAISED" defaultButton="true" layoutX="271.0" layoutY="11.0" ripplerFill="#74a3d2" text="SUBMIT" textFill="#c3baba" />
-                              <JFXButton fx:id="cancelButton" buttonType="RAISED" layoutX="516.0" layoutY="11.0" ripplerFill="#53799f" text="CANCEL" textFill="#c3baba" />
+                              <JFXButton fx:id="submitButton" buttonType="RAISED" defaultButton="true" layoutX="271.0" onAction="#handleSubmit" layoutY="11.0" ripplerFill="#74a3d2" text="SUBMIT" textFill="#c3baba" />
+                              <JFXButton fx:id="cancelButton" buttonType="RAISED" layoutX="516.0" layoutY="11.0" ripplerFill="#53799f" onAction="#handleCancel" text="CANCEL" textFill="#c3baba" />
                            </children>
                         </AnchorPane>
                      </children>
