@@ -27,7 +27,7 @@
       </Label>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#40454a" height="297.0" layoutX="366.0" layoutY="183.0" opacity="0.42" stroke="#2f1717" strokeType="INSIDE" width="302.0">
          <effect>
-            <GaussianBlur radius="63.0" />
+            <GaussianBlur radius="18.0" />
          </effect></Rectangle>
       <JFXTextField alignment="CENTER" labelFloat="true" layoutX="439.0" layoutY="257.0" promptText="Username" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424">
          <focusColor>
