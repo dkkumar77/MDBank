@@ -1,32 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.StackPane?>
-<StackPane alignment="center" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.Controller">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane prefHeight="670.0" prefWidth="723.0">
-         <children>
-            <ImageView fitHeight="780.0" fitWidth="1003.0" layoutX="2.0" layoutY="3.0">
-               <image>
-                  <Image url="@../Images/homeScreenImage.jpg" />
-               </image>
-            </ImageView>
-            <Rectangle arcHeight="20.0" arcWidth="5.0" fill="#403751" height="302.0" layoutX="339.0" layoutY="162.0" mouseTransparent="true" opacity="0.45" stroke="BLACK" strokeType="INSIDE" width="333.0">
-               <effect>
-                  <Shadow color="#322828" />
-               </effect></Rectangle>
-            <JFXTextField alignment="CENTER" focusColor="#e9eeff" labelFloat="true" layoutX="373.0" layoutY="230.0" prefHeight="27.0" prefWidth="270.0" promptText="Username" unFocusColor="#141313" />
-            <JFXTextField alignment="CENTER" focusColor="WHITE" labelFloat="true" layoutX="378.0" layoutY="294.0" prefHeight="27.0" prefWidth="265.0" promptText="Password" unFocusColor="#171717" />
-         </children>
-      </AnchorPane>
+      <ImageView fitHeight="650.0" fitWidth="700.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../Images/homeScreenImage.jpg" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ddddddc2" height="312.0" layoutX="203.0" layoutY="172.0" strokeType="INSIDE" width="317.0">
+         <effect>
+            <GaussianBlur radius="63.0" />
+         </effect>
+         <stroke>
+            <RadialGradient centerX="0.4592592451307509" centerY="0.26031748453776044" cycleMethod="REPEAT" proportional="false" radius="0.5">
+               <stops>
+                  <Stop color="#22609a" />
+                  <Stop color="RED" offset="1.0" />
+               </stops>
+            </RadialGradient>
+         </stroke>
+      </Rectangle>
+      <Circle fill="#acadae" layoutX="363.0" layoutY="324.0" radius="178.0" stroke="BLACK" strokeType="INSIDE">
+         <effect>
+            <GaussianBlur radius="63.0" />
+         </effect>
+      </Circle>
+      <JFXTextField fx:id="usernameField" alignment="CENTER" labelFloat="true" layoutX="253.0" layoutY="217.0" prefHeight="32.0" prefWidth="202.0" promptText="username">
+         <font>
+            <Font name="Bookman Old Style" size="17.0" />
+         </font>
+      </JFXTextField>
+      <JFXPasswordField fx:id="passwordField" alignment="CENTER" labelFloat="true" layoutX="254.0" layoutY="300.0" promptText="password">
+         <font>
+            <Font name="Book Antiqua" size="17.0" />
+         </font>
+      </JFXPasswordField>
+      <JFXButton fx:id="loginButton" layoutX="276.0" layoutY="378.0" prefHeight="34.0" prefWidth="165.0" text="L O G I N">
+         <font>
+            <Font name="Book Antiqua" size="17.0" />
+         </font>
+      </JFXButton>
    </children>
-</StackPane>
+</AnchorPane>
