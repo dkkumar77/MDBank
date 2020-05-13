@@ -25,7 +25,7 @@ public class EmailSender
 		this.email = email;
 	}
 
-	public void send()
+	public boolean send()
 	{
 		Runnable emailTask = () -> {
 			try {
@@ -75,5 +75,6 @@ public class EmailSender
 		};
 		Thread mailThread = new Thread(emailTask,"EMAIL_THREAD");
 		mailThread.start();
+		return true;
 	}
 }

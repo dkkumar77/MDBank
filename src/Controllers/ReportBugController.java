@@ -12,6 +12,8 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -58,9 +60,15 @@ public class ReportBugController implements Initializable
 	{
 		String subject = "Bug Report SEVERITY: " + getRadioButtonSelection();
 		Email bugEmail = new Email(AdminDatabase.returnAdminInfo("admin1").get(0), subject,
-				dateLabel.getText()+"\n"+nameField.getText()+"-"+titleField.getText() +"\n"+descriptionField.getText(),null);
+				dateLabel.getText()+"\nCustomerName: "+nameField.getText()
+						+"\nTitle: "+titleField.getText()
+						+"\nDescription: "+descriptionField.getText(),null);
 		EmailSender emailSender = new EmailSender(bugEmail);
-		emailSender.send();
+		if(emailSender.send()){
+			Alert emailAlert = new Alert(Alert.AlertType.NONE,"Email Sent", ButtonType.OK);
+			emailAlert.showAndWait();
+			System.out.println("Email sent");
+		}
 		System.out.println("Sending Email");
 	}
 
