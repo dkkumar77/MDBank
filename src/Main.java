@@ -1,3 +1,4 @@
+import Model.Constants.ScreenDimensions;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,10 +13,10 @@ public class Main extends Application {
         primaryStage.setTitle("lol_lol");
 
         primaryStage.setScene(new Scene(root, 1000, 812));
-        primaryStage.setMinWidth(1000);
-        primaryStage.setMinHeight(730);
-        primaryStage.setMaxWidth(1000);
-        primaryStage.setMaxHeight(730);
+        primaryStage.setMinWidth(ScreenDimensions.WIDTH);
+        primaryStage.setMinHeight(ScreenDimensions.HEIGHT);
+        primaryStage.setMaxWidth(ScreenDimensions.WIDTH);
+        primaryStage.setMaxHeight(ScreenDimensions.HEIGHT);
         primaryStage.show();
     }
 
