@@ -8,12 +8,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
+import Model.Databases.GeneralDatabase;
+import Controllers.Util.Encrypter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -51,12 +53,55 @@ public class LoginController implements Initializable
 		dateLabel.setText(Date.getDate());
 	}
 
+
+
 	@FXML
 	public void handleLogin(ActionEvent actionEvent)
 	{
+		if(actionEvent.getSource().equals(loginButton)) {
+			GeneralDatabase gd = new GeneralDatabase();
+			Encrypter encrypter = new Encrypter();
+
+			if (usernameField.getText() != "" && passwordField.getText() != "") {
+				String username;
+				String password = encrypter.getEncryptedPassword(passwordField.getText());
+				if(gd.verifyCredentials(usernameField.getText(), password)){
+
+
+					FXMLLoader loader = new FXMLLoader();
+					loader.setLocation(getClass().getResource("/src/View/Login.fxml"));
+					Parent loginParent = null;
+					try {
+						loginParent = loader.load();
+					} catch (IOException a) {
+						a.printStackTrace();
+					}
+					assert loginParent != null;
+					Scene currScene = new Scene(loginParent);
+
+
+					Stage homeWindow;
+					homeWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+					homeWindow.setScene(currScene);
+					homeWindow.show();
+
+
+				}
+				else{
+					setDefaultSupressors();
+
+				}
+			}
+		}
+
 
 	}
 
+
+	public void setDefaultSupressors(){
+		passwordField.setText("false");
+
+	}
 	@FXML
 	public void handleSignup(ActionEvent actionEvent)
 	{
