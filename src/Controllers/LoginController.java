@@ -54,18 +54,18 @@ public class LoginController implements Initializable
 	}
 
 
-
+	// GeneralDatabase was already initialized above ^^ so i deleted the one you wrote below
+	// Changed the getEncryptedPassword to static cause we dont need to create an object just for
+	// one method.
 	@FXML
 	public void handleLogin(ActionEvent actionEvent)
 	{
 		if(actionEvent.getSource().equals(loginButton)) {
-			GeneralDatabase gd = new GeneralDatabase();
-			Encrypter encrypter = new Encrypter();
 
 			if (usernameField.getText() != "" && passwordField.getText() != "") {
 				String username;
-				String password = encrypter.getEncryptedPassword(passwordField.getText());
-				if(gd.verifyCredentials(usernameField.getText(), password)){
+				String password = Encrypter.getEncryptedPassword(passwordField.getText());
+				if(generalDatabase.verifyCredentials(usernameField.getText(), password)){
 
 
 					FXMLLoader loader = new FXMLLoader();
