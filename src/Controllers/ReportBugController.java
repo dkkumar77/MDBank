@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -54,6 +55,10 @@ public class ReportBugController implements Initializable
 	public void initialize(URL location, ResourceBundle resources)
 	{
 		dateLabel.setText(Date.getDate());
+		ToggleGroup toggleGroup = new ToggleGroup();
+		highOpt.setToggleGroup(toggleGroup);
+		mediumOpt.setToggleGroup(toggleGroup);
+		lowOption.setToggleGroup(toggleGroup);
 	}
 
 	@FXML
