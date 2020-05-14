@@ -5,7 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class Encrypter
 {
-	public String getEncryptedPassword(String password)
+	public static String getEncryptedPassword(String password)
 	{
 		return hashPassword(password);
 	}

@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.GaussianBlur?>
@@ -34,8 +35,8 @@
                      <children>
                         <AnchorPane prefHeight="91.0" prefWidth="600.0">
                            <children>
-                              <JFXTextField fx:id="nameField" alignment="CENTER" labelFloat="true" layoutX="233.0" layoutY="14.0" promptText="Name" styleClass="regular-text-field" stylesheets="@ui.css" />
-                              <JFXTextField fx:id="titleField" labelFloat="true" layoutX="12.0" layoutY="46.0" prefHeight="25.0" prefWidth="576.0" promptText="Title" styleClass="regular-text-field" stylesheets="@ui.css" />
+                              <JFXTextField fx:id="nameField" alignment="CENTER" labelFloat="true" layoutX="233.0" layoutY="14.0" prefHeight="8.0" prefWidth="135.0" promptText="Name" styleClass="regular-text-field" stylesheets="@ui.css" />
+                              <JFXTextField fx:id="titleField" labelFloat="true" layoutX="12.0" layoutY="46.0" prefHeight="25.0" prefWidth="576.0" promptText="Title" styleClass="regular-text-field" stylesheets="@ui.css" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" />
                               <Label fx:id="dateLabel" layoutX="506.0" layoutY="18.0" prefHeight="17.0" prefWidth="80.0" text="DATE LABEL" textFill="#c3baba" />
                            </children>
                         </AnchorPane>
@@ -47,8 +48,9 @@
                      <children>
                         <AnchorPane prefHeight="200.0" prefWidth="600.0">
                            <children>
-                              <JFXButton fx:id="submitButton" buttonType="RAISED" defaultButton="true" layoutX="271.0" onAction="#handleSubmit" layoutY="11.0" ripplerFill="#74a3d2" text="SUBMIT" textFill="#c3baba" />
-                              <JFXButton fx:id="cancelButton" buttonType="RAISED" layoutX="516.0" layoutY="11.0" ripplerFill="#53799f" onAction="#handleCancel" text="CANCEL" textFill="#c3baba" />
+                              <JFXButton fx:id="submitButton" buttonType="RAISED" defaultButton="true" layoutX="271.0" layoutY="11.0" onAction="#handleSubmit" ripplerFill="#74a3d2" text="SUBMIT" textFill="#c3baba" />
+                              <JFXButton fx:id="cancelButton" buttonType="RAISED" layoutX="516.0" layoutY="11.0" onAction="#handleCancel" ripplerFill="#53799f" text="CANCEL" textFill="#c3baba" />
+                              <JFXToggleButton fx:id="annonToggle" layoutX="9.0" prefHeight="38.0" prefWidth="152.0" size="6.0" onAction="#handleAnonToggleSelection" text="Send Anonymously" textFill="#b1adad" toggleColor="#64c51f" unToggleColor="#f83838" unToggleLineColor="#6fa3c7" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -80,23 +82,24 @@
                                           <Insets bottom="15.0" />
                                        </GridPane.margin>
                                     </Label>
-                                    <JFXRadioButton fx:id="highOpt" prefHeight="17.0" prefWidth="67.0" text="H I G H" textFill="RED" GridPane.rowIndex="1">
+                                    <JFXRadioButton fx:id="highOpt" prefHeight="17.0" prefWidth="67.0" styleClass="highopt" stylesheets="@ui.css" text="H I G H" textFill="RED" GridPane.rowIndex="1">
                                        <GridPane.margin>
                                           <Insets left="15.0" />
                                        </GridPane.margin>
                                     </JFXRadioButton>
-                                    <JFXRadioButton fx:id="mediumOpt" prefHeight="17.0" prefWidth="77.0" text="M E D I U M" textFill="#ffa600" GridPane.rowIndex="2">
+                                    <JFXRadioButton fx:id="mediumOpt" prefHeight="17.0" prefWidth="77.0" styleClass="medopt" stylesheets="@ui.css" text="M E D I U M" textFill="#ffa600" GridPane.rowIndex="2">
                                        <GridPane.margin>
                                           <Insets left="15.0" />
                                        </GridPane.margin>
                                     </JFXRadioButton>
-                                    <JFXRadioButton fx:id="lowOption" prefHeight="17.0" prefWidth="72.0" text="L O W" textFill="#ffef00" GridPane.rowIndex="3">
+                                    <JFXRadioButton fx:id="lowOption" prefHeight="17.0" prefWidth="72.0" styleClass="lowopt" stylesheets="@ui.css" text="L O W" textFill="#ffef00" GridPane.rowIndex="3">
                                        <GridPane.margin>
                                           <Insets left="15.0" />
                                        </GridPane.margin>
                                     </JFXRadioButton>
                                  </children>
                               </GridPane>
+                              <JFXTextArea editable="false" layoutX="2.0" layoutY="207.0" prefHeight="110.0" prefWidth="140.0" promptText="Please choose a priority level you think we should give this bug" styleClass="regular-text-field" stylesheets="@ui.css" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="0.0" />
                            </children>
                         </AnchorPane>
                      </children>
@@ -105,7 +108,7 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXTextArea fx:id="descriptionField" labelFloat="true" promptText="Bug Description" styleClass="regular-text-field" stylesheets="@ui.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0" />
+                        <JFXTextArea fx:id="descriptionField" labelFloat="true" promptText="Bug Description" styleClass="regular-text-field" stylesheets="@ui.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </center>

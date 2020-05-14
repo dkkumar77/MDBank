@@ -11,3 +11,13 @@
     -jfx-focus-color: #dbdce0;
     -jfx-unfocus-color: GRAY;
 }
+
+.highopt{
+    -jfx-selected-color: "RED"
+}
+.medopt{
+    -jfx-selected-color: "ORANGE"
+}
+.lowopt{
+    -jfx-selected-color: "YELLOW"
+}

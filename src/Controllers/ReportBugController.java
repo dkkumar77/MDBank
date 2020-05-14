@@ -5,16 +5,14 @@ import Model.Databases.AdminDatabase;
 import Model.Date;
 import Model.Email;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXRadioButton;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -48,12 +46,34 @@ public class ReportBugController implements Initializable
 	private JFXRadioButton lowOption;
 
 	@FXML
+	private JFXToggleButton annonToggle;
+
+	@FXML
 	private JFXTextArea descriptionField;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources)
 	{
 		dateLabel.setText(Date.getDate());
+		ToggleGroup toggleGroup = new ToggleGroup();
+		highOpt.setToggleGroup(toggleGroup);
+		mediumOpt.setToggleGroup(toggleGroup);
+		lowOption.setToggleGroup(toggleGroup);
+		nameField.setDisable(false);
+	}
+
+	@FXML
+	public void handleAnonToggleSelection(ActionEvent actionEvent)
+	{
+		if(((JFXToggleButton)actionEvent.getSource()).isSelected()) {
+			nameField.setDisable(true);
+			nameField.setText("Anonymous");
+			nameField.setVisible(false);
+		}else{
+			nameField.setVisible(true);
+			nameField.setDisable(false);
+			nameField.setText("");
+		}
 	}
 
 	@FXML
