@@ -93,8 +93,7 @@ public class GeneralDatabase {
 
     }
 
-    @Deprecated
-    @SuppressWarnings("unused")
+
     public long createUniqueAccountNumber(){
         char[] sequenceWriter = new char[12];
         Random random = new Random();

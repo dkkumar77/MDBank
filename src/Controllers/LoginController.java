@@ -12,7 +12,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import Controllers.Util.Encrypter;
@@ -133,9 +132,7 @@ public class LoginController implements Initializable
 			stage.setX(event.getScreenX() - xOffset.get());
 			stage.setY(event.getScreenY() - yOffset.get());
 		});
-		stage.initModality(Modality.APPLICATION_MODAL); // When report bug window is open, you wont be able to click on the login window
-		// Once the report bug window is closed, things go back to normal
-		stage.showAndWait();
+		stage.show();
 	}
 
 	@FXML
