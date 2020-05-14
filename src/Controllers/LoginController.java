@@ -3,6 +3,7 @@ package Controllers;
 import Model.Databases.GeneralDatabase;
 import Model.Date;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,7 +27,7 @@ public class LoginController implements Initializable
 	private JFXTextField usernameField;
 
 	@FXML
-	private JFXTextField passwordField;
+	private JFXPasswordField passwordField;
 
 	@FXML
 	private JFXButton loginButton;
@@ -56,8 +57,7 @@ public class LoginController implements Initializable
 
 
 	@FXML
-	public void handleLogin(ActionEvent actionEvent)
-	{
+	public void handleLogin(ActionEvent actionEvent) throws IOException {
 		if(actionEvent.getSource().equals(loginButton)) {
 			GeneralDatabase gd = new GeneralDatabase();
 			Encrypter encrypter = new Encrypter();
@@ -68,22 +68,17 @@ public class LoginController implements Initializable
 				if(gd.verifyCredentials(usernameField.getText(), password)){
 
 
-					FXMLLoader loader = new FXMLLoader();
-					loader.setLocation(getClass().getResource("/src/View/Login.fxml"));
-					Parent loginParent = null;
-					try {
-						loginParent = loader.load();
-					} catch (IOException a) {
-						a.printStackTrace();
-					}
-					assert loginParent != null;
-					Scene currScene = new Scene(loginParent);
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/Login.fxml"));
+					Parent roo = fxmlLoader.load();
+					LoggedInController c = fxmlLoader.getController();
+					Stage stage = new Stage();
+					stage.setScene(new Scene(roo));
+					stage.initStyle(StageStyle.UNDECORATED);
+					stage.show();
+					Stage test = (Stage) loginButton.getScene().getWindow();
+					test.close();
 
 
-					Stage homeWindow;
-					homeWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-					homeWindow.setScene(currScene);
-					homeWindow.show();
 
 
 				}
@@ -103,8 +98,21 @@ public class LoginController implements Initializable
 
 	}
 	@FXML
-	public void handleSignup(ActionEvent actionEvent)
-	{
+	public void handleSignup(ActionEvent actionEvent) throws IOException {
+		if(actionEvent.getSource().equals(signupButton)){
+
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/signUpSheet.fxml"));
+			Parent root1 = (Parent) fxmlLoader.load();
+			SignUpController c = fxmlLoader.getController();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root1));
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.show();
+			Stage test = (Stage) signupButton.getScene().getWindow();
+			test.close();
+
+
+		}
 
 	}
 
@@ -112,7 +120,7 @@ public class LoginController implements Initializable
 	public void handleReportBug(ActionEvent actionEvent) throws IOException
 	{
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/ReportBug.fxml"));
-		Parent root1 = (Parent) fxmlLoader.load();
+		Parent root1 = fxmlLoader.load();
 		Stage stage = new Stage();
 		stage.setScene(new Scene(root1));
 		stage.show();
