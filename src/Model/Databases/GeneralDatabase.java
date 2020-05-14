@@ -21,13 +21,16 @@ import com.amazonaws.services.dynamodbv2.document.*;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.ReturnValue;
 
+import java.util.Map;
 import java.util.Random;
 
 import Model.Customer;
-
-
+import com.amazonaws.services.dynamodbv2.model.ScanRequest;
+import com.amazonaws.services.dynamodbv2.model.ScanResult;
+import sun.security.x509.GeneralName;
 
 
 public class GeneralDatabase {
@@ -44,6 +47,12 @@ public class GeneralDatabase {
         client = AmazonDynamoDBClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
         dynamoDB = new DynamoDB(client);
         table = dynamoDB.getTable(DATABASE_TABLE);
+        getTable();
+    }
+
+    public static void main(String[] args)
+    {
+        GeneralDatabase generalDatabase = new GeneralDatabase();
     }
 
     public boolean verifyCredentials(String username, String password) {
@@ -91,6 +100,20 @@ public class GeneralDatabase {
             System.err.println(e.getMessage());
         }
 
+    }
+
+    // We can generalize the for loop part by adding code that will traverse the table
+    // in order to make the transaction table later on. Right now we can't do anything about this.
+    // In mean time just grab each other by the foreskin.
+    public static void getTable()
+    {
+        ScanRequest scanRequest = new ScanRequest()
+                .withTableName(DatabaseType.BANK_SERVER_INFO.name());
+
+        ScanResult result = client.scan(scanRequest);
+        for (Map<String, AttributeValue> item : result.getItems()){
+            System.out.println(item.get(GeneralDbColumns.primaryEmail.name()).getS());
+        }
     }
 
 
