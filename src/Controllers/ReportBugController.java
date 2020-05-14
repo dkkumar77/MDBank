@@ -6,14 +6,17 @@ import Model.Date;
 import Model.Email;
 
 import com.jfoenix.controls.*;
+import com.jfoenix.controls.events.JFXDialogEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.net.URL;
 import java.util.Optional;
@@ -21,6 +24,8 @@ import java.util.ResourceBundle;
 
 public class ReportBugController implements Initializable
 {
+	@FXML
+	private StackPane stackPane;
 	@FXML
 	private JFXTextField titleField;
 
@@ -65,7 +70,7 @@ public class ReportBugController implements Initializable
 	@FXML
 	public void handleAnonToggleSelection(ActionEvent actionEvent)
 	{
-		if(((JFXToggleButton)actionEvent.getSource()).isSelected()) {
+		if(annonToggle.isSelected()) {
 			nameField.setDisable(true);
 			nameField.setText("Anonymous");
 			nameField.setVisible(false);
@@ -90,8 +95,15 @@ public class ReportBugController implements Initializable
 				showEmailSentAlert();
 			}
 		}else{
-			Alert enterInfoAlert = new Alert(Alert.AlertType.NONE,"Empty Fields", ButtonType.OK);
-			enterInfoAlert.showAndWait();
+			JFXDialogLayout content = new JFXDialogLayout();
+			content.setBody(new Text("Please enter information"));
+			JFXDialog dialog = new JFXDialog(stackPane,content,JFXDialog.DialogTransition.CENTER);
+			JFXButton okButton = new JFXButton("Ok");
+			okButton.setButtonType(JFXButton.ButtonType.RAISED);
+			okButton.setOnAction(event -> dialog.close());
+			content.setActions(okButton);
+			dialog.setOnDialogClosed((JFXDialogEvent event)-> nameField.requestFocus());
+			dialog.show();
 		}
 	}
 
@@ -103,11 +115,15 @@ public class ReportBugController implements Initializable
 
 	private void showEmailSentAlert()
 	{
-		Alert emailAlert = new Alert(Alert.AlertType.NONE,"Email Sent", ButtonType.CLOSE);
-		emailAlert.showAndWait();
-		if(emailAlert.getResult() == ButtonType.CLOSE){
-			closeWindow();
-		}
+		JFXDialogLayout content = new JFXDialogLayout();
+		content.setBody(new Text("Email Sent"));
+		JFXDialog dialog = new JFXDialog(stackPane,content,JFXDialog.DialogTransition.CENTER);
+		JFXButton okButton = new JFXButton("Ok");
+		okButton.setButtonType(JFXButton.ButtonType.RAISED);
+		okButton.setOnAction(event -> closeWindow());
+		content.setActions(okButton);
+		dialog.setOnDialogClosed((JFXDialogEvent event)-> nameField.requestFocus());
+		dialog.show();
 	}
 
 	private void closeWindow()

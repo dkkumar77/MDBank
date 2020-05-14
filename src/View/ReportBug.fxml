@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ReportBugController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" fx:id="stackPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ReportBugController">
    <children>
       <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
          <image>
@@ -50,7 +50,7 @@
                            <children>
                               <JFXButton fx:id="submitButton" buttonType="RAISED" defaultButton="true" layoutX="271.0" layoutY="11.0" onAction="#handleSubmit" ripplerFill="#74a3d2" text="SUBMIT" textFill="#c3baba" />
                               <JFXButton fx:id="cancelButton" buttonType="RAISED" layoutX="516.0" layoutY="11.0" onAction="#handleCancel" ripplerFill="#53799f" text="CANCEL" textFill="#c3baba" />
-                              <JFXToggleButton fx:id="annonToggle" layoutX="9.0" prefHeight="38.0" prefWidth="152.0" size="6.0" onAction="#handleAnonToggleSelection" text="Send Anonymously" textFill="#b1adad" toggleColor="#64c51f" unToggleColor="#f83838" unToggleLineColor="#6fa3c7" />
+                              <JFXToggleButton fx:id="annonToggle" layoutX="9.0" onAction="#handleAnonToggleSelection" prefHeight="38.0" prefWidth="152.0" size="6.0" text="Send Anonymously" textFill="#b1adad" toggleColor="#64c51f" unToggleColor="#f83838" unToggleLineColor="#6fa3c7" />
                            </children>
                         </AnchorPane>
                      </children>
