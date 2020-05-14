@@ -3,6 +3,7 @@ package Controllers;
 import Model.Databases.GeneralDatabase;
 import Model.Date;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import Controllers.Util.Encrypter;
@@ -26,7 +28,7 @@ public class LoginController implements Initializable
 	private JFXTextField usernameField;
 
 	@FXML
-	private JFXTextField passwordField;
+	private JFXPasswordField passwordField;
 
 	@FXML
 	private JFXButton loginButton;
@@ -69,7 +71,7 @@ public class LoginController implements Initializable
 
 
 					FXMLLoader loader = new FXMLLoader();
-					loader.setLocation(getClass().getResource("/src/View/Login.fxml"));
+					loader.setLocation(getClass().getResource("/View/Login.fxml"));
 					Parent loginParent = null;
 					try {
 						loginParent = loader.load();
@@ -132,6 +134,7 @@ public class LoginController implements Initializable
 			stage.setX(event.getScreenX() - xOffset.get());
 			stage.setY(event.getScreenY() - yOffset.get());
 		});
+		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.show();
 	}
 
