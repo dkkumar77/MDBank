@@ -14,11 +14,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import Model.Databases.GeneralDatabase;
 import Controllers.Util.Encrypter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class LoginController implements Initializable
 {
@@ -112,9 +112,26 @@ public class LoginController implements Initializable
 	public void handleReportBug(ActionEvent actionEvent) throws IOException
 	{
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/ReportBug.fxml"));
-		Parent root1 = (Parent) fxmlLoader.load();
+		Parent root = (Parent) fxmlLoader.load();
 		Stage stage = new Stage();
-		stage.setScene(new Scene(root1));
+		stage.setScene(new Scene(root));
+		stage.initStyle(StageStyle.UNDECORATED);
+		stage.setMaxHeight(400);
+		stage.setMinHeight(400);
+		stage.setMaxWidth(600);
+		stage.setMinWidth(600);
+
+		AtomicReference<Double> xOffset = new AtomicReference<>((double) 0);
+		AtomicReference<Double> yOffset = new AtomicReference<>((double) 0);
+		root.setOnMousePressed(event -> {
+			xOffset.set(event.getSceneX());
+			yOffset.set(event.getSceneY());
+		});
+		//move around here
+		root.setOnMouseDragged(event -> {
+			stage.setX(event.getScreenX() - xOffset.get());
+			stage.setY(event.getScreenY() - yOffset.get());
+		});
 		stage.show();
 	}
 
