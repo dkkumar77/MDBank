@@ -50,7 +50,6 @@ public class SignUpController implements SceneInterface
     public void handleSubmit(ActionEvent event) {
 
         if(event.getSource().equals(submit)) {
-            GeneralDatabase generalDatabase = new GeneralDatabase();
             if (generalDatabase.avoidDuplicate(userName.getText())) {
                 if (password.getText().matches(".*[a-zA-Z]+.*")){
 
