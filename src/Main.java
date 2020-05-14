@@ -12,7 +12,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("View/ApplicationBootScene.fxml"));
         primaryStage.setTitle("lol_lol");
 
-        primaryStage.setScene(new Scene(root, 1000, 812));
+        primaryStage.setScene(new Scene(root, ScreenDimensions.WIDTH, ScreenDimensions.HEIGHT));
         primaryStage.setMinWidth(ScreenDimensions.WIDTH);
         primaryStage.setMinHeight(ScreenDimensions.HEIGHT);
         primaryStage.setMaxWidth(ScreenDimensions.WIDTH);
