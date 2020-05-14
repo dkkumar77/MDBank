@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ReportBugController implements Initializable
@@ -58,18 +59,41 @@ public class ReportBugController implements Initializable
 	@FXML
 	public void handleSubmit(ActionEvent actionEvent)
 	{
-		String subject = "Bug Report SEVERITY: " + getRadioButtonSelection();
-		Email bugEmail = new Email(AdminDatabase.returnAdminInfo("admin1").get(0), subject,
-				dateLabel.getText()+"\nCustomerName: "+nameField.getText()
-						+"\nTitle: "+titleField.getText()
-						+"\nDescription: "+descriptionField.getText(),null);
-		EmailSender emailSender = new EmailSender(bugEmail);
-		if(emailSender.send()){
-			Alert emailAlert = new Alert(Alert.AlertType.NONE,"Email Sent", ButtonType.OK);
-			emailAlert.showAndWait();
-			System.out.println("Email sent");
+		if(allFieldsCompleted()) {
+			String subject = "Bug Report SEVERITY: " + getRadioButtonSelection();
+			Email bugEmail = new Email(AdminDatabase.returnAdminInfo("admin1").get(0), subject,
+					dateLabel.getText() + "\nCustomerName: " + nameField.getText()
+							+ "\nTitle: " + titleField.getText()
+							+ "\nDescription: " + descriptionField.getText(), null);
+			EmailSender emailSender = new EmailSender(bugEmail);
+			if (emailSender.send()) {
+				showEmailSentAlert();
+			}
+		}else{
+			Alert enterInfoAlert = new Alert(Alert.AlertType.NONE,"Empty Fields", ButtonType.OK);
+			enterInfoAlert.showAndWait();
 		}
-		System.out.println("Sending Email");
+	}
+
+	private boolean allFieldsCompleted()
+	{
+		return !nameField.getText().isEmpty() && !titleField.getText().isEmpty()
+				&& !descriptionField.getText().isEmpty();
+	}
+
+	private void showEmailSentAlert()
+	{
+		Alert emailAlert = new Alert(Alert.AlertType.NONE,"Email Sent", ButtonType.CLOSE);
+		emailAlert.showAndWait();
+		if(emailAlert.getResult() == ButtonType.CLOSE){
+			closeWindow();
+		}
+	}
+
+	private void closeWindow()
+	{
+		Stage currStage = (Stage) cancelButton.getScene().getWindow();
+		currStage.close();
 	}
 
 	private String getRadioButtonSelection()
@@ -86,8 +110,7 @@ public class ReportBugController implements Initializable
 	public void handleCancel(ActionEvent actionEvent)
 	{
 		if(actionEvent.getSource().equals(cancelButton)) {
-			Stage currStage = (Stage) cancelButton.getScene().getWindow();
-			currStage.close();
+			closeWindow();
 		}
 	}
 
