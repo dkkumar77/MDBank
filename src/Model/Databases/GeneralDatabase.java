@@ -9,6 +9,7 @@ package Model.Databases;
  * <p>
  * Brief Description:
  */
+import Controllers.Util.Encrypter;
 import Model.Constants.DatabaseType;
 
 import Model.Constants.GeneralDbColumns;
@@ -23,6 +24,8 @@ import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
 import com.amazonaws.services.dynamodbv2.model.ReturnValue;
 
 import java.util.Random;
+
+import Model.Customer;
 
 
 
@@ -186,4 +189,6 @@ public class GeneralDatabase {
 
         return hashedPass;
     }
+
+
 }
