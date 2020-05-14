@@ -2,6 +2,7 @@ package Controllers;
 
 import Model.Customer;
 import Model.Databases.GeneralDatabase;
+import Model.SceneInterface;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -13,7 +14,8 @@ import javafx.scene.image.ImageView;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class SignUpController {
+public class SignUpController implements SceneInterface
+{
 
     @FXML
     private JFXTextField email;
@@ -35,6 +37,14 @@ public class SignUpController {
 
     @FXML
     private JFXButton submit;
+
+    private GeneralDatabase generalDatabase;
+
+    @Override
+    public void init(GeneralDatabase generalDatabase)
+    {
+        this.generalDatabase = generalDatabase;
+    }
 
     @FXML
     public void handleSubmit(ActionEvent event) {
@@ -66,13 +76,5 @@ public class SignUpController {
         return formattedDate;
 
     }
-
-
-
-
-
-
-
-
 
 }
