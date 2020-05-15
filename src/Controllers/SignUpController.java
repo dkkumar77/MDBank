@@ -14,7 +14,7 @@ import javafx.scene.image.ImageView;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class SignUpController implements SceneInterface
+public class SignUpController
 {
 
     @FXML
@@ -39,12 +39,8 @@ public class SignUpController implements SceneInterface
     private JFXButton submit;
 
     private GeneralDatabase generalDatabase;
+    private String username;
 
-    @Override
-    public void init(GeneralDatabase generalDatabase)
-    {
-        this.generalDatabase = generalDatabase;
-    }
 
     @FXML
     public void handleSubmit(ActionEvent event) {

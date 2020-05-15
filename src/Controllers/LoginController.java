@@ -60,34 +60,28 @@ public class LoginController implements Initializable
 	// Changed the getEncryptedPassword to static cause we dont need to create an object just for
 	// one method.
 	@FXML
-	public void handleLogin(ActionEvent actionEvent)
+	public void handleLogin(ActionEvent actionEvent) throws IOException
 	{
 		if(actionEvent.getSource().equals(loginButton)) {
-
-			if (usernameField.getText() != "" && passwordField.getText() != "") {
-				String username;
+			if (!usernameField.getText().isEmpty() && !passwordField.getText().isEmpty()) {
 				String password = Encrypter.getEncryptedPassword(passwordField.getText());
 				if(generalDatabase.verifyCredentials(usernameField.getText(), password)){
-
-
 					FXMLLoader loader = new FXMLLoader();
-					loader.setLocation(getClass().getResource("/View/Login.fxml"));
+					loader.setLocation(getClass().getResource("/View/HomeScene.fxml"));
 					Parent loginParent = null;
 					try {
 						loginParent = loader.load();
-					} catch (IOException a) {
-						a.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
 					}
 					assert loginParent != null;
 					Scene currScene = new Scene(loginParent);
-
-
+					HomeController controller = loader.getController();
+					controller.init(generalDatabase,usernameField.getText());
 					Stage homeWindow;
 					homeWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 					homeWindow.setScene(currScene);
 					homeWindow.show();
-
-
 				}
 				else{
 					setDefaultSupressors();

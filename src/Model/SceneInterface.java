@@ -4,5 +4,5 @@ import Model.Databases.GeneralDatabase;
 
 public interface SceneInterface
 {
-	void init(GeneralDatabase generalDatabase);
+	void init(GeneralDatabase generalDatabase, String username);
 }
