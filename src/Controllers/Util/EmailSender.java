@@ -19,7 +19,6 @@ public class EmailSender
 	private Email email;
 	private static List<String> adminInfo = AdminDatabase.returnAdminInfo("admin1");
 
-	//JUST TESTING RN CAUSE THIS ARGUMENT WILL CONTAIN THE CUSTOMERS EMAIL STUFF
 	public EmailSender(Email email)
 	{
 		this.email = email;

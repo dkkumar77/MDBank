@@ -78,6 +78,8 @@ public class LoginController implements Initializable
 					Scene currScene = new Scene(loginParent);
 					HomeController controller = loader.getController();
 					controller.init(generalDatabase,usernameField.getText());
+
+
 					Stage homeWindow;
 					homeWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
 					homeWindow.setScene(currScene);
