@@ -3,11 +3,18 @@ package Controllers;
 
 import Model.Databases.GeneralDatabase;
 import Model.SceneInterface;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
 import org.joda.time.DateTime;
 import Model.Date;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static Model.Date.getGreeting;
 
@@ -29,6 +36,10 @@ public class HomeController implements SceneInterface
 	@FXML
 	private JFXTextField welcomeMessage;
 
+	@FXML
+	private JFXTextArea quotearea;
+
+
 
 
 
@@ -39,10 +50,27 @@ public class HomeController implements SceneInterface
 		this.username = username;
 
 		setMessage(username);
+		setQuote();
+
+
+
 
 	}
 
+	public void setQuote() {
 
+		int randomNum = ThreadLocalRandom.current().nextInt(1, 40 + 1);
+		try {
+			String quoteofD = Files.readAllLines(Paths.get("src/Controllers/Word.txt")).get(randomNum);
+
+			quotearea.setText(quoteofD);
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+
+
+	}
 	public void setMessage(String username){
 
 		String name = generalDatabase.grabFullName(username);
@@ -80,6 +108,7 @@ public class HomeController implements SceneInterface
 
 
 	 */
+
 
 }
 

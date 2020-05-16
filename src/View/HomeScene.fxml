@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -19,13 +20,17 @@
       <JFXButton layoutX="474.0" layoutY="353.0" text="Button" />
       <AnchorPane prefHeight="730.0" prefWidth="1000.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#607697" height="313.0" layoutX="12.0" layoutY="92.0" opacity="0.39" stroke="BLACK" strokeType="INSIDE" width="491.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#607697" height="59.0" layoutX="238.0" layoutY="14.0" opacity="0.32" stroke="#282323" strokeType="INSIDE" width="564.0" />
-            <JFXTextField fx:id="welcomeMessage" alignment="CENTER" focusColor="#4e5d8d" focusTraversable="false" layoutX="248.0" layoutY="17.0" prefHeight="51.0" prefWidth="541.0" styleClass="jfx-password-field" stylesheets="@ui.css" unFocusColor="#282424">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7b7d80" height="313.0" layoutX="12.0" layoutY="92.0" opacity="0.39" stroke="BLACK" strokeType="INSIDE" width="491.0" />
+            <JFXTextField fx:id="welcomeMessage" alignment="CENTER" editable="false" layoutX="142.0" layoutY="14.0" prefHeight="65.0" prefWidth="709.0" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424">
                <font>
-                  <Font name="Optima Regular" size="24.0" />
-               </font>
-            </JFXTextField>
+                  <Font name="Optima Bold Italic" size="25.0" />
+               </font></JFXTextField>
+            <JFXTextArea fx:id="quotearea" editable="false" layoutX="164.0" layoutY="652.0" prefHeight="65.0" prefWidth="689.0" styleClass="jfx-text-area" stylesheets="@ui.css" unFocusColor="#282424">
+               <font>
+                  <Font name="Optima Italic" size="13.0" />
+               </font></JFXTextArea>
+            <JFXTextField editable="false" layoutX="70.0" layoutY="141.0" unFocusColor="WHITE" />
+            <JFXTextField layoutX="70.0" layoutY="222.0" unFocusColor="WHITE" />
          </children>
       </AnchorPane>
    </children>
