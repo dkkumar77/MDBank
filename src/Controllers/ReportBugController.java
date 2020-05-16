@@ -132,8 +132,6 @@ public class ReportBugController implements Initializable
 		currStage.close();
 	}
 
-	//COOCHIE
-	//hi
 	private String getRadioButtonSelection()
 	{
 		if(highOpt.isSelected())
