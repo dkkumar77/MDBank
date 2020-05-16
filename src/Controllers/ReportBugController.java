@@ -133,6 +133,7 @@ public class ReportBugController implements Initializable
 	}
 
 	//COOCHIE
+	//hi
 	private String getRadioButtonSelection()
 	{
 		if(highOpt.isSelected())
