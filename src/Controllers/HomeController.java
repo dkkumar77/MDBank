@@ -27,7 +27,7 @@ public class HomeController implements SceneInterface
 	@FXML
 	public StackPane stackPane;
 
-	//lines 17 - 26 should be in every controller file except the sign up controller.
+	//lines 17 - 26 should be isoundsn every controller file except the sign up controller.
 	private GeneralDatabase generalDatabase;
 	private String username;
 

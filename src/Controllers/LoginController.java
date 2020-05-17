@@ -2,6 +2,7 @@ package Controllers;
 
 import Model.Databases.GeneralDatabase;
 import Model.Date;
+import Model.SceneInterface;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -101,8 +102,28 @@ public class LoginController implements Initializable
 
 	}
 	@FXML
-	public void handleSignup(ActionEvent actionEvent)
-	{
+	public void handleSignup(ActionEvent actionEvent) {
+		if (actionEvent.getSource().equals(signupButton)) {
+
+			FXMLLoader loader = new FXMLLoader();
+
+			loader.setLocation(getClass().getResource("/View/signUpSheet.fxml"));
+			Parent loginParent = null;
+			try {
+				loginParent = loader.load();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			assert loginParent != null;
+			Scene currScene = new Scene(loginParent);
+			SignUpController controller = loader.getController();
+
+			Stage homeWindow;
+			homeWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+			homeWindow.setScene(currScene);
+			homeWindow.show();
+
+		}
 
 	}
 
