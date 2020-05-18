@@ -30,8 +30,6 @@ public class UserDatabase
 
 	private static GeneralDatabase generalDatabase;
 
-	private final static int DEFAULT_TRANSACTION_ID = 0;
-
 	static{
 		client = AmazonDynamoDBClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
 		dynamoDB = new DynamoDB(client);
@@ -42,7 +40,6 @@ public class UserDatabase
 		this.username = username;
 		databaseName = username.toUpperCase()+"_TABLE";
 		generalDatabase = genDatabase;
-//		table = dynamoDB.getTable(databaseName);
 	}
 
 	public void createUserDb()
@@ -65,8 +62,7 @@ public class UserDatabase
 					.withString(UserDbColumns.transactionType.name(),transaction.getType().name())
 					.withNumber(UserDbColumns.amount.name(),transaction.getAmount())
 					.withNumber(UserDbColumns.balance.name(),newBalance));
-			PutItemResult result = outcome.getPutItemResult();
-			System.out.println(result.toString());
+			outcome.getPutItemResult();
 			generalDatabase.updateTransactionID(this.username,(lastTransID+1));
 			generalDatabase.updateBalance(this.username,Double.toString(newBalance));
 		} catch (Exception e) {
