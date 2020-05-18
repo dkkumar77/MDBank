@@ -72,7 +72,6 @@ public class UserDatabase
 
 	private void createTable()
 	{
-		firstLog = true;
 		try {
 			System.out.println("Attempting to create table; please wait...");
 			table = dynamoDB.createTable(databaseName,
@@ -88,6 +87,5 @@ public class UserDatabase
 		}
 		Transaction transaction = new Transaction(0,TransactionType.DEPOSIT);
 		this.logTransaction(transaction,0.00);
-		firstLog = false;
 	}
 }
