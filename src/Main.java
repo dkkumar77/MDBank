@@ -1,3 +1,4 @@
+import Controllers.LoginController;
 import Model.Constants.ScreenDimensions;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,8 @@ public class Main extends Application {
         primaryStage.setMinHeight(ScreenDimensions.HEIGHT);
         primaryStage.setMaxWidth(ScreenDimensions.WIDTH);
         primaryStage.setMaxHeight(ScreenDimensions.HEIGHT);
+
+
         primaryStage.show();
     }
 

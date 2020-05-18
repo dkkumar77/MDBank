@@ -34,5 +34,10 @@
             <Font name="Optima Regular" size="13.0" />
          </font>
       </Label>
+      <JFXButton fx:id="back" buttonType="RAISED" layoutX="47.0" layoutY="47.0" onAction="#handleBack" prefHeight="28.0" prefWidth="47.0" text="Exit" textFill="#c6c6c6">
+         <font>
+            <Font name="Optima Regular" size="13.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>

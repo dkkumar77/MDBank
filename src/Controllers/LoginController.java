@@ -5,6 +5,7 @@ import Model.Date;
 import Model.SceneInterface;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,9 +19,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import Controllers.Util.Encrypter;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class LoginController implements Initializable
@@ -38,6 +43,10 @@ public class LoginController implements Initializable
 	private JFXButton contactButton;
 
 	@FXML
+	private JFXTextArea patchupdate;
+
+
+	@FXML
 	private Label dateLabel;
 
 	@FXML
@@ -45,6 +54,10 @@ public class LoginController implements Initializable
 
 	@FXML
 	private JFXButton signupButton;
+
+	@FXML
+	private JFXTextField ast1,ast2;
+
 
 	private GeneralDatabase generalDatabase;
 
@@ -54,7 +67,31 @@ public class LoginController implements Initializable
 		//check for internet
 		generalDatabase = new GeneralDatabase();
 		dateLabel.setText(Date.getDate());
+
 	}
+
+/*
+
+    Idk
+    its 4:44 AM
+    I AM TOO TIREED
+
+
+    
+
+	public void setPatchUpdate() throws IOException{
+
+		File file = new File("src/Controllers/PatchUpdates.txt");
+		Scanner sc = new Scanner(file);
+		String s = "";
+		patchupdate.setText(sc.nextLine());
+	}
+
+
+ */
+
+
+
 
 
 	// GeneralDatabase was already initialized above ^^ so i deleted the one you wrote below
@@ -63,33 +100,44 @@ public class LoginController implements Initializable
 	@FXML
 	public void handleLogin(ActionEvent actionEvent) throws IOException
 	{
+		ast1.setText("");
+		ast2.setText("");
+
 		if(actionEvent.getSource().equals(loginButton)) {
 			if (!usernameField.getText().isEmpty() && !passwordField.getText().isEmpty()) {
 				String password = Encrypter.getEncryptedPassword(passwordField.getText());
-				if(generalDatabase.verifyCredentials(usernameField.getText(), password)){
-					FXMLLoader loader = new FXMLLoader();
-					loader.setLocation(getClass().getResource("/View/HomeScene.fxml"));
-					Parent loginParent = null;
-					try {
-						loginParent = loader.load();
-					} catch (IOException e) {
-						e.printStackTrace();
+
+				if(generalDatabase.avoidDuplicate(usernameField.getText()) == false) {
+
+					if (generalDatabase.verifyCredentials(usernameField.getText(), password)) {
+						FXMLLoader loader = new FXMLLoader();
+						loader.setLocation(getClass().getResource("/View/HomeScene.fxml"));
+						Parent loginParent = null;
+						try {
+							loginParent = loader.load();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						assert loginParent != null;
+						Scene currScene = new Scene(loginParent);
+						HomeController controller = loader.getController();
+						controller.init(generalDatabase, usernameField.getText());
+
+
+						Stage homeWindow;
+						homeWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+						homeWindow.setScene(currScene);
+						homeWindow.show();
 					}
-					assert loginParent != null;
-					Scene currScene = new Scene(loginParent);
-					HomeController controller = loader.getController();
-					controller.init(generalDatabase,usernameField.getText());
-
-
-					Stage homeWindow;
-					homeWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-					homeWindow.setScene(currScene);
-					homeWindow.show();
+					else {
+						setUsernameIncorrect();
+					}
 				}
 				else{
-					setDefaultSupressors();
+					setPasswordIncorrect();
 
 				}
+
 			}
 		}
 
@@ -97,8 +145,14 @@ public class LoginController implements Initializable
 	}
 
 
-	public void setDefaultSupressors(){
-		passwordField.setText("false");
+	public void setUsernameIncorrect() {
+		ast1.setText("*");
+
+	}
+
+	public void setPasswordIncorrect(){
+		ast2.setText("*");
+
 
 	}
 	@FXML
@@ -125,7 +179,9 @@ public class LoginController implements Initializable
 
 		}
 
+
 	}
+
 
 	@FXML
 	public void handleReportBug(ActionEvent actionEvent) throws IOException

@@ -4,6 +4,21 @@
      -jfx-focus-color: WHITE;
      -jfx-unfocus-color: WHITE;
  }
+.jfx-text-field-ast {
+    -fx-text-fill: #bb2121;
+    -fx-prompt-text-fill: #bb2121;
+    -jfx-focus-color: #353535;
+    -jfx-unfocus-color: #353535;
+}
+
+.jfx-text-area-special {
+    -fx-text-fill: WHITE;
+    -fx-prompt-text-fill: WHITE;
+    -jfx-focus-color: WHITE;
+    -jfx-unfocus-color: #363232;
+}
+
+
 
 .regular-text-field  {
     -fx-text-fill: #eeeeee;

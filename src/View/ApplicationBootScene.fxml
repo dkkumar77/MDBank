@@ -59,7 +59,7 @@
             <Font name="Optima Regular" size="13.0" />
          </font>
       </Label>
-      <JFXTextArea editable="false" focusColor="#9ea1a8" layoutX="40.0" layoutY="183.0" prefHeight="297.0" prefWidth="302.0" promptText="PATCH UPDATES GO HERE (DEVELOPER USE ONLY)" unFocusColor="#363232" />
+      <JFXTextArea editable="false" focusColor="#9ea1a8" layoutX="40.0" layoutY="183.0" prefHeight="297.0" prefWidth="302.0" promptText="PATCH UPDATES GO HERE (DEVELOPER USE ONLY)" styleClass="jfx-text-area-special" stylesheets="@ui.css" />
       <JFXButton fx:id="reportButton" buttonType="RAISED" layoutX="858.0" layoutY="641.0" onAction="#handleReportBug" text="Report a Bug" textFill="#e4d8d8">
          <font>
             <Font name="Optima Regular" size="13.0" />
@@ -69,6 +69,9 @@
             <Font name="Optima Regular" size="13.0" />
          </font>
       </Label>
+
       <JFXButton fx:id="signupButton" alignment="CENTER" buttonType="RAISED" layoutX="378.0" layoutY="439.0" onAction="#handleSignup" prefHeight="35.0" prefWidth="81.0" text=" " textFill="WHITE" />
+      <JFXTextField fx:id="ast1" editable="false" layoutX="610.0" layoutY="337.0" prefHeight="27.0" prefWidth="49.0" styleClass="jfx-text-field-ast" stylesheets="@ui.css" text=" " unFocusColor="#353535" />
+      <JFXTextField fx:id="ast2" editable="false" focusColor="#bb2121" layoutX="610.0" layoutY="257.0" prefHeight="27.0" prefWidth="49.0" styleClass="jfx-text-field-ast" stylesheets="@ui.css" text=" " unFocusColor="#353535" />
    </children>
 </AnchorPane>

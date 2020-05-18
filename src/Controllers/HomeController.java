@@ -3,10 +3,17 @@ package Controllers;
 
 import Model.Databases.GeneralDatabase;
 import Model.SceneInterface;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import org.joda.time.DateTime;
 import Model.Date;
 
@@ -37,6 +44,11 @@ public class HomeController implements SceneInterface
 	private JFXTextField welcomeMessage;
 
 	@FXML
+	private JFXButton setting, logoffButton;
+
+
+
+	@FXML
 	private JFXTextArea quotearea;
 
 
@@ -57,6 +69,39 @@ public class HomeController implements SceneInterface
 
 	}
 
+
+	@FXML
+	public void handleLogoff(ActionEvent event){
+		if(event.getSource().equals(logoffButton)){
+			FXMLLoader loader = new FXMLLoader();
+
+			loader.setLocation(getClass().getResource("/View/ApplicationBootScene.fxml"));
+			Parent loginParent = null;
+			try {
+				loginParent = loader.load();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			assert loginParent != null;
+			Scene currScene = new Scene(loginParent);
+			LoginController controller = loader.getController();
+
+			Stage homeWindow;
+			homeWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			homeWindow.setScene(currScene);
+			homeWindow.show();
+		}
+
+	}
+
+	@FXML
+	public void handleSettingButton(){
+
+
+
+
+
+	}
 	public void setQuote() {
 
 		int randomNum = ThreadLocalRandom.current().nextInt(1, 40 + 1);
