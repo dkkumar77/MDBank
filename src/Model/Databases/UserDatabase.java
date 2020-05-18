@@ -26,8 +26,6 @@ public class UserDatabase
 	private static String databaseName;
 	private String username;
 
-	private boolean firstLog = false;
-
 	private static GeneralDatabase generalDatabase;
 
 	static{
