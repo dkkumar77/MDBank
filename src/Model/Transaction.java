@@ -7,7 +7,6 @@ import Model.Constants.TransactionType;
  */
 public class Transaction
 {
-
 	private double amount;
 	private TransactionType transactionType;
 
@@ -22,9 +21,18 @@ public class Transaction
 		return amount;
 	}
 
-
-	public TransactionType getTransactionType()
+	public TransactionType getType()
 	{
 		return transactionType;
+	}
+
+	public String getTransactionDateTime()
+	{
+		return Date.getDate() +" " + Date.getTime();
+	}
+
+	public String getTransactionMonthYr()
+	{
+		return Date.getMonthYear();
 	}
 }

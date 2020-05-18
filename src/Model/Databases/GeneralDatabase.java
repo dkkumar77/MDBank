@@ -9,7 +9,6 @@ package Model.Databases;
  * <p>
  * Brief Description:
  */
-import Controllers.Util.Encrypter;
 import Model.Constants.DatabaseType;
 
 import Model.Constants.GeneralDbColumns;
@@ -21,16 +20,10 @@ import com.amazonaws.services.dynamodbv2.document.*;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
-import com.amazonaws.services.dynamodbv2.model.AttributeValue;
-import com.amazonaws.services.dynamodbv2.model.ReturnValue;
+import com.amazonaws.services.dynamodbv2.model.*;
 
 import java.util.Map;
 import java.util.Random;
-
-import Model.Customer;
-import com.amazonaws.services.dynamodbv2.model.ScanRequest;
-import com.amazonaws.services.dynamodbv2.model.ScanResult;
-import sun.security.x509.GeneralName;
 
 
 public class GeneralDatabase {
@@ -47,12 +40,6 @@ public class GeneralDatabase {
         client = AmazonDynamoDBClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
         dynamoDB = new DynamoDB(client);
         table = dynamoDB.getTable(DATABASE_TABLE);
-        getTable();
-    }
-
-    public static void main(String[] args)
-    {
-        GeneralDatabase generalDatabase = new GeneralDatabase();
     }
 
     public boolean verifyCredentials(String username, String password) {
@@ -94,12 +81,23 @@ public class GeneralDatabase {
                             .withLong(GeneralDbColumns.accountID.name(), customer.getCustomerID())
                             .withInt(GeneralDbColumns.loginAttempts.name(), 0)
                             .withString(GeneralDbColumns.currentBalance.name(), "0.00")
-                            .withBoolean(GeneralDbColumns.isLoggedOn.name(), false));
-            outcome.getPutItemResult();
+                            .withBoolean(GeneralDbColumns.isLoggedOn.name(), false)
+                            .withInt("lastTransactionID",0));
+            PutItemResult result = outcome.getPutItemResult();
+            if(result != null){
+                new UserDatabase(customer.getUsername(),this).createUserDb();
+            }
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
 
+    }
+
+    public int getLastTransactionID(String username)
+    {
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
+        Item outcome = table.getItem(spec);
+        return outcome.getInt("lastTransactionID");
     }
 
     // We can generalize the for loop part by adding code that will traverse the table
@@ -126,6 +124,13 @@ public class GeneralDatabase {
         }
         return Long.parseLong(new String(sequenceWriter));
 
+    }
+
+    public double getCurrentBalance(String username)
+    {
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
+        Item outcome = table.getItem(spec);
+        return Double.parseDouble(outcome.getString(GeneralDbColumns.currentBalance.name()));
     }
 
     public void updateLoggedInQuery(String username){
@@ -176,12 +181,18 @@ public class GeneralDatabase {
         table.updateItem(updateItemSpec);
     }
 
-    @Deprecated
-    @SuppressWarnings("unused")
     public void updateBalance(String username, String amount){
         UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username)
-                .withUpdateExpression("set accountBalance = :l")
+                .withUpdateExpression("set currentBalance = :l")
                 .withValueMap(new ValueMap().withString(":l", amount))
+                .withReturnValues(ReturnValue.UPDATED_NEW);
+        table.updateItem(updateItemSpec);
+    }
+
+ public void updateTransactionID(String username, int id){
+        UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username)
+                .withUpdateExpression("set lastTransactionID = :l")
+                .withValueMap(new ValueMap().withInt(":l", id))
                 .withReturnValues(ReturnValue.UPDATED_NEW);
         table.updateItem(updateItemSpec);
     }
