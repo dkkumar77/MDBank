@@ -224,4 +224,10 @@ public class GeneralDatabase {
     }
 
 
+	public Number getAccountID(String username)
+	{
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
+        Item outcome = table.getItem(spec);
+        return outcome.getNumber(GeneralDbColumns.accountID.name());
+	}
 }

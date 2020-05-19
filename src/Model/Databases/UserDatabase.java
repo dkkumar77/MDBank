@@ -8,15 +8,14 @@ import Model.Transaction;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
-import com.amazonaws.services.dynamodbv2.document.DynamoDB;
-import com.amazonaws.services.dynamodbv2.document.Item;
-import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
-import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.*;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
+import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
+import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
 import com.amazonaws.services.dynamodbv2.model.*;
 import com.amazonaws.services.mq.model.User;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class UserDatabase
 {
@@ -46,6 +45,12 @@ public class UserDatabase
 
 	}
 
+	public void getMonthlyStatement(int monthNumber, int year)
+	{
+		String date = "0"+monthNumber +"/"+ year;
+
+	}
+
 	public void logTransaction(Transaction transaction, double newBalance)
 	{
 		if(table == null){
@@ -59,7 +64,8 @@ public class UserDatabase
 					.withString(UserDbColumns.dateTime.name(),transaction.getTransactionDateTime())
 					.withString(UserDbColumns.transactionType.name(),transaction.getType().name())
 					.withNumber(UserDbColumns.amount.name(),transaction.getAmount())
-					.withNumber(UserDbColumns.balance.name(),newBalance));
+					.withNumber(UserDbColumns.balance.name(),newBalance)
+					.withNumber(UserDbColumns.accountID.name(),generalDatabase.getAccountID(username)));
 			outcome.getPutItemResult();
 			generalDatabase.updateTransactionID(this.username,(lastTransID+1));
 			generalDatabase.updateBalance(this.username,Double.toString(newBalance));
@@ -73,8 +79,11 @@ public class UserDatabase
 		try {
 			System.out.println("Attempting to create table; please wait...");
 			table = dynamoDB.createTable(databaseName,
-					Arrays.asList(new KeySchemaElement("transactionID", KeyType.HASH)),
-					Arrays.asList(new AttributeDefinition("transactionID", ScalarAttributeType.N)),
+					Arrays.asList(new KeySchemaElement("accountID", KeyType.HASH), // Partition
+							// key
+							new KeySchemaElement("transactionID", KeyType.RANGE)), // Sort key
+					Arrays.asList(new AttributeDefinition("accountID", ScalarAttributeType.N),
+							new AttributeDefinition("transactionID", ScalarAttributeType.N)),
 					new ProvisionedThroughput(5L, 5L));
 			table.waitForActive();
 			System.out.println("Success.  Table status: " + table.getDescription().getTableStatus());
