@@ -120,7 +120,7 @@ public class UserDatabase
 //		}
 	}
 
-	public void logTransaction(Transaction transaction, double newBalance)
+	public synchronized void logTransaction(Transaction transaction, double newBalance)
 	{
 		int lastTransID = generalDatabase.getLastTransactionID(username);
 
