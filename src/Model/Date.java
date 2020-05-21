@@ -2,10 +2,7 @@ package Model;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.YearMonth;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 public class Date
@@ -30,6 +27,12 @@ public class Date
 		YearMonth yearMonth = YearMonth.of( year, month );
 		LocalDate firstOfMonth = yearMonth.atDay(1);
 		return firstOfMonth.toString();
+	}
+
+	public static String getMonth(int month, int year)
+	{
+		YearMonth yearMonth = YearMonth.of( year, month);
+		return yearMonth.getMonth().toString();
 	}
 
 	public static String getLastDayOfMonth(int month, int year)

@@ -3,6 +3,10 @@ package Model.Databases;
 import Model.Constants.TransactionType;
 import Model.Transaction;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.lang.reflect.Field;
+import java.sql.SQLException;
 import java.util.Random;
 
 public class UserDBTest
@@ -11,8 +15,15 @@ public class UserDBTest
 	{
 		GeneralDatabase generalDatabase = new GeneralDatabase();
 		UserDatabase userDatabase = new UserDatabase("user",generalDatabase);
-		userDatabase.getMonthlyStatement(5,2020);
-	//	userDatabase.getTable();
+		//userDatabase.getMonthlyStatement(5,2020);
+		//userDatabase.getTable();
+		File file = new File("MonthlyStatement.pdf");
+		try {
+//			userDatabase.saveStatementToPdf(file);
+			userDatabase.saveMonthlyStatementToPdf(file,5,2020);
+		}catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 
 		// Uncomment the bottom to deposit some mullah
 
