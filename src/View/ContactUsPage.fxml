@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="730.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ContactUsController">
+   <children>
+      <ImageView fitHeight="735.0" fitWidth="1009.0" layoutX="-8.0" layoutY="-11.0" AnchorPane.bottomAnchor="-5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-9.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../Images/800252.png" />
+         </image>
+      </ImageView>
+      <JFXTextArea editable="false" layoutX="249.0" layoutY="87.0" prefHeight="294.0" prefWidth="507.0" styleClass="jfx-text-area-special" stylesheets="@ui.css" text="                                                             MD Bank About Us/Contact Info&#10;&#10;This application was initially created in order to practice with Amazon Web Services. Particularly Amazon Dynanmic Database. The whole process of this application allows for individuals to sign up for a checking/saving account. In which they are also able to perform basic functions such as: WITHDRAW, TRANSFER, DEPOSIT. All user action, and balance is stored onto a NoSQL database service. We also took account of hashing passwords in order to maintain a level of  security.  User is encouraged to enter a valid email address in which they can thene recieve monthly statements, if opted. Along with this, in order to strengthen the performance of this application, users are also encouraged to report any bugs/fixes that need to be acknowledged. This project is not for monetary gain, rather it's to strengthen our knowledge on the functionality of managing a database.&#10;">
+         <font>
+            <Font size="14.0" />
+         </font></JFXTextArea>
+      <JFXButton fx:id="back" layoutX="30.0" layoutY="14.0" onAction="#handleback" text="Back" textFill="WHITE" />
+   </children>
+</AnchorPane>

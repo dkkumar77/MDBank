@@ -42,6 +42,10 @@ public class GeneralDatabase {
         table = dynamoDB.getTable(DATABASE_TABLE);
     }
 
+
+
+
+
     public boolean verifyCredentials(String username, String password) {
         GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
         try {
@@ -154,6 +158,7 @@ public class GeneralDatabase {
         return false;
     }
 
+
     @Deprecated
     @SuppressWarnings("unused")
     public void quickUpdateLoginLogoffQuery(String username){
@@ -173,6 +178,7 @@ public class GeneralDatabase {
         table.updateItem(updateItemSpec);
     }
 
+
     public void updatePasswordQuery(String username, String newPass){
         UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username)
                 .withUpdateExpression("set password = :l")
@@ -188,6 +194,7 @@ public class GeneralDatabase {
                 .withReturnValues(ReturnValue.UPDATED_NEW);
         table.updateItem(updateItemSpec);
     }
+
 
  public void updateTransactionID(String username, int id){
         UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username)

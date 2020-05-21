@@ -71,7 +71,7 @@
       </Label>
 
       <JFXButton fx:id="signupButton" alignment="CENTER" buttonType="RAISED" layoutX="378.0" layoutY="439.0" onAction="#handleSignup" prefHeight="35.0" prefWidth="81.0" text=" " textFill="WHITE" />
-      <JFXTextField fx:id="ast1" editable="false" layoutX="610.0" layoutY="337.0" prefHeight="27.0" prefWidth="49.0" styleClass="jfx-text-field-ast" stylesheets="@ui.css" text=" " unFocusColor="#353535" />
-      <JFXTextField fx:id="ast2" editable="false" focusColor="#bb2121" layoutX="610.0" layoutY="257.0" prefHeight="27.0" prefWidth="49.0" styleClass="jfx-text-field-ast" stylesheets="@ui.css" text=" " unFocusColor="#353535" />
+      <JFXTextField fx:id="ast2" editable="false" layoutX="610.0" layoutY="337.0" prefHeight="27.0" prefWidth="49.0" styleClass="jfx-text-field-ast" stylesheets="@ui.css" text=" " unFocusColor="#353535" />
+      <JFXTextField fx:id="ast1" editable="false" focusColor="#bb2121" layoutX="610.0" layoutY="257.0" prefHeight="27.0" prefWidth="49.0" styleClass="jfx-text-field-ast" stylesheets="@ui.css" text=" " unFocusColor="#353535" />
    </children>
 </AnchorPane>

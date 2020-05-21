@@ -88,43 +88,68 @@ public class SignUpController
         if(event.getSource().equals(submit)) {
             GeneralDatabase generalDatabase = new GeneralDatabase();
 
-            if (generalDatabase.avoidDuplicate(userName.getText())) {
-                if (password.getText().matches(".*[a-zA-Z]+.*")){
+            if (ifAnySlotsAreEmpty() == false) {
+                if (generalDatabase.avoidDuplicate(userName.getText())) {
 
-                    String fullName = firstName.getText() + " " + lastName.getText();
-                    Customer c = new Customer(userName.getText(), fullName, email.getText()
-                            , dob.getValue().toString(), generalDatabase.createUniqueAccountNumber());
+                    if(firstName.getText().chars().allMatch(Character::isLetter) && lastName.getText().chars().allMatch(Character::isLetter)) {
+                        if (password.getText().matches(".*[a-zA-Z]+.*")) {
 
-                    generalDatabase.addUser(c, e.getEncryptedPassword(password.getText()), getDate());
 
-                    FXMLLoader loader = new FXMLLoader();
+                            String fullName = firstName.getText() + " " + lastName.getText();
+                            Customer c = new Customer(userName.getText(), fullName, email.getText()
+                                    , dob.getValue().toString(), generalDatabase.createUniqueAccountNumber());
 
-                    loader.setLocation(getClass().getResource("/View/ApplicationBootScene.fxml"));
-                    Parent loginParent = null;
-                    try {
-                        loginParent = loader.load();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                            generalDatabase.addUser(c, e.getEncryptedPassword(password.getText()), getDate());
+
+                            FXMLLoader loader = new FXMLLoader();
+
+                            loader.setLocation(getClass().getResource("/View/ApplicationBootScene.fxml"));
+                            Parent loginParent = null;
+                            try {
+                                loginParent = loader.load();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            assert loginParent != null;
+                            Scene currScene = new Scene(loginParent);
+                            LoginController controller = loader.getController();
+
+                            Stage homeWindow;
+                            homeWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                            homeWindow.setScene(currScene);
+                            homeWindow.show();
+
+                        }
                     }
-                    assert loginParent != null;
-                    Scene currScene = new Scene(loginParent);
-                    LoginController controller = loader.getController();
-
-                    Stage homeWindow;
-                    homeWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    homeWindow.setScene(currScene);
-                    homeWindow.show();
-
-
-
 
                 }
+                else{
+                    password.setText("");
+                }
             }
+            else{
+                password.setText("");
 
+            }
+            }
         }
 
-    }
+    public boolean ifAnySlotsAreEmpty() {
+        if(email.getText().isEmpty() ||firstName.getText().isEmpty() || lastName.getText().isEmpty()
+        || dob.getValue().toString().isEmpty() || userName.getText().isEmpty()
+        || password.getText().isEmpty()){
 
+
+
+
+
+
+
+         return true;
+        }
+        return false;
+
+    }
     public String getDate(){
         LocalDateTime myDateObj = LocalDateTime.now();
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("MM-dd-yyyy");

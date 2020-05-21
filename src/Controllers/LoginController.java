@@ -109,14 +109,18 @@ public class LoginController implements Initializable
 						homeWindow.show();
 					}
 					else {
-						setUsernameIncorrect();
+						setPasswordIncorrect();
 					}
 				}
 				else{
-					setPasswordIncorrect();
+					setUsernameIncorrect();
+
 
 				}
 
+			}
+			else{
+				isFieldEmpty();
 			}
 		}
 
@@ -124,13 +128,34 @@ public class LoginController implements Initializable
 	}
 
 
+	public void isFieldEmpty(){
+		if(usernameField.getText().isEmpty()){
+			ast2.setText("*");
+		}
+		else if(passwordField.getText().isEmpty()){
+
+			ast1.setText("*");
+
+		}
+		else{
+			ast1.setText("*");
+			ast2.setText("*");
+
+		}
+
+
+	}
+
 	public void setUsernameIncorrect() {
+		ast1.setText("*");
 		ast1.setText("*");
 
 	}
 
 	public void setPasswordIncorrect(){
 		ast2.setText("*");
+
+
 
 
 	}
@@ -162,6 +187,34 @@ public class LoginController implements Initializable
 	}
 
 
+
+	@FXML
+	public void handleContactUs(ActionEvent actionevent) {
+
+		if (actionevent.getSource().equals(contactButton)) {
+
+			FXMLLoader loader = new FXMLLoader();
+
+			loader.setLocation(getClass().getResource("/View/ContactUsPage.fxml"));
+			Parent loginParent = null;
+			try {
+				loginParent = loader.load();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			assert loginParent != null;
+			Scene currScene = new Scene(loginParent);
+			ContactUsController controller = loader.getController();
+
+			Stage homeWindow;
+			homeWindow = (Stage) ((Node) actionevent.getSource()).getScene().getWindow();
+			homeWindow.setScene(currScene);
+			homeWindow.show();
+
+		}
+
+
+	}
 	@FXML
 	public void handleReportBug(ActionEvent actionEvent) throws IOException
 	{
@@ -190,11 +243,6 @@ public class LoginController implements Initializable
 		stage.show();
 	}
 
-	@FXML
-	public void handleContactUs(ActionEvent actionEvent)
-	{
-
-	}
 
 
 }
