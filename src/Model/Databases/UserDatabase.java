@@ -7,12 +7,8 @@ import Model.Transaction;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
-import com.amazonaws.services.dynamodbv2.document.DynamoDB;
-import com.amazonaws.services.dynamodbv2.document.Item;
-import com.amazonaws.services.dynamodbv2.document.ItemCollection;
-import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
-import com.amazonaws.services.dynamodbv2.document.ScanOutcome;
-import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.*;
+import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
 import com.amazonaws.services.dynamodbv2.document.spec.ScanSpec;
 import com.amazonaws.services.dynamodbv2.document.utils.NameMap;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
@@ -79,22 +75,49 @@ public class UserDatabase
 
 		loadTable();
 
-		ScanSpec scanSpec = new ScanSpec().withProjectionExpression("#tt, " + amount.name() + ", " + balance.name()
+		HashMap<String, String> nameMap = new HashMap<>();
+		nameMap.put("#accID", accountID.name());
+
+		HashMap<String, Object> valueMap = new HashMap<>();
+		valueMap.put(":acc", generalDatabase.getAccountID(username));
+
+		valueMap.put(":beg", startDate);
+		valueMap.put(":end", endDate);
+
+		QuerySpec querySpec = new QuerySpec().withProjectionExpression("#accID,  " + amount.name() + ", "+balance.name()
 				+ ", " + transactionType.name() +", " + transactionID.name())
-				.withFilterExpression("#tt between :start_time and :end_time").withNameMap(new NameMap()
-						.with("#tt", "transactionTime"))
-				.withValueMap(new ValueMap().withString(":start_time", startDate)
-						.withString(":end_time", endDate));
+				.withKeyConditionExpression("#accID = :acc and transactionTime between :beg and :end")
+				.withNameMap(nameMap)
+				.withValueMap(valueMap);
+
+		ItemCollection<QueryOutcome> items;
+		Iterator<Item> iterator;
+
 		try {
-			ItemCollection<ScanOutcome> items = table.scan(scanSpec);
-			for (Item item : items) {
+			items = table.query(querySpec);
+			for (Item item: items) {
 				System.out.println(item.toJSONPretty());
 			}
 		}
 		catch (Exception e) {
-			System.err.println("Unable to scan the table:");
 			System.err.println(e.getMessage());
 		}
+//		ScanSpec scanSpec = new ScanSpec().withProjectionExpression("#tt, " + amount.name() + ", " + balance.name()
+//				+ ", " + transactionType.name() +", " + transactionID.name())
+//				.withFilterExpression("#tt between :start_time and :end_time").withNameMap(new NameMap()
+//						.with("#tt", "transactionTime"))
+//				.withValueMap(new ValueMap().withString(":start_time", startDate)
+//						.withString(":end_time", endDate));
+//		try {
+//			ItemCollection<ScanOutcome> items = table.scan(scanSpec);
+//			for (Item item : items) {
+//				System.out.println(item.toJSONPretty());
+//			}
+//		}
+//		catch (Exception e) {
+//			System.err.println("Unable to scan the table:");
+//			System.err.println(e.getMessage());
+//		}
 	}
 
 	public void logTransaction(Transaction transaction, double newBalance)

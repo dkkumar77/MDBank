@@ -12,7 +12,7 @@ public class UserDBTest
 		GeneralDatabase generalDatabase = new GeneralDatabase();
 		UserDatabase userDatabase = new UserDatabase("user",generalDatabase);
 		userDatabase.getMonthlyStatement(5,2020);
-		userDatabase.getTable();
+	//	userDatabase.getTable();
 
 		// Uncomment the bottom to deposit some mullah
 
