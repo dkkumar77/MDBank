@@ -29,7 +29,7 @@
                <font>
                   <Font name="Optima Italic" size="13.0" />
                </font></JFXTextArea>
-            <JFXTextField editable="false" layoutX="70.0" layoutY="141.0" unFocusColor="WHITE" />
+            <JFXTextField fx:id="currentBal" alignment="CENTER" editable="false" layoutX="70.0" layoutY="141.0" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424" />
             <JFXTextField layoutX="70.0" layoutY="222.0" unFocusColor="WHITE" />
             <ImageView fitHeight="37.0" fitWidth="42.0" layoutX="904.0" layoutY="27.0" opacity="0.38">
                <image>
