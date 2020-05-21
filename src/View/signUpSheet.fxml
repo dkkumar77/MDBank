@@ -1,43 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="730.0" prefWidth="1000.0" style="-fx-background-image: /Users/infxxl/MDBank/src/Images/800252.png;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SignUpController">
+<StackPane fx:id="stackPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SignUpController">
    <children>
-      <ImageView fitHeight="738.0" fitWidth="1001.0" layoutX="-1.0" layoutY="-7.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-7.0">
-         <image>
-            <Image url="@../Images/800252.png" />
-         </image>
-      </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#303132" height="521.0" layoutX="197.0" layoutY="60.0" opacity="0.3" stroke="BLACK" strokeType="INSIDE" width="629.0" />
-      <JFXTextField fx:id="firstName" alignment="CENTER" labelFloat="true" layoutX="274.0" layoutY="164.0" promptText="First Name" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424" />
-      <JFXTextField fx:id="lastName" alignment="CENTER" labelFloat="true" layoutX="275.0" layoutY="246.0" promptText="Last Name" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424" />
-      <DatePicker fx:id="dob" layoutX="258.0" layoutY="330.0" opacity="0.53" promptText="Birth" showWeekNumbers="true" />
-      <JFXTextField fx:id="userName" alignment="CENTER" labelFloat="true" layoutX="580.0" layoutY="163.0" promptText="Username" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424" />
-      <JFXTextField fx:id="email" alignment="CENTER" labelFloat="true" layoutX="551.0" layoutY="246.0" prefHeight="27.0" prefWidth="203.0" promptText="Email" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424" />
-      <JFXPasswordField fx:id="password" alignment="CENTER" labelFloat="true" layoutX="580.0" layoutY="325.0" promptText="Password" styleClass="jfx-password-field" stylesheets="@ui.css" unFocusColor="#282424">
-         <font>
-            <Font name="Optima Regular" size="13.0" />
-         </font></JFXPasswordField>
-      <JFXButton fx:id="submit" buttonType="RAISED" layoutX="619.0" layoutY="402.0" onAction="#handleSubmit" prefHeight="40.0" prefWidth="67.0" ripplerFill="#906666" text="Submit" textFill="#ae9e9e" />
-      <Label disable="true" layoutX="447.0" layoutY="595.0" prefHeight="17.0" prefWidth="145.0" text="MD Software Corporation" textFill="#c6c2c2">
-         <font>
-            <Font name="Optima Regular" size="13.0" />
-         </font>
-      </Label>
-      <JFXButton fx:id="back" buttonType="RAISED" layoutX="47.0" layoutY="47.0" onAction="#handleBack" prefHeight="28.0" prefWidth="47.0" text="Exit" textFill="#c6c6c6">
-         <font>
-            <Font name="Optima Regular" size="13.0" />
-         </font>
-      </JFXButton>
+      <AnchorPane prefHeight="730.0" prefWidth="1000.0" style="-fx-background-image: /Users/infxxl/MDBank/src/Images/800252.png;">
+         <children>
+            <ImageView fitHeight="738.0" fitWidth="1001.0" layoutX="-1.0" layoutY="-7.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-7.0">
+               <image>
+                  <Image url="@../Images/800252.png" />
+               </image>
+            </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#303132" height="521.0" layoutX="197.0" layoutY="60.0" opacity="0.3" stroke="BLACK" strokeType="INSIDE" width="629.0" />
+            <JFXTextField fx:id="firstName" alignment="CENTER" labelFloat="true" layoutX="274.0" layoutY="164.0" promptText="First Name" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424" />
+            <JFXTextField fx:id="lastName" alignment="CENTER" labelFloat="true" layoutX="275.0" layoutY="246.0" promptText="Last Name" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424" />
+            <JFXDatePicker fx:id="dob" defaultColor="#00e9ff" layoutX="274.0" layoutY="327.0" opacity="0.82" overLay="true" promptText="Date Of Birth" showWeekNumbers="true" styleClass="regular-text-field" stylesheets="@ui.css" AnchorPane.bottomAnchor="378.0" AnchorPane.leftAnchor="274.0" AnchorPane.rightAnchor="555.0" AnchorPane.topAnchor="327.0" />
+            <JFXTextField fx:id="userName" alignment="CENTER" labelFloat="true" layoutX="580.0" layoutY="163.0" promptText="Username" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424" />
+            <JFXTextField fx:id="email" alignment="CENTER" labelFloat="true" layoutX="398.0" layoutY="386.0" prefHeight="27.0" prefWidth="203.0" promptText="Email" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424" />
+            <JFXPasswordField fx:id="password" alignment="CENTER" labelFloat="true" layoutX="575.0" layoutY="244.0" promptText="Password" styleClass="jfx-password-field" stylesheets="@ui.css" unFocusColor="#282424">
+               <font>
+                  <Font name="Optima Regular" size="13.0" />
+               </font>
+            </JFXPasswordField>
+            <JFXButton fx:id="submit" buttonType="RAISED" layoutX="466.0" layoutY="458.0" onAction="#handleSubmit" prefHeight="40.0" prefWidth="67.0" ripplerFill="#906666" text="Submit" textFill="#ddd6d6" />
+            <Label disable="true" layoutX="447.0" layoutY="595.0" prefHeight="17.0" prefWidth="145.0" text="MD Software Corporation" textFill="#c6c2c2">
+               <font>
+                  <Font name="Optima Regular" size="13.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="back" buttonType="RAISED" layoutX="47.0" layoutY="47.0" onAction="#handleBack" prefHeight="28.0" prefWidth="47.0" text="Exit" textFill="#c6c6c6">
+               <font>
+                  <Font name="Optima Regular" size="13.0" />
+               </font>
+            </JFXButton>
+            <JFXPasswordField fx:id="confPassField" alignment="CENTER" layoutX="575.0" layoutY="325.0" promptText="Confirm Password" styleClass="jfx-password-field" stylesheets="@ui.css">
+               <font>
+                  <Font size="13.0" />
+               </font></JFXPasswordField>
+         </children>
+      </AnchorPane>
    </children>
-</AnchorPane>
+</StackPane>

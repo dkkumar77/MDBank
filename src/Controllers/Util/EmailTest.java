@@ -16,7 +16,7 @@ public class EmailTest
 		//choose who you wa
 		// nt to send it to and change first arg on line 24
 		String emailM = "mani.shah23@gmail.com";
-		String emailD = "dk.kumar77@yahoo.com";
+		String emailD = "";
 
 		System.out.print("Subject: ");
 		String subject = scanner.nextLine();
