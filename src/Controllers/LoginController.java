@@ -2,6 +2,7 @@ package Controllers;
 
 import Model.Databases.GeneralDatabase;
 import Model.Date;
+import Model.PatchUpdate;
 import Model.SceneInterface;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -67,29 +68,7 @@ public class LoginController implements Initializable
 		//check for internet
 		generalDatabase = new GeneralDatabase();
 		dateLabel.setText(Date.getDate());
-
 	}
-
-/*
-
-    Idk
-    its 4:44 AM
-    I AM TOO TIREED
-
-
-    
-
-	public void setPatchUpdate() throws IOException{
-
-		File file = new File("src/Controllers/PatchUpdates.txt");
-		Scanner sc = new Scanner(file);
-		String s = "";
-		patchupdate.setText(sc.nextLine());
-	}
-
-
- */
-
 
 
 

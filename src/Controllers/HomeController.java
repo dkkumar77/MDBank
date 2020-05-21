@@ -41,7 +41,8 @@ public class HomeController implements SceneInterface
 	public String fullname;
 
 	@FXML
-	private JFXTextField welcomeMessage;
+	private JFXTextField welcomeMessage, currentBal;
+
 
 	@FXML
 	private JFXButton setting, logoffButton;
@@ -63,7 +64,16 @@ public class HomeController implements SceneInterface
 
 		setMessage(username);
 		setQuote();
+		setUserCurrentBalance();
 
+
+
+	}
+
+
+	public void setUserCurrentBalance(){
+
+		currentBal.setText(Double.toString((generalDatabase.getCurrentBalance(username))));
 
 
 
