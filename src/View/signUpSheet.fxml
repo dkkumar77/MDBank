@@ -33,7 +33,7 @@
                </font>
             </JFXPasswordField>
             <JFXButton fx:id="submit" buttonType="RAISED" layoutX="466.0" layoutY="458.0" onAction="#handleSubmit" prefHeight="40.0" prefWidth="67.0" ripplerFill="#906666" text="Submit" textFill="#ddd6d6" />
-            <Label disable="true" layoutX="447.0" layoutY="595.0" prefHeight="17.0" prefWidth="145.0" text="MD Software Corporation" textFill="#c6c2c2">
+            <Label disable="true" layoutX="447.0" layoutY="595.0" prefHeight="19.0" prefWidth="237.0" text="MD Software Corporation" textFill="#c6c2c2">
                <font>
                   <Font name="Optima Regular" size="13.0" />
                </font>

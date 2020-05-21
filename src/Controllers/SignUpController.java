@@ -58,23 +58,7 @@ public class SignUpController
     public void handleBack(ActionEvent event){
 
         if(event.getSource().equals(back)){
-            FXMLLoader loader = new FXMLLoader();
-
-            loader.setLocation(getClass().getResource(LOGIN_FXML));
-            Parent loginParent = null;
-            try {
-                loginParent = loader.load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            assert loginParent != null;
-            Scene currScene = new Scene(loginParent);
-            LoginController controller = loader.getController();
-
-            Stage homeWindow;
-            homeWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            homeWindow.setScene(currScene);
-            homeWindow.show();
+           loadLogin(event);
         }
     }
     @FXML
@@ -88,26 +72,8 @@ public class SignUpController
                         String fullName = firstName.getText() + " " + lastName.getText();
                         Customer c = new Customer(userName.getText(), fullName, email.getText()
                                 , dob.getValue().toString(), generalDatabase.createUniqueAccountNumber());
-
                         generalDatabase.addUser(c, Encrypter.getEncryptedPassword(password.getText()), Date.getDate());
-
-                        FXMLLoader loader = new FXMLLoader();
-
-                        loader.setLocation(getClass().getResource(LOGIN_FXML));
-                        Parent loginParent = null;
-                        try {
-                            loginParent = loader.load();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        assert loginParent != null;
-                        Scene currScene = new Scene(loginParent);
-                        LoginController controller = loader.getController();
-
-                        Stage homeWindow;
-                        homeWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        homeWindow.setScene(currScene);
-                        homeWindow.show();
+                        loadLogin(event);
                     }
                     showDialog("Password does not match");
                 }
@@ -115,6 +81,27 @@ public class SignUpController
                 showDialog("Please enter all information");
             }
         }
+    }
+
+    private void loadLogin(ActionEvent event)
+    {
+        FXMLLoader loader = new FXMLLoader();
+
+        loader.setLocation(getClass().getResource(LOGIN_FXML));
+        Parent loginParent = null;
+        try {
+            loginParent = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assert loginParent != null;
+        Scene currScene = new Scene(loginParent);
+        LoginController controller = loader.getController();
+
+        Stage homeWindow;
+        homeWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        homeWindow.setScene(currScene);
+        homeWindow.show();
     }
 
     private boolean passwordMatches()
