@@ -26,13 +26,8 @@ public class Transaction
 		return transactionType;
 	}
 
-	public String getTransactionDateTime()
+	public String getTransactionTime()
 	{
-		return Date.getDate() +" " + Date.getTime();
-	}
-
-	public String getTransactionMonthYr()
-	{
-		return Date.getMonthYear();
+		return Date.getSQLTime().toString();
 	}
 }

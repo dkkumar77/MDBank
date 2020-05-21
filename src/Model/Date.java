@@ -1,16 +1,23 @@
 package Model;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
 public class Date
 {
-
 	public static String getDate()
 	{
 		return calcDate();
 	}
+
+	public final static String START_TIME = "00:00:00.000";
+	public final static String END_TIME = "23:59:59.999";
+
 	private static String calcDate()
 	{
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -18,16 +25,28 @@ public class Date
 		return dateFormat.format(date);
 	}
 
-	public static String getMonthYear()
+	public static String getFirstDayOfMonth(int month,int year)
 	{
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/yyyy");
-		java.util.Date date = new java.util.Date();
-		return dateFormat.format(date);
+		YearMonth yearMonth = YearMonth.of( year, month );
+		LocalDate firstOfMonth = yearMonth.atDay(1);
+		return firstOfMonth.toString();
+	}
+
+	public static String getLastDayOfMonth(int month, int year)
+	{
+		YearMonth yearMonth = YearMonth.of( year, month );
+		LocalDate last = yearMonth.atEndOfMonth();
+		return last.toString();
 	}
 
 	public static int getHour()
 	{
 		return calcHour();
+	}
+
+	public static Timestamp getSQLTime()
+	{
+		return java.sql.Timestamp.from(Instant.now());
 	}
 
 	private static int calcHour()

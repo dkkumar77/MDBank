@@ -4,9 +4,8 @@ public enum UserDbColumns
 {
 	amount,
 	balance,
-	dateTime,
+	transactionTime,
 	accountID,
-	monthYear,
 	transactionID,
 	transactionType,
 }
