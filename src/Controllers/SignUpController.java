@@ -5,6 +5,7 @@ import Model.Customer;
 import Model.Databases.GeneralDatabase;
 import Model.SceneInterface;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
@@ -34,7 +35,7 @@ public class SignUpController
     private JFXTextField lastName;
 
     @FXML
-    private DatePicker dob;
+    private JFXDatePicker dob;
 
     @FXML
     private JFXTextField userName;
