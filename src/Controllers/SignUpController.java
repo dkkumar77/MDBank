@@ -3,11 +3,10 @@ package Controllers;
 import Controllers.Util.Encrypter;
 import Model.Customer;
 import Model.Databases.GeneralDatabase;
+import Model.Date;
 import Model.SceneInterface;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
+import com.jfoenix.controls.events.JFXDialogEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +15,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,6 +26,8 @@ import java.time.format.DateTimeFormatter;
 public class SignUpController
 {
 
+    @FXML
+    private StackPane stackPane;
     @FXML
     private JFXTextField email;
 
@@ -41,15 +44,13 @@ public class SignUpController
     private JFXTextField userName;
 
     @FXML
-    private JFXPasswordField password;
+    private JFXPasswordField password, confPassField;
 
     @FXML
     private JFXButton submit;
 
 
     private String username;
-
-    private Encrypter e;
 
     @FXML
     private JFXButton back;
@@ -77,10 +78,6 @@ public class SignUpController
             homeWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
             homeWindow.setScene(currScene);
             homeWindow.show();
-
-
-
-
         }
     }
     @FXML
@@ -88,51 +85,67 @@ public class SignUpController
 
         if(event.getSource().equals(submit)) {
             GeneralDatabase generalDatabase = new GeneralDatabase();
+            if (allFieldsFilled()) {
+                if (generalDatabase.avoidDuplicate(userName.getText())) {
+                    if (passwordMatches()) {
+                        String fullName = firstName.getText() + " " + lastName.getText();
+                        Customer c = new Customer(userName.getText(), fullName, email.getText()
+                                , dob.getValue().toString(), generalDatabase.createUniqueAccountNumber());
 
-            if (generalDatabase.avoidDuplicate(userName.getText())) {
-                if (password.getText().matches(".*[a-zA-Z]+.*")){
+                        generalDatabase.addUser(c, Encrypter.getEncryptedPassword(password.getText()), Date.getDate());
 
-                    String fullName = firstName.getText() + " " + lastName.getText();
-                    Customer c = new Customer(userName.getText(), fullName, email.getText()
-                            , dob.getValue().toString(), generalDatabase.createUniqueAccountNumber());
+                        FXMLLoader loader = new FXMLLoader();
 
-                    generalDatabase.addUser(c, e.getEncryptedPassword(password.getText()), getDate());
+                        loader.setLocation(getClass().getResource("/View/ApplicationBootScene.fxml"));
+                        Parent loginParent = null;
+                        try {
+                            loginParent = loader.load();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        assert loginParent != null;
+                        Scene currScene = new Scene(loginParent);
+                        LoginController controller = loader.getController();
 
-                    FXMLLoader loader = new FXMLLoader();
-
-                    loader.setLocation(getClass().getResource("/View/ApplicationBootScene.fxml"));
-                    Parent loginParent = null;
-                    try {
-                        loginParent = loader.load();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        Stage homeWindow;
+                        homeWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        homeWindow.setScene(currScene);
+                        homeWindow.show();
                     }
-                    assert loginParent != null;
-                    Scene currScene = new Scene(loginParent);
-                    LoginController controller = loader.getController();
-
-                    Stage homeWindow;
-                    homeWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    homeWindow.setScene(currScene);
-                    homeWindow.show();
-
-
-
-
+                    showDialog("Password does not match");
                 }
+            } else {
+                showDialog("Please enter all information");
             }
-
         }
-
     }
 
-    public String getDate(){
-        LocalDateTime myDateObj = LocalDateTime.now();
-        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-
-        String formattedDate = myDateObj.format(myFormatObj);
-        return formattedDate;
-
+    private boolean passwordMatches()
+    {
+        if(password.getText().equals(confPassField.getText())) {
+            password.getText().matches(".*[a-zA-Z]+.*");
+            return true;
+        }
+        return false;
     }
 
+    private boolean allFieldsFilled()
+    {
+        return !userName.getText().isEmpty() && !password.getText().isEmpty() && !firstName.getText().isEmpty()
+                && !lastName.getText().isEmpty() && !dob.getValue().toString().equals("") && !email.getText().isEmpty();
+    }
+
+    private void showDialog(String message)
+    {
+        JFXDialogLayout content = new JFXDialogLayout();
+        content.setBody(new Text(message));
+        JFXDialog dialog = new JFXDialog(stackPane,content,JFXDialog.DialogTransition.CENTER);
+        JFXButton okButton = new JFXButton("Ok");
+        okButton.setButtonType(JFXButton.ButtonType.RAISED);
+        okButton.setOnAction(event -> dialog.close());
+        content.setActions(okButton);
+        dialog.setOnDialogClosed((JFXDialogEvent event)-> firstName.requestFocus());
+        dialog.show();
+    }
 }
+
