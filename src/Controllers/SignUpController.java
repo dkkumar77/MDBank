@@ -4,7 +4,6 @@ import Controllers.Util.Encrypter;
 import Model.Customer;
 import Model.Databases.GeneralDatabase;
 import Model.Date;
-import Model.SceneInterface;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.events.JFXDialogEvent;
 import javafx.event.ActionEvent;
@@ -13,15 +12,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+import static Model.Constants.FilePaths.*;
 
 public class SignUpController
 {
@@ -63,7 +60,7 @@ public class SignUpController
         if(event.getSource().equals(back)){
             FXMLLoader loader = new FXMLLoader();
 
-            loader.setLocation(getClass().getResource("/View/ApplicationBootScene.fxml"));
+            loader.setLocation(getClass().getResource(LOGIN_FXML));
             Parent loginParent = null;
             try {
                 loginParent = loader.load();
@@ -96,7 +93,7 @@ public class SignUpController
 
                         FXMLLoader loader = new FXMLLoader();
 
-                        loader.setLocation(getClass().getResource("/View/ApplicationBootScene.fxml"));
+                        loader.setLocation(getClass().getResource(LOGIN_FXML));
                         Parent loginParent = null;
                         try {
                             loginParent = loader.load();

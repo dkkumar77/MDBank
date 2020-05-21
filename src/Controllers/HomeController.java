@@ -14,15 +14,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import org.joda.time.DateTime;
-import Model.Date;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static Model.Constants.FilePaths.LOGIN_FXML;
 import static Model.Date.getGreeting;
 
 
@@ -85,7 +83,7 @@ public class HomeController implements SceneInterface
 		if(event.getSource().equals(logoffButton)){
 			FXMLLoader loader = new FXMLLoader();
 
-			loader.setLocation(getClass().getResource("/View/ApplicationBootScene.fxml"));
+			loader.setLocation(getClass().getResource(LOGIN_FXML));
 			Parent loginParent = null;
 			try {
 				loginParent = loader.load();
@@ -136,35 +134,6 @@ public class HomeController implements SceneInterface
 
 
 	}
-
-
-	/*
-	fucking useless
-
-
-	public String returnAccurateGreeting(){
-		DateTime date = new DateTime();
-		int currentHour = date.getHourOfDay();
-		if(currentHour <= 11 && currentHour >= 5){
-			return "Good Morning";
-
-		}
-		else if (currentHour <= 6 && currentHour >= 22){
-			return "Good Night";
-		}
-		else if(currentHour <= 21 && currentHour >= 18){
-			return "Good Evening";
-		}
-
-		return "Good Afternoon";
-
-
-	}
-
-
-	 */
-
-
 }
 
 

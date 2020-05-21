@@ -2,8 +2,6 @@ package Controllers;
 
 import Model.Databases.GeneralDatabase;
 import Model.Date;
-import Model.PatchUpdate;
-import Model.SceneInterface;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextArea;
@@ -21,13 +19,12 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import Controllers.Util.Encrypter;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicReference;
+
+import static Model.Constants.FilePaths.*;
 
 public class LoginController implements Initializable
 {
@@ -86,11 +83,11 @@ public class LoginController implements Initializable
 			if (!usernameField.getText().isEmpty() && !passwordField.getText().isEmpty()) {
 				String password = Encrypter.getEncryptedPassword(passwordField.getText());
 
-				if(generalDatabase.avoidDuplicate(usernameField.getText()) == false) {
+				if(!generalDatabase.avoidDuplicate(usernameField.getText())) {
 
 					if (generalDatabase.verifyCredentials(usernameField.getText(), password)) {
 						FXMLLoader loader = new FXMLLoader();
-						loader.setLocation(getClass().getResource("/View/HomeScene.fxml"));
+						loader.setLocation(getClass().getResource(HOME_FXML));
 						Parent loginParent = null;
 						try {
 							loginParent = loader.load();
@@ -140,7 +137,7 @@ public class LoginController implements Initializable
 
 			FXMLLoader loader = new FXMLLoader();
 
-			loader.setLocation(getClass().getResource("/View/signUpSheet.fxml"));
+			loader.setLocation(getClass().getResource(SIGN_UP_SHEET_FXML));
 			Parent loginParent = null;
 			try {
 				loginParent = loader.load();
@@ -165,7 +162,7 @@ public class LoginController implements Initializable
 	@FXML
 	public void handleReportBug(ActionEvent actionEvent) throws IOException
 	{
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/View/ReportBug.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(REPORT_FXML));
 		Parent root = (Parent) fxmlLoader.load();
 		Stage stage = new Stage();
 		stage.setScene(new Scene(root));
