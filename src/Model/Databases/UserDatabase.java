@@ -87,9 +87,7 @@ public class UserDatabase
 						.withString(":end_time", endDate));
 		try {
 			ItemCollection<ScanOutcome> items = table.scan(scanSpec);
-			Iterator<Item> iter = items.iterator();
-			while (iter.hasNext()) {
-				Item item = iter.next();
+			for (Item item : items) {
 				System.out.println(item.toJSONPretty());
 			}
 		}
