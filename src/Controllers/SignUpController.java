@@ -1,5 +1,6 @@
 package Controllers;
 
+import Controllers.Util.DialogAlert;
 import Controllers.Util.Encrypter;
 import Model.Customer;
 import Model.Databases.GeneralDatabase;
@@ -121,15 +122,9 @@ public class SignUpController
 
     private void showDialog(String message)
     {
-        JFXDialogLayout content = new JFXDialogLayout();
-        content.setBody(new Text(message));
-        JFXDialog dialog = new JFXDialog(stackPane,content,JFXDialog.DialogTransition.CENTER);
-        JFXButton okButton = new JFXButton("Ok");
-        okButton.setButtonType(JFXButton.ButtonType.RAISED);
-        okButton.setOnAction(event -> dialog.close());
-        content.setActions(okButton);
-        dialog.setOnDialogClosed((JFXDialogEvent event)-> firstName.requestFocus());
-        dialog.show();
+        DialogAlert.showOKDialog(stackPane,message)
+                .setOnDialogClosed((JFXDialogEvent event) -> firstName.requestFocus());
+
     }
 }
 

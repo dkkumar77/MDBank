@@ -1,11 +1,11 @@
 package Controllers;
 
+import Controllers.Util.DialogAlert;
+import Model.Constants.FilePaths;
 import Model.Databases.GeneralDatabase;
 import Model.Date;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
+import com.jfoenix.controls.events.JFXDialogEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +14,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -28,6 +30,9 @@ import static Model.Constants.FilePaths.*;
 
 public class LoginController implements Initializable
 {
+	@FXML
+	private StackPane stackPane;
+
 	@FXML
 	private JFXTextField usernameField;
 
@@ -82,28 +87,9 @@ public class LoginController implements Initializable
 		if(actionEvent.getSource().equals(loginButton)) {
 			if (!usernameField.getText().isEmpty() && !passwordField.getText().isEmpty()) {
 				String password = Encrypter.getEncryptedPassword(passwordField.getText());
-
 				if(!generalDatabase.avoidDuplicate(usernameField.getText())) {
-
 					if (generalDatabase.verifyCredentials(usernameField.getText(), password)) {
-						FXMLLoader loader = new FXMLLoader();
-						loader.setLocation(getClass().getResource(HOME_FXML));
-						Parent loginParent = null;
-						try {
-							loginParent = loader.load();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-						assert loginParent != null;
-						Scene currScene = new Scene(loginParent);
-						HomeController controller = loader.getController();
-						controller.init(generalDatabase, usernameField.getText());
-
-
-						Stage homeWindow;
-						homeWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-						homeWindow.setScene(currScene);
-						homeWindow.show();
+						loadHome(actionEvent);
 					}
 					else {
 						setPasswordIncorrect();
@@ -111,8 +97,6 @@ public class LoginController implements Initializable
 				}
 				else{
 					setUsernameIncorrect();
-
-
 				}
 
 			}
@@ -120,8 +104,37 @@ public class LoginController implements Initializable
 				isFieldEmpty();
 			}
 		}
+	}
+
+	private void loadHome(ActionEvent actionEvent)
+	{
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource(HOME_FXML));
+		Parent loginParent = null;
+		try {
+			loginParent = loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		assert loginParent != null;
+		Scene currScene = new Scene(loginParent);
+		HomeController controller = loader.getController();
+		controller.init(generalDatabase, usernameField.getText());
 
 
+		Stage homeWindow;
+		homeWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+		homeWindow.setScene(currScene);
+		homeWindow.show();
+	}
+
+	private void showDialog(String message)
+	{
+		DialogAlert.showOKDialog(stackPane,message).setOnDialogClosed((JFXDialogEvent event) ->{
+			usernameField.setText("");
+			passwordField.setText("");
+			usernameField.requestFocus();
+		});
 	}
 
 
@@ -139,47 +152,45 @@ public class LoginController implements Initializable
 			ast2.setText("*");
 
 		}
-
-
+		showDialog("Please Enter a username or password");
 	}
 
 	public void setUsernameIncorrect() {
 		ast1.setText("*");
 		ast1.setText("*");
+		showDialog("Invalid Credentials");
 
 	}
 
 	public void setPasswordIncorrect(){
 		ast2.setText("*");
-
-
-
-
+		showDialog("Username or Password is Incorrect");
 	}
+
 	@FXML
 	public void handleSignup(ActionEvent actionEvent) {
 		if (actionEvent.getSource().equals(signupButton)) {
-
-			FXMLLoader loader = new FXMLLoader();
-
-			loader.setLocation(getClass().getResource(SIGN_UP_SHEET_FXML));
-			Parent loginParent = null;
-			try {
-				loginParent = loader.load();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			assert loginParent != null;
-			Scene currScene = new Scene(loginParent);
-			SignUpController controller = loader.getController();
-
-			Stage homeWindow;
-			homeWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-			homeWindow.setScene(currScene);
-			homeWindow.show();
-
+			loadSceneWithoutController(SIGN_UP_SHEET_FXML,actionEvent);
 		}
+	}
 
+	private void loadSceneWithoutController(String filePath, ActionEvent actionEvent)
+	{
+		FXMLLoader loader = new FXMLLoader();
+
+		loader.setLocation(getClass().getResource(filePath));
+		Parent loginParent = null;
+		try {
+			loginParent = loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		assert loginParent != null;
+		Scene currScene = new Scene(loginParent);
+		Stage homeWindow;
+		homeWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+		homeWindow.setScene(currScene);
+		homeWindow.show();
 
 	}
 
@@ -189,55 +200,38 @@ public class LoginController implements Initializable
 	public void handleContactUs(ActionEvent actionevent) {
 
 		if (actionevent.getSource().equals(contactButton)) {
-
-			FXMLLoader loader = new FXMLLoader();
-
-			loader.setLocation(getClass().getResource("/View/ContactUsPage.fxml"));
-			Parent loginParent = null;
-			try {
-				loginParent = loader.load();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			assert loginParent != null;
-			Scene currScene = new Scene(loginParent);
-			ContactUsController controller = loader.getController();
-
-			Stage homeWindow;
-			homeWindow = (Stage) ((Node) actionevent.getSource()).getScene().getWindow();
-			homeWindow.setScene(currScene);
-			homeWindow.show();
-
+			loadSceneWithoutController(CONTACT_US_PAGE,actionevent);
 		}
-
-
 	}
+
 	@FXML
 	public void handleReportBug(ActionEvent actionEvent) throws IOException
 	{
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(REPORT_FXML));
-		Parent root = (Parent) fxmlLoader.load();
-		Stage stage = new Stage();
-		stage.setScene(new Scene(root));
-		stage.initStyle(StageStyle.UNDECORATED);
-		stage.setMaxHeight(400);
-		stage.setMinHeight(400);
-		stage.setMaxWidth(600);
-		stage.setMinWidth(600);
+		if(actionEvent.getSource().equals(reportButton)) {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(REPORT_FXML));
+			Parent root = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root));
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.setMaxHeight(400);
+			stage.setMinHeight(400);
+			stage.setMaxWidth(600);
+			stage.setMinWidth(600);
 
-		AtomicReference<Double> xOffset = new AtomicReference<>((double) 0);
-		AtomicReference<Double> yOffset = new AtomicReference<>((double) 0);
-		root.setOnMousePressed(event -> {
-			xOffset.set(event.getSceneX());
-			yOffset.set(event.getSceneY());
-		});
-		//move around here
-		root.setOnMouseDragged(event -> {
-			stage.setX(event.getScreenX() - xOffset.get());
-			stage.setY(event.getScreenY() - yOffset.get());
-		});
-		stage.initModality(Modality.APPLICATION_MODAL);
-		stage.show();
+			AtomicReference<Double> xOffset = new AtomicReference<>((double) 0);
+			AtomicReference<Double> yOffset = new AtomicReference<>((double) 0);
+			root.setOnMousePressed(event -> {
+				xOffset.set(event.getSceneX());
+				yOffset.set(event.getSceneY());
+			});
+			//move around here
+			root.setOnMouseDragged(event -> {
+				stage.setX(event.getScreenX() - xOffset.get());
+				stage.setY(event.getScreenY() - yOffset.get());
+			});
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.show();
+		}
 	}
 
 

@@ -9,69 +9,71 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoginController">
+<StackPane fx:id="stackPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoginController">
    <children>
-      <ImageView fitHeight="730.0" fitWidth="1000.0" layoutX="-7.0" layoutY="-3.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@../Images/800252.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="437.0" layoutY="651.0" text="© MD Software Corporation 2020" textFill="#e1e1e1">
-         <font>
-            <Font name="Apple Symbols" size="13.0" />
-         </font>
-      </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#40454a" height="297.0" layoutX="366.0" layoutY="183.0" opacity="0.42" stroke="#2f1717" strokeType="INSIDE" width="302.0">
-         <effect>
-            <GaussianBlur radius="18.0" />
-         </effect></Rectangle>
-      <JFXTextField fx:id="usernameField" alignment="CENTER" labelFloat="true" layoutX="439.0" layoutY="257.0" promptText="Username" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424">
-         <focusColor>
-            <LinearGradient endX="1.0" endY="0.009615384615384581" startX="1.0">
-               <stops>
-                  <Stop color="BLACK" />
-                  <Stop color="WHITE" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </focusColor>
-         <font>
-            <Font name="Optima Regular" size="13.0" />
-         </font>
-      </JFXTextField>
-      <JFXPasswordField fx:id="passwordField" alignment="CENTER" labelFloat="true" layoutX="439.0" layoutY="338.0" promptText="Password" styleClass="jfx-password-field" stylesheets="@ui.css" unFocusColor="#282424">
-         <font>
-            <Font name="Optima Regular" size="13.0" />
-         </font>
-      </JFXPasswordField>
-      <JFXButton fx:id="loginButton" layoutX="494.0" layoutY="390.0" onAction="#handleLogin" text="Login" textFill="WHITE" />
-      <JFXButton fx:id="contactButton" layoutX="899.0" layoutY="24.0" onAction="#handleContactUs" text="Contact Us" textFill="#dddddd">
-         <font>
-            <Font name="Optima Regular" size="13.0" />
-         </font>
-      </JFXButton>
-      <Label fx:id="dateLabel" layoutX="46.0" layoutY="29.0" text="DATE GOES HERE" textFill="#d3c4c4">
-         <font>
-            <Font name="Optima Regular" size="13.0" />
-         </font>
-      </Label>
-      <JFXTextArea editable="false" focusColor="#9ea1a8" layoutX="40.0" layoutY="183.0" prefHeight="297.0" prefWidth="302.0" promptText="PATCH UPDATES GO HERE (DEVELOPER USE ONLY)" styleClass="jfx-text-area-special" stylesheets="@ui.css" />
-      <JFXButton fx:id="reportButton" buttonType="RAISED" layoutX="858.0" layoutY="641.0" onAction="#handleReportBug" text="Report a Bug" textFill="#e4d8d8">
-         <font>
-            <Font name="Optima Regular" size="13.0" />
-         </font></JFXButton>
-      <Label alignment="CENTER" layoutX="395.0" layoutY="444.0" prefHeight="27.0" prefWidth="49.0" text="Sign Up" textFill="#abaaaa">
-         <font>
-            <Font name="Optima Regular" size="13.0" />
-         </font>
-      </Label>
-
-      <JFXButton fx:id="signupButton" alignment="CENTER" buttonType="RAISED" layoutX="378.0" layoutY="439.0" onAction="#handleSignup" prefHeight="35.0" prefWidth="81.0" text=" " textFill="WHITE" />
-      <JFXTextField fx:id="ast2" editable="false" layoutX="610.0" layoutY="337.0" prefHeight="27.0" prefWidth="49.0" styleClass="jfx-text-field-ast" stylesheets="@ui.css" text=" " unFocusColor="#353535" />
-      <JFXTextField fx:id="ast1" editable="false" focusColor="#bb2121" layoutX="610.0" layoutY="257.0" prefHeight="27.0" prefWidth="49.0" styleClass="jfx-text-field-ast" stylesheets="@ui.css" text=" " unFocusColor="#353535" />
+      <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1000.0">
+         <children>
+            <ImageView fitHeight="730.0" fitWidth="1000.0" layoutX="-7.0" layoutY="-3.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <image>
+                  <Image url="@../Images/800252.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="437.0" layoutY="651.0" text="© MD Software Corporation 2020" textFill="#e1e1e1">
+               <font>
+                  <Font name="Apple Symbols" size="13.0" />
+               </font>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#40454a" height="297.0" layoutX="349.0" layoutY="180.0" opacity="0.42" stroke="#2f1717" strokeType="INSIDE" width="302.0">
+               <effect>
+                  <GaussianBlur radius="18.0" />
+               </effect>
+            </Rectangle>
+            <JFXTextField fx:id="usernameField" alignment="CENTER" labelFloat="true" layoutX="427.0" layoutY="243.0" promptText="Username" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424">
+               <focusColor>
+                  <LinearGradient endX="1.0" endY="0.009615384615384581" startX="1.0">
+                     <stops>
+                        <Stop color="BLACK" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </focusColor>
+               <font>
+                  <Font name="Optima Regular" size="13.0" />
+               </font>
+            </JFXTextField>
+            <JFXPasswordField fx:id="passwordField" alignment="CENTER" labelFloat="true" layoutX="427.0" layoutY="323.0" promptText="Password" styleClass="jfx-password-field" stylesheets="@ui.css" unFocusColor="#282424">
+               <font>
+                  <Font name="Optima Regular" size="13.0" />
+               </font>
+            </JFXPasswordField>
+            <JFXButton fx:id="loginButton" layoutX="477.0" layoutY="383.0" onAction="#handleLogin" text="Login" textFill="WHITE" />
+            <JFXButton fx:id="contactButton" layoutX="899.0" layoutY="24.0" onAction="#handleContactUs" text="Contact Us" textFill="#dddddd">
+               <font>
+                  <Font name="Optima Regular" size="13.0" />
+               </font>
+            </JFXButton>
+            <Label fx:id="dateLabel" layoutX="46.0" layoutY="29.0" text="DATE GOES HERE" textFill="#d3c4c4">
+               <font>
+                  <Font name="Optima Regular" size="13.0" />
+               </font>
+            </Label>
+            <JFXTextArea editable="false" focusColor="#9ea1a8" layoutX="40.0" layoutY="183.0" prefHeight="297.0" prefWidth="252.0" promptText="PATCH UPDATES GO HERE (DEVELOPER USE ONLY)" styleClass="jfx-text-area-special" stylesheets="@ui.css" />
+            <JFXButton fx:id="reportButton" buttonType="RAISED" layoutX="858.0" layoutY="641.0" onAction="#handleReportBug" text="Report a Bug" textFill="#e4d8d8">
+               <font>
+                  <Font name="Optima Regular" size="13.0" />
+               </font>
+            </JFXButton>
+      
+            <JFXButton fx:id="signupButton" alignment="CENTER" buttonType="RAISED" layoutX="333.0" layoutY="439.0" onAction="#handleSignup" prefHeight="35.0" prefWidth="81.0" styleClass="regular-text-field" stylesheets="@ui.css" text="Sign Up" textFill="WHITE" />
+            <JFXTextField fx:id="ast2" editable="false" layoutX="610.0" layoutY="337.0" prefHeight="27.0" prefWidth="49.0" styleClass="jfx-text-field-ast" stylesheets="@ui.css" text=" " unFocusColor="#353535" />
+            <JFXTextField fx:id="ast1" editable="false" focusColor="#bb2121" layoutX="610.0" layoutY="257.0" prefHeight="27.0" prefWidth="49.0" styleClass="jfx-text-field-ast" stylesheets="@ui.css" text=" " unFocusColor="#353535" />
+         </children>
+      </AnchorPane>
    </children>
-</AnchorPane>
+</StackPane>
