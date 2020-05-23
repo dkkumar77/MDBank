@@ -38,9 +38,9 @@
                   <Font name="Optima Regular" size="13.0" />
                </font>
             </Label>
-            <JFXButton fx:id="back" buttonType="RAISED" layoutX="47.0" layoutY="47.0" onAction="#handleBack" prefHeight="28.0" prefWidth="47.0" text="Exit" textFill="#c6c6c6">
+            <JFXButton fx:id="back" buttonType="RAISED" layoutX="20.0" layoutY="35.0" onAction="#handleBack" prefHeight="50.0" prefWidth="99.0" text="←" textFill="#c6c6c6">
                <font>
-                  <Font name="Optima Regular" size="13.0" />
+                  <Font size="23.0" />
                </font>
             </JFXButton>
             <JFXPasswordField fx:id="confPassField" alignment="CENTER" layoutX="575.0" layoutY="325.0" promptText="Confirm Password" styleClass="jfx-password-field" stylesheets="@ui.css">
