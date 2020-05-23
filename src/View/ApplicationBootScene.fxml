@@ -34,7 +34,7 @@
                   <GaussianBlur radius="18.0" />
                </effect>
             </Rectangle>
-            <JFXTextField fx:id="usernameField" alignment="CENTER" labelFloat="true" layoutX="427.0" layoutY="243.0" promptText="Username" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424">
+            <JFXTextField fx:id="usernameField"  alignment="CENTER" labelFloat="true" layoutX="427.0" layoutY="243.0" promptText="Username" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424">
                <focusColor>
                   <LinearGradient endX="1.0" endY="0.009615384615384581" startX="1.0">
                      <stops>
@@ -47,7 +47,7 @@
                   <Font name="Optima Regular" size="13.0" />
                </font>
             </JFXTextField>
-            <JFXPasswordField fx:id="passwordField" alignment="CENTER" labelFloat="true" layoutX="427.0" layoutY="323.0" promptText="Password" styleClass="jfx-password-field" stylesheets="@ui.css" unFocusColor="#282424">
+            <JFXPasswordField fx:id="passwordField" alignment="CENTER" onKeyReleased="#handleEnterKey" labelFloat="true" layoutX="427.0" layoutY="323.0" promptText="Password" styleClass="jfx-password-field" stylesheets="@ui.css" unFocusColor="#282424">
                <font>
                   <Font name="Optima Regular" size="13.0" />
                </font>

@@ -6,6 +6,9 @@ import Model.Databases.GeneralDatabase;
 import Model.Date;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.events.JFXDialogEvent;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,15 +17,20 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import Controllers.Util.Encrypter;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -48,7 +56,6 @@ public class LoginController implements Initializable
 	@FXML
 	private JFXTextArea patchupdate;
 
-
 	@FXML
 	private Label dateLabel;
 
@@ -69,9 +76,18 @@ public class LoginController implements Initializable
 	{
 		//check for internet
 		generalDatabase = new GeneralDatabase();
-		dateLabel.setText(Date.getDate());
+		initClock();
 	}
 
+	private void initClock() {
+
+		Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+			dateLabel.setText(LocalDateTime.now().format(formatter));
+		}), new KeyFrame(Duration.seconds(1)));
+		clock.setCycleCount(Animation.INDEFINITE);
+		clock.play();
+	}
 
 
 
@@ -85,28 +101,41 @@ public class LoginController implements Initializable
 		ast2.setText("");
 
 		if(actionEvent.getSource().equals(loginButton)) {
-			if (!usernameField.getText().isEmpty() && !passwordField.getText().isEmpty()) {
-				String password = Encrypter.getEncryptedPassword(passwordField.getText());
-				if(!generalDatabase.avoidDuplicate(usernameField.getText())) {
-					if (generalDatabase.verifyCredentials(usernameField.getText(), password)) {
-						loadHome(actionEvent);
-					}
-					else {
-						setPasswordIncorrect();
-					}
-				}
-				else{
-					setUsernameIncorrect();
-				}
-
-			}
-			else{
-				isFieldEmpty();
-			}
+			loginProcess(actionEvent,null);
 		}
 	}
 
-	private void loadHome(ActionEvent actionEvent)
+
+	private void loginProcess(ActionEvent actionEvent, KeyEvent keyEvent)
+	{
+		if (!usernameField.getText().isEmpty() && !passwordField.getText().isEmpty()) {
+			String password = Encrypter.getEncryptedPassword(passwordField.getText());
+			if(!generalDatabase.avoidDuplicate(usernameField.getText())) {
+				if (generalDatabase.verifyCredentials(usernameField.getText(), password)) {
+					loadHome(actionEvent,keyEvent);
+				}
+				else {
+					setPasswordIncorrect();
+				}
+			}
+			else{
+				setUsernameIncorrect();
+			}
+		}
+		else{
+			isFieldEmpty();
+		}
+	}
+
+	@FXML
+	public void handleEnterKey(KeyEvent keyEvent)
+	{
+		if(keyEvent.getCode().equals(KeyCode.ENTER)){
+			loginProcess(null,keyEvent);
+		}
+	}
+
+	private void loadHome(ActionEvent actionEvent, KeyEvent keyEvent)
 	{
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource(HOME_FXML));
@@ -120,10 +149,13 @@ public class LoginController implements Initializable
 		Scene currScene = new Scene(loginParent);
 		HomeController controller = loader.getController();
 		controller.init(generalDatabase, usernameField.getText());
-
-
-		Stage homeWindow;
-		homeWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+		Stage homeWindow = null;
+		if(actionEvent != null) {
+			homeWindow = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+		}else if(keyEvent != null){
+			homeWindow = (Stage) ((Node) keyEvent.getSource()).getScene().getWindow();
+		}
+		assert homeWindow != null;
 		homeWindow.setScene(currScene);
 		homeWindow.show();
 	}
