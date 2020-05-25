@@ -1,6 +1,7 @@
-package Controllers;
+package Controllers.ModelControllers;
 
 
+import Controllers.ModelControllers.LoginController;
 import Model.Databases.GeneralDatabase;
 import Model.SceneInterface;
 import com.jfoenix.controls.JFXButton;
@@ -12,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -49,6 +51,9 @@ public class HomeController implements SceneInterface
 
 	@FXML
 	private JFXTextArea quotearea;
+
+	@FXML
+	private Label check,save;
 
 
 
@@ -114,7 +119,7 @@ public class HomeController implements SceneInterface
 
 		int randomNum = ThreadLocalRandom.current().nextInt(1, 40 + 1);
 		try {
-			String quoteofD = Files.readAllLines(Paths.get("src/Controllers/Word.txt")).get(randomNum);
+			String quoteofD = Files.readAllLines(Paths.get("src/Controllers/TextFiles/Word.txt")).get(randomNum);
 
 			quotearea.setText(quoteofD);
 		}
@@ -127,9 +132,11 @@ public class HomeController implements SceneInterface
 	public void setMessage(String username){
 
 		String name = generalDatabase.grabFullName(username);
-
+		String firstName = generalDatabase.grabFirstName(username);
 
 		welcomeMessage.setText("Welcome, " + name + " and " + getGreeting());
+		check.setText(firstName+ "'s Checking");
+		save.setText(firstName + "'s Savings");
 
 
 

@@ -1,4 +1,4 @@
-package Controllers;
+package Controllers.ModelControllers;
 
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;

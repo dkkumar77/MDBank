@@ -1,4 +1,3 @@
-import Controllers.LoginController;
 import Model.Constants.ScreenDimensions;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

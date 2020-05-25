@@ -1,4 +1,4 @@
-package Controllers;
+package Controllers.ModelControllers;
 
 import Controllers.Util.EmailSender;
 import Model.Databases.AdminDatabase;

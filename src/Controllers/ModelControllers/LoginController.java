@@ -1,9 +1,8 @@
-package Controllers;
+package Controllers.ModelControllers;
 
 import Controllers.Util.DialogAlert;
-import Model.Constants.FilePaths;
 import Model.Databases.GeneralDatabase;
-import Model.Date;
+import Model.PatchUpdate;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.events.JFXDialogEvent;
 import javafx.animation.Animation;
@@ -20,7 +19,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -77,6 +75,13 @@ public class LoginController implements Initializable
 		//check for internet
 		generalDatabase = new GeneralDatabase();
 		initClock();
+		try {
+			initPatchUpdate();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+
 	}
 
 	private void initClock() {
@@ -89,6 +94,14 @@ public class LoginController implements Initializable
 		clock.play();
 	}
 
+	private void initPatchUpdate() throws IOException {
+
+
+		patchupdate.setText(PatchUpdate.readFile());
+
+
+
+	}
 
 
 	// GeneralDatabase was already initialized above ^^ so i deleted the one you wrote below

@@ -219,6 +219,13 @@ public class GeneralDatabase {
 
         return f + " " + l;
     }
+    public String grabFirstName(String username){
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
+        Item outcome = table.getItem(spec);
+        String fname = outcome.getString(GeneralDbColumns.firstName.name());
+
+        return fname;
+    }
 
     public String returnEmail(String username){
         GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);

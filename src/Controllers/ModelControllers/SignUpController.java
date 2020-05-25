@@ -1,5 +1,6 @@
-package Controllers;
+package Controllers.ModelControllers;
 
+import Controllers.ModelControllers.LoginController;
 import Controllers.Util.DialogAlert;
 import Controllers.Util.Encrypter;
 import Model.Customer;
@@ -14,7 +15,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;

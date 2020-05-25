@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="stackPane" prefHeight="730.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.HomeController">
+<StackPane fx:id="stackPane" prefHeight="730.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ModelControllers.HomeController">
    <children>
       <ImageView fitHeight="732.0" fitWidth="1001.0">
          <image>
@@ -29,8 +30,8 @@
                <font>
                   <Font name="Optima Italic" size="13.0" />
                </font></JFXTextArea>
-            <JFXTextField fx:id="currentBal" alignment="CENTER" editable="false" layoutX="70.0" layoutY="141.0" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424" />
-            <JFXTextField layoutX="70.0" layoutY="222.0" unFocusColor="WHITE" />
+            <JFXTextField fx:id="currentBal" alignment="CENTER" editable="false" layoutX="244.0" layoutY="144.0" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424" />
+            <JFXTextField layoutX="244.0" layoutY="222.0" unFocusColor="WHITE" />
             <ImageView fitHeight="37.0" fitWidth="42.0" layoutX="904.0" layoutY="27.0" opacity="0.38">
                <image>
                   <Image url="@../Images/84-840900_create-transparent-background-photoshop-transparent-settings-icon-hd.png" />
@@ -42,6 +43,16 @@
                   <Font name="Optima Regular" size="13.0" />
                </font>
             </JFXButton>
+            <Label fx:id="check" alignment="CENTER" layoutX="52.0" layoutY="163.0" prefHeight="17.0" prefWidth="120.0" text="Checkings" textFill="#cdcdcd">
+               <font>
+                  <Font name="Optima Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="save" alignment="CENTER" layoutX="53.0" layoutY="227.0" prefHeight="17.0" prefWidth="120.0" text="Savings" textFill="#cdcdcd">
+               <font>
+                  <Font name="Optima Bold" size="13.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>
