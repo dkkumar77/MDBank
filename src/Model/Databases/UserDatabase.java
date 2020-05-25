@@ -1,7 +1,7 @@
 package Model.Databases;
 
-import Model.Date;
-import Model.Transaction;
+import Model.Definitions.Date;
+import Model.Definitions.Transaction;
 import Model.Constants.UserDbColumns;
 import Model.Constants.TransactionType;
 
@@ -189,6 +189,10 @@ public class UserDatabase
 //		}
 		return items;
 	}
+
+
+
+
 
 	public synchronized void logTransaction(Transaction transaction, double newBalance)
 	{

@@ -1,9 +1,8 @@
 package Controllers.ModelControllers;
 
 
-import Controllers.ModelControllers.LoginController;
 import Model.Databases.GeneralDatabase;
-import Model.SceneInterface;
+import Model.Definitions.SceneInterface;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -23,7 +22,7 @@ import java.nio.file.Paths;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static Model.Constants.FilePaths.LOGIN_FXML;
-import static Model.Date.getGreeting;
+import static Model.Definitions.Date.getGreeting;
 
 
 // Every controller class will implement SceneInterface

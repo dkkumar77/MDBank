@@ -1,11 +1,10 @@
 package Controllers.ModelControllers;
 
-import Controllers.ModelControllers.LoginController;
 import Controllers.Util.DialogAlert;
 import Controllers.Util.Encrypter;
-import Model.Customer;
+import Model.Definitions.Customer;
 import Model.Databases.GeneralDatabase;
-import Model.Date;
+import Model.Definitions.Date;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.events.JFXDialogEvent;
 import javafx.event.ActionEvent;

@@ -1,13 +1,7 @@
 package Model.Databases;
 
-import Model.Constants.TransactionType;
-import Model.Transaction;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Field;
-import java.sql.SQLException;
-import java.util.Random;
 
 public class UserDBTest
 {

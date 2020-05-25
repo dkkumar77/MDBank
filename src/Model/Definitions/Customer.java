@@ -1,4 +1,4 @@
-package Model;
+package Model.Definitions;
 
 /**
  *   THIS CLASS SHOULD DEFINE CUSTOMER

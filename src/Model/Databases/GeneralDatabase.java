@@ -11,7 +11,7 @@ package Model.Databases;
  */
 import Model.Constants.DatabaseType;
 
-import Model.Customer;
+import Model.Definitions.Customer;
 import com.amazonaws.regions.Regions;
 import Model.Constants.GeneralDbColumns;
 import com.amazonaws.services.dynamodbv2.document.Item;

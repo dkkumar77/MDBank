@@ -2,24 +2,20 @@ package Controllers.ModelControllers;
 
 import Controllers.Util.EmailSender;
 import Model.Databases.AdminDatabase;
-import Model.Date;
-import Model.Email;
+import Model.Definitions.Date;
+import Model.Definitions.Email;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.events.JFXDialogEvent;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ReportBugController implements Initializable

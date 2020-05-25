@@ -1,4 +1,4 @@
-package Model;
+package Model.Definitions;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;

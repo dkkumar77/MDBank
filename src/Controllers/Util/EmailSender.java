@@ -2,7 +2,7 @@ package Controllers.Util;
 
 
 import Model.Databases.AdminDatabase;
-import Model.Email;
+import Model.Definitions.Email;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -10,7 +10,6 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
