@@ -21,7 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static Model.Constants.FilePaths.LOGIN_FXML;
+import static Model.Constants.FilePaths.*;
 import static Model.Definitions.Date.getGreeting;
 
 
@@ -107,7 +107,27 @@ public class HomeController implements SceneInterface
 	}
 
 	@FXML
-	public void handleSettingButton(){
+	public void handleSettingButton(ActionEvent press){
+		if(press.getSource().equals(setting)){
+			FXMLLoader loader = new FXMLLoader();
+
+			loader.setLocation(getClass().getResource(SETTINGS_PAGE));
+			Parent loginParent = null;
+			try {
+				loginParent = loader.load();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			assert loginParent != null;
+			Scene currScene = new Scene(loginParent);
+			SettingController controller = loader.getController();
+
+			Stage homeWindow;
+			homeWindow = (Stage) ((Node) press.getSource()).getScene().getWindow();
+			homeWindow.setScene(currScene);
+			homeWindow.show();
+
+		}
 
 
 
