@@ -3,11 +3,15 @@ package Controllers.ModelControllers;
 import Model.Databases.GeneralDatabase;
 import Model.Definitions.SceneInterface;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.events.JFXDialogEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.StackPane;
+import Controllers.Util.DialogAlert;
 
+import Controllers.Util.Encrypter;
 public class SettingController implements SceneInterface {
 
     @FXML
@@ -17,13 +21,13 @@ public class SettingController implements SceneInterface {
     private JFXButton submitButtonForPasswordChange;
 
     @FXML
-    private JFXTextField oldPassword;
+    private JFXPasswordField oldPassword;
 
     @FXML
-    private JFXTextField newPassword;
+    private JFXPasswordField newPassword;
 
     @FXML
-    private JFXTextField confirmNewPassword;
+    private JFXPasswordField confirmNewPassword;
 
     @FXML
     private StackPane stackpaneStatement;
@@ -50,7 +54,7 @@ public class SettingController implements SceneInterface {
     private JFXTextField joinDateAccountInfo;
 
     @FXML
-    private StackPane stackpaneInquiry;
+    private StackPane stackpaneInquiry, stackpane1;
 
     @FXML
     private StackPane stackpaneCloseAccount;
@@ -92,6 +96,10 @@ public class SettingController implements SceneInterface {
     private GeneralDatabase generalDatabase;
     private String username;
 
+    private DialogAlert alert;
+
+    private Encrypter encrypt;
+
 
     public void init(GeneralDatabase generalDatabase, String username) {
 
@@ -100,9 +108,10 @@ public class SettingController implements SceneInterface {
 
     }
 
-    
+
     @FXML
     void handleSubmitForEmailChange(ActionEvent event) {
+
 
     }
 
@@ -175,14 +184,44 @@ public class SettingController implements SceneInterface {
 
 
     @FXML
-    void handleSubmitPassword(ActionEvent event) {
+    void handleSubmitPassword(ActionEvent event) throws NullPointerException {
 
-        if(event.getSource().equals(submitButtonForPasswordChange)){
+        if (event.getSource().equals(submitButtonForPasswordChange)) {
+            if (!oldPassword.getText().isEmpty() || !newPassword.getText().isEmpty() || !confirmNewPassword.getText().isEmpty()) {
+                String oldpass = oldPassword.getText();
+
+                if (generalDatabase.returnHashedPass(username).equals(encrypt.getEncryptedPassword(oldpass))) {
+                    if (newPassword.getText().matches(".*[a-zA-Z]+.*")) {
+                        if (newPassword.getText().equals(confirmNewPassword.getText())) {
+
+                            generalDatabase.updatePasswordQuery(username, encrypt.getEncryptedPassword(newPassword.getText()));
+                            stackpanePass.toBack();
+                            oldPassword.setText("");
+                            newPassword.setText("");
+                            confirmNewPassword.setText("");
+
+
+                        } else {
+                            oldPassword.setText("");
+                            newPassword.setText("");
+                            confirmNewPassword.setText("");
+                        }
+                    }
+                } else {
+                    oldPassword.setText("");
+
+                }
+
+            } else {
+                oldPassword.setText("");
+                newPassword.setText("");
+                confirmNewPassword.setText("");
+
+            }
 
 
         }
     }
-
 
 
     @FXML
@@ -214,5 +253,8 @@ public class SettingController implements SceneInterface {
 
         }
     }
+
+
+
 
 }

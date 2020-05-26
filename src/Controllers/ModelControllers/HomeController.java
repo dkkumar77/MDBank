@@ -98,6 +98,7 @@ public class HomeController implements SceneInterface
 			Scene currScene = new Scene(loginParent);
 			LoginController controller = loader.getController();
 
+
 			Stage homeWindow;
 			homeWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			homeWindow.setScene(currScene);
@@ -121,6 +122,8 @@ public class HomeController implements SceneInterface
 			assert loginParent != null;
 			Scene currScene = new Scene(loginParent);
 			SettingController controller = loader.getController();
+			controller.init(generalDatabase, username);
+
 
 			Stage homeWindow;
 			homeWindow = (Stage) ((Node) press.getSource()).getScene().getWindow();

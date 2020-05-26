@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -13,6 +14,11 @@
 
 <AnchorPane prefHeight="750.0" prefWidth="1000.0" style="-fx-background-image: 112445936-settings-vector-icon-isolated-on-transparent-background-settings-transparency-logo-concept.jpg;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ModelControllers.SettingController">
    <children>
+      <StackPane fx:id="stackpane1" layoutY="7.0" prefHeight="750.0" prefWidth="1000.0">
+         <children>
+            <AnchorPane prefHeight="750.0" prefWidth="1000.0" />
+         </children>
+      </StackPane>
       <StackPane fx:id="stackpaneStatement" layoutX="463.0" layoutY="111.0" prefHeight="395.0" prefWidth="484.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#303132" height="402.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="484.0">
@@ -44,23 +50,28 @@
                   <JFXTextField fx:id="nameForAccountInfo" alignment="CENTER" editable="false" labelFloat="true" layoutX="163.0" layoutY="48.0" promptText="Name" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424">
                      <font>
                         <Font name="Optima Regular" size="13.0" />
-                     </font></JFXTextField>
+                     </font>
+                  </JFXTextField>
                   <JFXTextField fx:id="accountNumberForAccountInfo" alignment="CENTER" editable="false" labelFloat="true" layoutX="163.0" layoutY="112.0" promptText="Account Info" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424">
                      <font>
                         <Font name="Optima Regular" size="13.0" />
-                     </font></JFXTextField>
+                     </font>
+                  </JFXTextField>
                   <JFXTextField fx:id="emailForAccountInfo" alignment="CENTER" editable="false" labelFloat="true" layoutX="163.0" layoutY="174.0" promptText="Email" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424">
                      <font>
                         <Font name="Optima Regular" size="13.0" />
-                     </font></JFXTextField>
+                     </font>
+                  </JFXTextField>
                   <JFXTextField fx:id="dobForAccountInfo" alignment="CENTER" editable="false" labelFloat="true" layoutX="163.0" layoutY="245.0" promptText="Date of Birth" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424">
                      <font>
                         <Font name="Optima Regular" size="13.0" />
-                     </font></JFXTextField>
+                     </font>
+                  </JFXTextField>
                   <JFXTextField fx:id="joinDateAccountInfo" alignment="CENTER" editable="false" labelFloat="true" layoutX="163.0" layoutY="304.0" promptText="Join Date" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424">
                      <font>
                         <Font name="Optima Regular" size="13.0" />
-                     </font></JFXTextField>
+                     </font>
+                  </JFXTextField>
                </children>
             </AnchorPane>
          </children>
@@ -134,27 +145,29 @@
             </Rectangle>
             <AnchorPane prefHeight="383.0" prefWidth="466.0">
                <children>
-                  <JFXButton fx:id="submitButtonForPasswordChange" layoutX="198.0" layoutY="287.0" onAction="#handleSubmitPassword" prefHeight="27.0" prefWidth="101.0" text="Submit" textFill="WHITE">
+                  <JFXButton fx:id="submitButtonForPasswordChange" layoutX="210.0" layoutY="309.0" onAction="#handleSubmitPassword" prefHeight="27.0" prefWidth="101.0" text="Submit" textFill="WHITE">
                      <font>
                         <Font name="Optima Regular" size="13.0" />
                      </font>
                   </JFXButton>
-                  <JFXTextField fx:id="oldPassword" alignment="CENTER" layoutX="176.0" layoutY="80.0" promptText="Old Password" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424">
+                  <JFXPasswordField fx:id="oldPassword" alignment="CENTER" labelFloat="true" layoutX="182.0" layoutY="89.0" promptText="Old Password" styleClass="jfx-password-field" stylesheets="@ui.css" unFocusColor="#282424">
                      <font>
                         <Font name="Optima Regular" size="13.0" />
                      </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="newPassword" alignment="CENTER" layoutX="176.0" layoutY="150.0" promptText="New Password" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424">
+                  </JFXPasswordField>
+                  <JFXPasswordField fx:id="newPassword" alignment="CENTER" labelFloat="true" layoutX="182.0" layoutY="158.0" promptText="New Password" styleClass="jfx-password-field" stylesheets="@ui.css" unFocusColor="#282424">
                      <font>
                         <Font name="Optima Regular" size="13.0" />
                      </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="confirmNewPassword" alignment="CENTER" layoutX="176.0" layoutY="220.0" promptText="Confirm New Password" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424">
+                  </JFXPasswordField>
+                  <JFXPasswordField fx:id="confirmNewPassword" alignment="CENTER" labelFloat="true" layoutX="182.0" layoutY="238.0" promptText="Confirm New Password" styleClass="jfx-password-field" stylesheets="@ui.css" unFocusColor="#282424">
                      <font>
                         <Font name="Optima Regular" size="13.0" />
                      </font>
-                  </JFXTextField>
-               </children>
+                  </JFXPasswordField>
+
+                        
+                                       </children>
             </AnchorPane>
          </children>
       </StackPane>
