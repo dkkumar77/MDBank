@@ -126,11 +126,14 @@ public class SettingController implements SceneInterface {
     void handleAccountInformation(ActionEvent event) {
 
         if (event.getSource().equals(accountInformation)) {
-            stackpaneCloseAccount.toBack();
-            stackpaneEmailUpdate.toBack();
-            stackpaneInquiry.toBack();
-            stackpaneStatement.toBack();
-            stackpanePass.toBack();
+//            stackpaneCloseAccount.toBack();
+//            stackpaneEmailUpdate.toBack();
+//            stackpaneInquiry.toBack();
+//            stackpaneStatement.toBack();
+//            stackpanePass.toBack();
+
+            sendStackPanesToBack(stackpaneCloseAccount,stackpaneEmailUpdate,stackpaneInquiry,stackpaneStatement,
+                    stackpanePass);
             stackpaneAccountInfo.toFront();
 
         }
@@ -141,11 +144,15 @@ public class SettingController implements SceneInterface {
     void handleChangePassword(ActionEvent event) {
 
         if (event.getSource().equals(changePassword)) {
-            stackpaneAccountInfo.toBack();
-            stackpaneCloseAccount.toBack();
-            stackpaneEmailUpdate.toBack();
-            stackpaneInquiry.toBack();
-            stackpaneStatement.toBack();
+//            stackpaneAccountInfo.toBack();
+//            stackpaneCloseAccount.toBack();
+//            stackpaneEmailUpdate.toBack();
+//            stackpaneInquiry.toBack();
+//            stackpaneStatement.toBack();
+
+            sendStackPanesToBack(stackpaneAccountInfo,stackpaneCloseAccount,stackpaneEmailUpdate,stackpaneInquiry,
+                    stackpaneStatement);
+
             stackpanePass.toFront();
 
 
@@ -156,11 +163,15 @@ public class SettingController implements SceneInterface {
     void handleCloseAccount(ActionEvent event) {
 
         if (event.getSource().equals(closeAccount)) {
-            stackpaneAccountInfo.toBack();
-            stackpaneEmailUpdate.toBack();
-            stackpaneInquiry.toBack();
-            stackpaneStatement.toBack();
-            stackpanePass.toBack();
+//            stackpaneAccountInfo.toBack();
+//            stackpaneEmailUpdate.toBack();
+//            stackpaneInquiry.toBack();
+//            stackpaneStatement.toBack();
+//            stackpanePass.toBack();
+
+            sendStackPanesToBack(stackpaneAccountInfo,stackpaneEmailUpdate,stackpaneInquiry,
+                    stackpaneStatement,stackpanePass);
+
             stackpaneCloseAccount.toFront();
 
 
@@ -171,11 +182,15 @@ public class SettingController implements SceneInterface {
     void handleRecieveStatement(ActionEvent event) {
 
         if (event.getSource().equals(recieveStatement)) {
-            stackpaneAccountInfo.toBack();
-            stackpaneEmailUpdate.toBack();
-            stackpaneInquiry.toBack();
-            stackpanePass.toBack();
-            stackpaneCloseAccount.toBack();
+//            stackpaneAccountInfo.toBack();
+//            stackpaneEmailUpdate.toBack();
+//            stackpaneInquiry.toBack();
+//            stackpanePass.toBack();
+//            stackpaneCloseAccount.toBack();
+
+            sendStackPanesToBack(stackpaneAccountInfo,stackpaneEmailUpdate,stackpaneInquiry,stackpanePass,
+                    stackpaneCloseAccount);
+
             stackpaneStatement.toFront();
 
 
@@ -228,26 +243,39 @@ public class SettingController implements SceneInterface {
     void handleUpdateEmail(ActionEvent event) {
 
         if (event.getSource().equals(updateEmail)) {
-            stackpaneAccountInfo.toBack();
-            stackpaneInquiry.toBack();
-            stackpanePass.toBack();
-            stackpaneCloseAccount.toBack();
-            stackpaneStatement.toBack();
+            sendStackPanesToBack(stackpaneAccountInfo,stackpaneInquiry,stackpanePass,stackpaneCloseAccount,
+                    stackpaneStatement);
+//            stackpaneAccountInfo.toBack();
+//            stackpaneInquiry.toBack();
+//            stackpanePass.toBack();
+//            stackpaneCloseAccount.toBack();
+//            stackpaneStatement.toBack();
             stackpaneEmailUpdate.toFront();
 
         }
 
     }
 
+    private void sendStackPanesToBack(StackPane...stackPanes)
+    {
+        for(StackPane stackPane : stackPanes){
+            stackPane.toBack();
+        }
+    }
+
     @FXML
     void handlereportInquiry(ActionEvent event) {
 
         if (event.getSource().equals(reportInquiry)) {
-            stackpaneAccountInfo.toBack();
-            stackpanePass.toBack();
-            stackpaneCloseAccount.toBack();
-            stackpaneStatement.toBack();
-            stackpaneEmailUpdate.toBack();
+            sendStackPanesToBack(stackpaneAccountInfo,stackpanePass,stackpaneCloseAccount,stackpaneStatement,
+                    stackpaneEmailUpdate);
+
+//            stackpaneAccountInfo.toBack();
+//            stackpanePass.toBack();
+//            stackpaneCloseAccount.toBack();
+//            stackpaneStatement.toBack();
+//            stackpaneEmailUpdate.toBack();
+
             stackpaneInquiry.toFront();
 
 

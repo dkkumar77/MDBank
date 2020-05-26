@@ -24,15 +24,19 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#303132" height="521.0" layoutX="197.0" layoutY="60.0" opacity="0.3" stroke="BLACK" strokeType="INSIDE" width="629.0" />
             <JFXTextField fx:id="firstName" alignment="CENTER" labelFloat="true" layoutX="274.0" layoutY="164.0" promptText="First Name" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424" />
             <JFXTextField fx:id="lastName" alignment="CENTER" labelFloat="true" layoutX="275.0" layoutY="246.0" promptText="Last Name" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424" />
-            <JFXDatePicker fx:id="dob" defaultColor="#00e9ff" layoutX="274.0" layoutY="327.0" opacity="0.82" overLay="true" promptText="Date Of Birth" showWeekNumbers="true" styleClass="regular-text-field" stylesheets="@ui.css" AnchorPane.bottomAnchor="378.0" AnchorPane.leftAnchor="274.0" AnchorPane.rightAnchor="555.0" AnchorPane.topAnchor="327.0" />
-            <JFXTextField fx:id="userName" alignment="CENTER" labelFloat="true" layoutX="580.0" layoutY="163.0" promptText="Username" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424" />
+            <JFXDatePicker fx:id="dob" defaultColor="WHITE" layoutX="274.0" layoutY="327.0" opacity="0.82" overLay="true" promptText="Date Of Birth" showWeekNumbers="true" styleClass="regular-text-field" stylesheets="@ui.css" AnchorPane.bottomAnchor="378.0" AnchorPane.leftAnchor="274.0" AnchorPane.rightAnchor="555.0" AnchorPane.topAnchor="327.0" />
             <JFXTextField fx:id="email" alignment="CENTER" labelFloat="true" layoutX="398.0" layoutY="386.0" prefHeight="27.0" prefWidth="203.0" promptText="Email" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424" />
+            <JFXTextField fx:id="userName" alignment="CENTER" labelFloat="true" layoutX="580.0" layoutY="163.0" promptText="Username" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424" />
             <JFXPasswordField fx:id="password" alignment="CENTER" labelFloat="true" layoutX="575.0" layoutY="244.0" promptText="Password" styleClass="jfx-password-field" stylesheets="@ui.css" unFocusColor="#282424">
                <font>
                   <Font name="Optima Regular" size="13.0" />
                </font>
             </JFXPasswordField>
-            <JFXButton fx:id="submit" buttonType="RAISED" layoutX="466.0" layoutY="458.0" onAction="#handleSubmit" prefHeight="40.0" prefWidth="67.0" ripplerFill="#906666" text="Submit" textFill="#ddd6d6" />
+            <JFXPasswordField fx:id="confPassField" alignment="CENTER" layoutX="575.0" layoutY="325.0" promptText="Confirm Password" styleClass="jfx-password-field" stylesheets="@ui.css">
+               <font>
+                  <Font size="13.0" />
+               </font></JFXPasswordField>
+            <JFXButton fx:id="submit" buttonType="RAISED" layoutX="466.0" layoutY="458.0" onAction="#handleSubmit" prefHeight="40.0" prefWidth="67.0" ripplerFill="#906666" text="Submit" textFill="WHITE" />
             <Label disable="true" layoutX="447.0" layoutY="595.0" prefHeight="19.0" prefWidth="237.0" text="MD Software Corporation" textFill="#c6c2c2">
                <font>
                   <Font name="Optima Regular" size="13.0" />
@@ -43,10 +47,6 @@
                   <Font size="23.0" />
                </font>
             </JFXButton>
-            <JFXPasswordField fx:id="confPassField" alignment="CENTER" layoutX="575.0" layoutY="325.0" promptText="Confirm Password" styleClass="jfx-password-field" stylesheets="@ui.css">
-               <font>
-                  <Font size="13.0" />
-               </font></JFXPasswordField>
          </children>
       </AnchorPane>
    </children>
