@@ -4,6 +4,7 @@ import Model.Databases.GeneralDatabase;
 import Model.Definitions.SceneInterface;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.events.JFXDialogEvent;
 import javafx.event.ActionEvent;
@@ -87,10 +88,20 @@ public class SettingController implements SceneInterface {
     private JFXTextField confirmNewEmailForEmailChange;
 
     @FXML
-    private JFXTextField passwordForEmailChange;
+    private JFXPasswordField passwordForEmailChange;
 
     @FXML
     private JFXButton submitForEmailChange;
+
+    @FXML
+    private JFXTextArea textBoxForReportInquiry;
+
+    @FXML
+    private JFXTextField subjectForReportInquiry;
+
+    @FXML
+    private JFXButton  submitForReportInquiry, clearReportInquiry;
+
 
 
     private GeneralDatabase generalDatabase;
@@ -105,12 +116,72 @@ public class SettingController implements SceneInterface {
 
         this.generalDatabase = generalDatabase;
         this.username = username;
+        displayDocumentedInformation();
+
 
     }
 
 
+    void displayDocumentedInformation(){
+       String [] array =  generalDatabase.grabBulk(username);
+       nameForAccountInfo.setText(array[0]);
+       accountNumberForAccountInfo.setText(array[1]);
+       emailForAccountInfo.setText(array[2]);
+       dobForAccountInfo.setText(array[3]);
+       joinDateAccountInfo.setText(array[4]);
+
+
+    }
+
+    @FXML
+    void handleSendingInquiry(ActionEvent event){
+
+        if(event.getSource().equals(submitForReportInquiry)){
+
+
+
+            textBoxForReportInquiry.setText("");
+            subjectForReportInquiry.setText("");
+
+        }
+
+
+
+
+
+    }
+
+    void clearReportInquiry(ActionEvent event){
+        if(event.getSource().equals(clearReportInquiry)){
+            textBoxForReportInquiry.setText("");
+            subjectForReportInquiry.setText("");
+        }
+    }
+
+
+
     @FXML
     void handleSubmitForEmailChange(ActionEvent event) {
+
+        if (event.getSource().equals(submitForEmailChange)) {
+            if (!newEmailForEmailChange.getText().isEmpty() && !confirmNewEmailForEmailChange.getText().isEmpty() && !passwordForEmailChange.getText().isEmpty()) {
+                if (newEmailForEmailChange.getText().contains("@")) {
+                    if (newEmailForEmailChange.getText().equals(confirmNewEmailForEmailChange.getText())) {
+                        if (generalDatabase.returnHashedPass(username).equals(encrypt.getEncryptedPassword(passwordForEmailChange.getText()))) {
+                            generalDatabase.updateEmailQuery(username, newEmailForEmailChange.getText());
+                            passwordForEmailChange.setText("");
+                            newEmailForEmailChange.setText("");
+                            confirmNewEmailForEmailChange.setText("");
+                            stackpaneEmailUpdate.toBack();
+
+
+                        }
+                    }
+                }
+            }
+
+
+        }
 
 
     }
@@ -132,7 +203,7 @@ public class SettingController implements SceneInterface {
 //            stackpaneStatement.toBack();
 //            stackpanePass.toBack();
 
-            sendStackPanesToBack(stackpaneCloseAccount,stackpaneEmailUpdate,stackpaneInquiry,stackpaneStatement,
+            sendStackPanesToBack(stackpaneCloseAccount, stackpaneEmailUpdate, stackpaneInquiry, stackpaneStatement,
                     stackpanePass);
             stackpaneAccountInfo.toFront();
 
@@ -150,7 +221,7 @@ public class SettingController implements SceneInterface {
 //            stackpaneInquiry.toBack();
 //            stackpaneStatement.toBack();
 
-            sendStackPanesToBack(stackpaneAccountInfo,stackpaneCloseAccount,stackpaneEmailUpdate,stackpaneInquiry,
+            sendStackPanesToBack(stackpaneAccountInfo, stackpaneCloseAccount, stackpaneEmailUpdate, stackpaneInquiry,
                     stackpaneStatement);
 
             stackpanePass.toFront();
@@ -169,8 +240,8 @@ public class SettingController implements SceneInterface {
 //            stackpaneStatement.toBack();
 //            stackpanePass.toBack();
 
-            sendStackPanesToBack(stackpaneAccountInfo,stackpaneEmailUpdate,stackpaneInquiry,
-                    stackpaneStatement,stackpanePass);
+            sendStackPanesToBack(stackpaneAccountInfo, stackpaneEmailUpdate, stackpaneInquiry,
+                    stackpaneStatement, stackpanePass);
 
             stackpaneCloseAccount.toFront();
 
@@ -188,7 +259,7 @@ public class SettingController implements SceneInterface {
 //            stackpanePass.toBack();
 //            stackpaneCloseAccount.toBack();
 
-            sendStackPanesToBack(stackpaneAccountInfo,stackpaneEmailUpdate,stackpaneInquiry,stackpanePass,
+            sendStackPanesToBack(stackpaneAccountInfo, stackpaneEmailUpdate, stackpaneInquiry, stackpanePass,
                     stackpaneCloseAccount);
 
             stackpaneStatement.toFront();
@@ -243,7 +314,7 @@ public class SettingController implements SceneInterface {
     void handleUpdateEmail(ActionEvent event) {
 
         if (event.getSource().equals(updateEmail)) {
-            sendStackPanesToBack(stackpaneAccountInfo,stackpaneInquiry,stackpanePass,stackpaneCloseAccount,
+            sendStackPanesToBack(stackpaneAccountInfo, stackpaneInquiry, stackpanePass, stackpaneCloseAccount,
                     stackpaneStatement);
 //            stackpaneAccountInfo.toBack();
 //            stackpaneInquiry.toBack();
@@ -256,9 +327,8 @@ public class SettingController implements SceneInterface {
 
     }
 
-    private void sendStackPanesToBack(StackPane...stackPanes)
-    {
-        for(StackPane stackPane : stackPanes){
+    private void sendStackPanesToBack(StackPane... stackPanes) {
+        for (StackPane stackPane : stackPanes) {
             stackPane.toBack();
         }
     }
@@ -267,7 +337,7 @@ public class SettingController implements SceneInterface {
     void handlereportInquiry(ActionEvent event) {
 
         if (event.getSource().equals(reportInquiry)) {
-            sendStackPanesToBack(stackpaneAccountInfo,stackpanePass,stackpaneCloseAccount,stackpaneStatement,
+            sendStackPanesToBack(stackpaneAccountInfo, stackpanePass, stackpaneCloseAccount, stackpaneStatement,
                     stackpaneEmailUpdate);
 
 //            stackpaneAccountInfo.toBack();
@@ -281,6 +351,8 @@ public class SettingController implements SceneInterface {
 
         }
     }
+
+
 
 
 

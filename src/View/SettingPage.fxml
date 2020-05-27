@@ -76,45 +76,6 @@
             </AnchorPane>
          </children>
       </StackPane>
-      <StackPane fx:id="stackpaneInquiry" layoutX="463.0" layoutY="111.0" prefHeight="395.0" prefWidth="484.0">
-         <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#303132" height="402.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="484.0">
-               <StackPane.margin>
-                  <Insets />
-               </StackPane.margin>
-            </Rectangle>
-            <AnchorPane prefHeight="634.0" prefWidth="912.0" />
-         </children>
-      </StackPane>
-      <StackPane fx:id="stackpaneEmailUpdate" layoutX="463.0" layoutY="111.0" prefHeight="395.0" prefWidth="484.0">
-         <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#303132" height="402.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="484.0">
-               <StackPane.margin>
-                  <Insets />
-               </StackPane.margin>
-            </Rectangle>
-            <AnchorPane prefHeight="700.0" prefWidth="700.0">
-               <children>
-                  <JFXTextField fx:id="newEmailForEmailChange" alignment="CENTER" labelFloat="true" layoutX="181.0" layoutY="63.0" styleClass="jfx-text-field" stylesheets="@ui.css" text="New Email" unFocusColor="#282424">
-                     <font>
-                        <Font name="Optima Regular" size="13.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="confirmNewEmailForEmailChange" alignment="CENTER" labelFloat="true" layoutX="181.0" layoutY="144.0" styleClass="jfx-text-field" stylesheets="@ui.css" text="Confirm New Email" unFocusColor="#282424">
-                     <font>
-                        <Font name="Optima Regular" size="13.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="passwordForEmailChange" alignment="CENTER" labelFloat="true" layoutX="181.0" layoutY="235.0" promptText="Password" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424">
-                     <font>
-                        <Font name="Optima Regular" size="13.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXButton fx:id="submitForEmailChange" layoutX="232.0" layoutY="316.0" onAction="#handleSubmitForEmailChange" text="Submit" textFill="WHITE" />
-               </children>
-            </AnchorPane>
-         </children>
-      </StackPane>
       <StackPane fx:id="stackpaneCloseAccount" layoutX="463.0" layoutY="111.0" prefHeight="395.0" prefWidth="484.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#303132" height="402.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="484.0">
@@ -125,17 +86,6 @@
             <AnchorPane prefHeight="634.0" prefWidth="912.0" />
          </children>
       </StackPane>
-      <ImageView fitHeight="765.0" fitWidth="1008.0" layoutX="-1.0" layoutY="-7.0">
-         <image>
-            <Image url="@../Images/800252.png" />
-         </image>
-      </ImageView>
-      <JFXButton fx:id="changePassword" layoutX="117.0" layoutY="101.0" onAction="#handleChangePassword" text="Change Password" textFill="#eeeeee" />
-      <JFXButton fx:id="accountInformation" layoutX="116.0" layoutY="259.0" onAction="#handleAccountInformation" text="Accunt Information" textFill="#eeeeee" />
-      <JFXButton fx:id="updateEmail" layoutX="116.0" layoutY="339.0" onAction="#handleUpdateEmail" text="Update Email Adress" textFill="#eeeeee" />
-      <JFXButton fx:id="closeAccount" layoutX="127.0" layoutY="503.0" onAction="#handleCloseAccount" text="Close Account" textFill="#eeeeee" />
-      <JFXButton fx:id="reportInquiry" layoutX="127.0" layoutY="423.0" onAction="#handlereportInquiry" text="Report Inquiry" textFill="#eeeeee" />
-      <JFXButton fx:id="recieveStatement" layoutX="116.0" layoutY="175.0" onAction="#handleRecieveStatement" text="Recieve Statement" textFill="#eeeeee" />
       <StackPane fx:id="stackpanePass" layoutX="453.0" layoutY="101.0" prefHeight="395.0" prefWidth="484.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#303132" height="402.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="484.0">
@@ -166,9 +116,69 @@
                      </font>
                   </JFXPasswordField>
 
-                        
-                                       </children>
+
+               </children>
             </AnchorPane>
+         </children>
+      </StackPane>
+      <StackPane fx:id="stackpaneEmailUpdate" layoutX="463.0" layoutY="111.0" prefHeight="395.0" prefWidth="484.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#303132" height="402.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="484.0">
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
+            </Rectangle>
+            <AnchorPane prefHeight="700.0" prefWidth="700.0">
+               <children>
+                  <JFXTextField fx:id="newEmailForEmailChange" alignment="CENTER" labelFloat="true" layoutX="181.0" layoutY="63.0" promptText="New Email" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424">
+                     <font>
+                        <Font name="Optima Regular" size="13.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXTextField fx:id="confirmNewEmailForEmailChange" alignment="CENTER" labelFloat="true" layoutX="181.0" layoutY="144.0" promptText="Confirm New Email" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424">
+                     <font>
+                        <Font name="Optima Regular" size="13.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXButton fx:id="submitForEmailChange" layoutX="232.0" layoutY="316.0" onAction="#handleSubmitForEmailChange" text="Submit" textFill="WHITE" />
+                  <JFXPasswordField fx:id="passwordForEmailChange" alignment="CENTER" labelFloat="true" layoutX="177.0" layoutY="233.0" promptText="Password" styleClass="jfx-password-field" stylesheets="@ui.css" unFocusColor="#282424" />
+               </children>
+            </AnchorPane>
+         </children>
+      </StackPane>
+      <ImageView fitHeight="765.0" fitWidth="1008.0" layoutX="-1.0" layoutY="-7.0">
+         <image>
+            <Image url="@../Images/800252.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="changePassword" layoutX="117.0" layoutY="101.0" onAction="#handleChangePassword" text="Change Password" textFill="#eeeeee" />
+      <JFXButton fx:id="accountInformation" layoutX="116.0" layoutY="259.0" onAction="#handleAccountInformation" text="Accunt Information" textFill="#eeeeee" />
+      <JFXButton fx:id="updateEmail" layoutX="116.0" layoutY="339.0" onAction="#handleUpdateEmail" text="Update Email Adress" textFill="#eeeeee" />
+      <JFXButton fx:id="closeAccount" layoutX="127.0" layoutY="503.0" onAction="#handleCloseAccount" text="Close Account" textFill="#eeeeee" />
+      <JFXButton fx:id="reportInquiry" layoutX="127.0" layoutY="423.0" onAction="#handlereportInquiry" text="Report Inquiry" textFill="#eeeeee" />
+      <JFXButton fx:id="recieveStatement" layoutX="116.0" layoutY="175.0" onAction="#handleRecieveStatement" text="Recieve Statement" textFill="#eeeeee" />
+      <StackPane fx:id="stackpaneInquiry" layoutX="463.0" layoutY="111.0" prefHeight="395.0" prefWidth="484.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#303132" height="402.0" opacity="0.6" stroke="BLACK" strokeType="INSIDE" width="484.0">
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
+            </Rectangle>
+            <AnchorPane prefHeight="634.0" prefWidth="912.0">
+               <children>
+                  <JFXTextField fx:id="subjectForReportInquiry" layoutX="45.0" layoutY="46.0" prefHeight="27.0" prefWidth="414.0" />
+                  <JFXTextField fx:id="textBoxForReportInquiry" layoutX="45.0" layoutY="106.0" prefHeight="221.0" prefWidth="414.0" />
+                  <JFXButton fx:id="submitForReportInquiry" layoutX="393.0" layoutY="337.0" onAction="#handleSendingInquiry" prefHeight="27.0" prefWidth="70.0" text="Send" textFill="#5d61ab">
+                     <font>
+                        <Font name="Optima Bold" size="13.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="clearReportInquiry" layoutX="400.0" layoutY="14.0" prefHeight="27.0" prefWidth="57.0" text="Clear" textFill="#5d61ab">
+                     <font>
+                        <Font name="Optima Bold" size="13.0" />
+                     </font>
+                  </JFXButton>
+               </children></AnchorPane>
          </children>
       </StackPane>
    </children>

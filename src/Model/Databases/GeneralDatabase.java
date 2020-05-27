@@ -27,6 +27,7 @@ import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
 
+import java.lang.reflect.Array;
 import java.util.Map;
 import java.util.Random;
 
@@ -201,7 +202,7 @@ public class GeneralDatabase {
         table.updateItem(updateItemSpec);
     }
 
-    public String grabFullName(String username) {
+    public static String grabFullName(String username) {
         GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
         Item outcome = table.getItem(spec);
         String f = outcome.getString(GeneralDbColumns.firstName.name());
@@ -218,7 +219,7 @@ public class GeneralDatabase {
         return fname;
     }
 
-    public String returnEmail(String username) {
+    public static String returnEmail(String username) {
         GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
         Item outcome = table.getItem(spec);
         String email = outcome.getString(GeneralDbColumns.primaryEmail.name());
@@ -236,16 +237,45 @@ public class GeneralDatabase {
     }
 
 
-    public Number getAccountID(String username) {
+    public static Number getAccountID(String username) {
         GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
         Item outcome = table.getItem(spec);
         return outcome.getNumber(GeneralDbColumns.accountID.name());
+    }
+
+    public static String returnDOB(String username) {
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
+        Item outcome = table.getItem(spec);
+        String dob = outcome.getString(GeneralDbColumns.dob.name());
+
+        return dob;
+    }
+    public static String returnDateCreated(String username) {
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
+        Item outcome = table.getItem(spec);
+        String dateCreated = outcome.getString(GeneralDbColumns.dateCreated.name());
+
+        return dateCreated;
     }
 
 
 
 
 
+
+    public static String []  grabBulk(String username){
+        String [] array =  new String[5];
+        array[0] = grabFullName(username);
+        array[1] = getAccountID(username).toString();
+        array[2] = returnEmail(username);
+        array[3] = returnDOB(username);
+        array[4] = returnDateCreated(username);
+
+        return array;
+
+
+
+    }
 
 
 }
