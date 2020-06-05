@@ -202,7 +202,7 @@ public class GeneralDatabase {
         table.updateItem(updateItemSpec);
     }
 
-    public static String grabFullName(String username) {
+    public String grabFullName(String username) {
         GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
         Item outcome = table.getItem(spec);
         String f = outcome.getString(GeneralDbColumns.firstName.name());
@@ -219,7 +219,7 @@ public class GeneralDatabase {
         return fname;
     }
 
-    public static String returnEmail(String username) {
+    public String returnEmail(String username) {
         GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
         Item outcome = table.getItem(spec);
         String email = outcome.getString(GeneralDbColumns.primaryEmail.name());
@@ -237,20 +237,20 @@ public class GeneralDatabase {
     }
 
 
-    public static Number getAccountID(String username) {
+    public Number getAccountID(String username) {
         GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
         Item outcome = table.getItem(spec);
         return outcome.getNumber(GeneralDbColumns.accountID.name());
     }
 
-    public static String returnDOB(String username) {
+    public String returnDOB(String username) {
         GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
         Item outcome = table.getItem(spec);
         String dob = outcome.getString(GeneralDbColumns.dob.name());
 
         return dob;
     }
-    public static String returnDateCreated(String username) {
+    public String returnDateCreated(String username) {
         GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
         Item outcome = table.getItem(spec);
         String dateCreated = outcome.getString(GeneralDbColumns.dateCreated.name());
@@ -263,7 +263,7 @@ public class GeneralDatabase {
 
 
 
-    public static String []  grabBulk(String username){
+    public String []  grabBulk(String username){
         String [] array =  new String[5];
         array[0] = grabFullName(username);
         array[1] = getAccountID(username).toString();

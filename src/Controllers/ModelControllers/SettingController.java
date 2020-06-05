@@ -1,6 +1,9 @@
 package Controllers.ModelControllers;
 
+import Controllers.Util.EmailSender;
+import Model.Databases.AdminDatabase;
 import Model.Databases.GeneralDatabase;
+import Model.Definitions.Email;
 import Model.Definitions.SceneInterface;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -137,11 +140,18 @@ public class SettingController implements SceneInterface {
     void handleSendingInquiry(ActionEvent event){
 
         if(event.getSource().equals(submitForReportInquiry)){
-
-
-
-            textBoxForReportInquiry.setText("");
-            subjectForReportInquiry.setText("");
+            if(textBoxForReportInquiry.getText().length() > 0 && subjectForReportInquiry.getText().length() > 0){
+                Email inquiryEmail = new Email(AdminDatabase.returnAdminInfo("admin1").get(0),
+                        textBoxForReportInquiry.getText(),subjectForReportInquiry.getText(),null);
+                EmailSender emailSender = new EmailSender(inquiryEmail);
+                if(emailSender.send()){
+                    DialogAlert.showOKDialog(stackpaneInquiry,"Email Sent");
+                    textBoxForReportInquiry.clear();
+                    subjectForReportInquiry.clear();
+                }
+            }else{
+                DialogAlert.showOKDialog(stackpaneInquiry,"Please enter a message");
+            }
 
         }
 
@@ -150,8 +160,8 @@ public class SettingController implements SceneInterface {
 
 
     }
-
-    void clearReportInquiry(ActionEvent event){
+    @FXML
+    public void clearReportInquiry(ActionEvent event){
         if(event.getSource().equals(clearReportInquiry)){
             textBoxForReportInquiry.setText("");
             subjectForReportInquiry.setText("");
