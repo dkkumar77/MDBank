@@ -30,6 +30,12 @@ import static Model.Definitions.Date.getGreeting;
 // each new controller from making a new connection with the database.
 public class HomeController implements SceneInterface
 {
+
+
+
+	/*
+
+	 */
 	@FXML
 	public StackPane stackPane;
 
@@ -53,6 +59,42 @@ public class HomeController implements SceneInterface
 
 	@FXML
 	private Label check,save;
+
+
+    @FXML
+    private JFXButton transferWithinAccount;
+
+    @FXML
+    private JFXButton transferToAnother;
+
+    @FXML
+    private JFXButton withdraw;
+
+    @FXML
+    private JFXButton deposit;
+
+    @FXML
+    private JFXButton recentTransaction;
+
+
+    @FXML
+    void handleRecentTransaction(ActionEvent event) {
+	}
+
+    @FXML
+    void handleTransferToAnother(ActionEvent event) {
+
+    }
+
+    @FXML
+    void handleTransferWithinAccounts(ActionEvent event) {
+
+    }
+
+    @FXML
+    void handleWithdraw(ActionEvent event) {
+
+	}
 
 
 

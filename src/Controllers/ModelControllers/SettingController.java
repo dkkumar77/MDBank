@@ -12,10 +12,20 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.events.JFXDialogEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import Controllers.Util.DialogAlert;
+import Model.Constants.FilePaths;
+
 
 import Controllers.Util.Encrypter;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
 public class SettingController implements SceneInterface {
 
     @FXML
@@ -70,7 +80,8 @@ public class SettingController implements SceneInterface {
     private JFXButton accountInformation;
 
     @FXML
-    private JFXButton updateEmail;
+    private JFXButton updateEmail, back;
+
 
     @FXML
     private JFXButton closeAccount;
@@ -319,6 +330,17 @@ public class SettingController implements SceneInterface {
         }
     }
 
+
+
+    @FXML
+    void handleback(ActionEvent event){
+        if(event.getSource().equals(back)){
+
+
+        }
+
+
+    }
 
     @FXML
     void handleUpdateEmail(ActionEvent event) {

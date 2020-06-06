@@ -69,6 +69,9 @@ public class LoginController implements Initializable
 
 	private GeneralDatabase generalDatabase;
 
+
+	private String username;
+
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle)
 	{
@@ -80,6 +83,13 @@ public class LoginController implements Initializable
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+
+	}
+
+	public void init(GeneralDatabase database, String username){
+		this.generalDatabase = database;
+		this.username= username;
 
 
 	}

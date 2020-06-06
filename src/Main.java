@@ -22,10 +22,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    /*
-    HELLO
 
-     */
 
 
     public static void main(String[] args) {

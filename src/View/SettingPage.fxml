@@ -191,5 +191,10 @@
       <JFXButton fx:id="closeAccount" layoutX="127.0" layoutY="503.0" onAction="#handleCloseAccount" text="Close Account" textFill="#eeeeee" />
       <JFXButton fx:id="reportInquiry" layoutX="127.0" layoutY="423.0" onAction="#handlereportInquiry" text="Report Inquiry" textFill="#eeeeee" />
       <JFXButton fx:id="recieveStatement" layoutX="116.0" layoutY="175.0" onAction="#handleRecieveStatement" text="Recieve Statement" textFill="#eeeeee" />
+      <JFXButton fx:id="back" layoutX="61.0" layoutY="30.0" onAction="#handleback" ripplerFill="#473dc6" text="Back" textFill="#f8c0c0">
+         <font>
+            <Font name="Optima Regular" size="13.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>
