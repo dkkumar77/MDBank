@@ -3,6 +3,7 @@ package Controllers.ModelControllers;
 import Controllers.Util.EmailSender;
 import Model.Databases.AdminDatabase;
 import Model.Databases.GeneralDatabase;
+import Model.Databases.UserDatabase;
 import Model.Definitions.Email;
 import Model.Definitions.SceneInterface;
 import com.jfoenix.controls.JFXButton;
@@ -16,6 +17,12 @@ import javafx.scene.layout.StackPane;
 import Controllers.Util.DialogAlert;
 
 import Controllers.Util.Encrypter;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class SettingController implements SceneInterface {
 
     @FXML
@@ -199,6 +206,28 @@ public class SettingController implements SceneInterface {
 
     @FXML
     void handleSubmitStatementQuery(ActionEvent event) {
+        if(event.getSource().equals(submitStatementQuery)){
+            File pdfFile = new File("MonthlyStatement.pdf");
+            UserDatabase userDatabase = new UserDatabase("user",generalDatabase);
+            List<String> attachment = new ArrayList<>(1);
+            try {
+                userDatabase.saveMonthlyStatementToPdf(pdfFile,5,2020);
+                attachment.add(pdfFile.getPath());
+                Email statementEmail = new Email(generalDatabase.returnEmail(username),"MD Bank Monthly Statement",
+                        "Dear "+generalDatabase.grabFirstName(username)+",\nYour statment is attached.\n" +
+                                "PLEASE DO NOT REPLY AS THIS EMAIL IS NOT MONITORED.\nThank you for being a customer.\n",
+                        attachment);
+                EmailSender emailSender = new EmailSender(statementEmail);
+                if(emailSender.send()){
+                    DialogAlert.showOKDialog(stackpaneStatement,"Email Sent");
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            if(pdfFile.exists()){
+                pdfFile.deleteOnExit();
+            }
+        }
 
     }
 
