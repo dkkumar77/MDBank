@@ -28,7 +28,7 @@
             </Rectangle>
             <AnchorPane prefHeight="634.0" prefWidth="912.0">
                <children>
-                  <JFXTextArea editable="false" layoutX="52.0" layoutY="42.0" prefHeight="159.0" prefWidth="407.0" promptText="YOU ARE RESPONSIBLE FOR SHIT" styleClass="jfx-text-area" stylesheets="@ui.css" unFocusColor="#282424">
+                  <JFXTextArea editable="false" layoutX="52.0" layoutY="42.0" prefHeight="159.0" prefWidth="407.0" promptText="Get your monthly statement" styleClass="jfx-text-area" stylesheets="@ui.css" unFocusColor="#282424">
                      <font>
                         <Font name="Optima Regular" size="13.0" />
                      </font>
