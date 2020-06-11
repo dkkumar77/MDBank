@@ -4,4 +4,6 @@ Patch 1.01 - Added Asterisk for incorrect username, password
 Patch 1.02 - Patch Update is fully functional
 06/05/2020-
 Patch 1.03 - User can send inquiries thru settings page
+06/10/2020-
+Patch 1.04 - User can recieve their monthly statement through settings page
 
