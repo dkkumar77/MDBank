@@ -12,10 +12,23 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.events.JFXDialogEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import Controllers.Util.DialogAlert;
+import Model.Constants.FilePaths;
+
 
 import Controllers.Util.Encrypter;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
+import static Model.Constants.FilePaths.HOME_FXML;
+import static Model.Constants.FilePaths.LOGIN_FXML;
+
 public class SettingController implements SceneInterface {
 
     @FXML
@@ -70,7 +83,8 @@ public class SettingController implements SceneInterface {
     private JFXButton accountInformation;
 
     @FXML
-    private JFXButton updateEmail;
+    private JFXButton updateEmail, back;
+
 
     @FXML
     private JFXButton closeAccount;
@@ -319,6 +333,37 @@ public class SettingController implements SceneInterface {
         }
     }
 
+
+
+    @FXML
+    void handleback(ActionEvent event){
+        if(event.getSource().equals(back)){
+
+            FXMLLoader loader = new FXMLLoader();
+
+            loader.setLocation(getClass().getResource(HOME_FXML));
+            Parent loginParent = null;
+            try {
+                loginParent = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            assert loginParent != null;
+            Scene currScene = new Scene(loginParent);
+            HomeController controller = loader.getController();
+            controller.init(generalDatabase,username);
+            
+
+
+            Stage homeWindow;
+            homeWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            homeWindow.setScene(currScene);
+            homeWindow.show();
+
+        }
+
+
+    }
 
     @FXML
     void handleUpdateEmail(ActionEvent event) {

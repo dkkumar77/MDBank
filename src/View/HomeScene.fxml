@@ -56,7 +56,7 @@
             <JFXButton fx:id="transferWithinAccount" layoutX="713.0" layoutY="231.0" onAction="#handleTransferWithinAccounts" prefHeight="37.0" prefWidth="222.0" text="Transfer Funds Within this Account" textFill="#bcb7b7" />
             <JFXButton fx:id="transferToAnother" layoutX="713.0" layoutY="283.0" onAction="#handleTransferToAnother" prefHeight="37.0" prefWidth="222.0" text="Transfer Funds to Another User" textFill="#bcb7b7" />
             <JFXButton fx:id="withdraw" layoutX="713.0" layoutY="180.0" onAction="#handleWithdraw" prefHeight="37.0" prefWidth="222.0" text="Withdraw" textFill="#bcb7b7" />
-            <JFXButton fx:id="deposit" layoutX="713.0" layoutY="126.0" onAction="#handleDeposit" prefHeight="37.0" prefWidth="222.0" text="Deposit " textFill="#bcb7b7" />
+            <JFXButton fx:id="deposit" layoutX="713.0" layoutY="126.0" prefHeight="37.0" prefWidth="222.0" text="Deposit " textFill="#bcb7b7" />
             <JFXButton fx:id="recentTransaction" layoutX="713.0" layoutY="329.0" onAction="#handleRecentTransaction" prefHeight="37.0" prefWidth="222.0" text="Recent Transaction" textFill="#bcb7b7" />
          </children>
       </AnchorPane>

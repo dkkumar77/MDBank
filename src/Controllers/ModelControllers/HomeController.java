@@ -15,11 +15,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static Model.Constants.FilePaths.*;
 import static Model.Definitions.Date.getGreeting;
@@ -28,9 +30,7 @@ import static Model.Definitions.Date.getGreeting;
 // Every controller class will implement SceneInterface
 // This was the database variable will only have one connection through out the program and it will prevent
 // each new controller from making a new connection with the database.
-public class HomeController implements SceneInterface
-{
-
+public class HomeController implements SceneInterface {
 
 
 	/*
@@ -53,55 +53,50 @@ public class HomeController implements SceneInterface
 	private JFXButton setting, logoffButton;
 
 
-
 	@FXML
 	private JFXTextArea quotearea;
 
 	@FXML
-	private Label check,save;
+	private Label check, save;
 
 
-    @FXML
-    private JFXButton transferWithinAccount;
+	@FXML
+	private JFXButton transferWithinAccount;
 
-    @FXML
-    private JFXButton transferToAnother;
+	@FXML
+	private JFXButton transferToAnother;
 
-    @FXML
-    private JFXButton withdraw;
+	@FXML
+	private JFXButton withdraw;
 
-    @FXML
-    private JFXButton deposit;
+	@FXML
+	private JFXButton deposit;
 
-    @FXML
-    private JFXButton recentTransaction;
+	@FXML
+	private JFXButton recentTransaction;
 
 
-    @FXML
-    void handleRecentTransaction(ActionEvent event) {
+	@FXML
+	void handleRecentTransaction(ActionEvent event) {
 	}
 
-    @FXML
-    void handleTransferToAnother(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleTransferWithinAccounts(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleWithdraw(ActionEvent event) {
+	@FXML
+	void handleTransferToAnother(ActionEvent event) {
 
 	}
 
+	@FXML
+	void handleTransferWithinAccounts(ActionEvent event) {
+
+	}
+
+	@FXML
+	void handleWithdraw(ActionEvent event) {
+
+	}
 
 
-
-
-	public void init(GeneralDatabase generalDatabase, String username)
-	{
+	public void init(GeneralDatabase generalDatabase, String username) {
 
 		this.generalDatabase = generalDatabase;
 		this.username = username;
@@ -111,22 +106,20 @@ public class HomeController implements SceneInterface
 		setUserCurrentBalance();
 
 
-
 	}
 
 
-	public void setUserCurrentBalance(){
+	public void setUserCurrentBalance() {
 
 		currentBal.setText(Double.toString((generalDatabase.getCurrentBalance(username))));
-
 
 
 	}
 
 
 	@FXML
-	public void handleLogoff(ActionEvent event){
-		if(event.getSource().equals(logoffButton)){
+	public void handleLogoff(ActionEvent event) {
+		if (event.getSource().equals(logoffButton)) {
 			FXMLLoader loader = new FXMLLoader();
 
 			loader.setLocation(getClass().getResource(LOGIN_FXML));
@@ -150,8 +143,8 @@ public class HomeController implements SceneInterface
 	}
 
 	@FXML
-	public void handleSettingButton(ActionEvent press){
-		if(press.getSource().equals(setting)){
+	public void handleSettingButton(ActionEvent press) {
+		if (press.getSource().equals(setting)) {
 			FXMLLoader loader = new FXMLLoader();
 
 			loader.setLocation(getClass().getResource(SETTINGS_PAGE));
@@ -175,10 +168,8 @@ public class HomeController implements SceneInterface
 		}
 
 
-
-
-
 	}
+
 	public void setQuote() {
 
 		int randomNum = ThreadLocalRandom.current().nextInt(1, 40 + 1);
@@ -186,26 +177,70 @@ public class HomeController implements SceneInterface
 			String quoteofD = Files.readAllLines(Paths.get("src/Controllers/TextFiles/Word.txt")).get(randomNum);
 
 			quotearea.setText(quoteofD);
-		}
-		catch(IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 
 	}
-	public void setMessage(String username){
+
+	public void setMessage(String username) {
 
 		String name = generalDatabase.grabFullName(username);
 		String firstName = generalDatabase.grabFirstName(username);
 
 		welcomeMessage.setText("Welcome, " + name + " and " + getGreeting());
-		check.setText(firstName+ "'s Checking");
+		check.setText(firstName + "'s Checking");
 		save.setText(firstName + "'s Savings");
 
+
+	}
+
+
+
+	public void handleDeposit(ActionEvent actionEvent) throws IOException {
+
+		if(actionEvent.getSource().equals(deposit)){
+
+
+		}
+
+	}
+
+
+	public void handleSceneChange(ActionEvent actionEvent, String resource) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(TRANSACTION_PAGE));
+		Parent root = (Parent) fxmlLoader.load();
+
+
+		//init . CONTROLLER NAME ( TO DO )
+
+
+
+		Stage stage = new Stage();
+		stage.setScene(new Scene(root));
+		stage.initStyle(StageStyle.UNDECORATED);
+		stage.setMaxHeight(200);
+		stage.setMinHeight(200);
+		stage.setMaxWidth(400);
+		stage.setMinWidth(400);
+
+		// controller stuff;
+		AtomicReference<Double> xOffset = new AtomicReference<>((double) 0);
+		AtomicReference<Double> yOffset = new AtomicReference<>((double) 0);
+		root.setOnMousePressed(event -> {
+			xOffset.set(event.getSceneX());
+			yOffset.set(event.getSceneY());
+		});
+		root.setOnMouseDragged(event -> {
+			stage.setX(event.getScreenX() - xOffset.get());
+			stage.setY(event.getScreenY() - yOffset.get());
+		});
 
 
 	}
 }
+
 
 
 
