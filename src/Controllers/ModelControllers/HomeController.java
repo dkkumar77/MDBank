@@ -1,6 +1,7 @@
 package Controllers.ModelControllers;
 
 
+import Model.Constants.TransactionType;
 import Model.Databases.GeneralDatabase;
 import Model.Definitions.SceneInterface;
 import com.jfoenix.controls.JFXButton;
@@ -14,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -198,9 +200,12 @@ public class HomeController implements SceneInterface {
 
 
 
+	@FXML
 	public void handleDeposit(ActionEvent actionEvent) throws IOException {
 
 		if(actionEvent.getSource().equals(deposit)){
+
+			handleSceneChange(actionEvent, TransactionType.DEPOSIT);
 
 
 		}
@@ -208,14 +213,11 @@ public class HomeController implements SceneInterface {
 	}
 
 
-	public void handleSceneChange(ActionEvent actionEvent, String resource) throws IOException {
+
+	//actionEvent and resource get apssed
+	public void handleSceneChange(ActionEvent actionEvent, TransactionType resource) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(TRANSACTION_PAGE));
 		Parent root = (Parent) fxmlLoader.load();
-
-
-		//init . CONTROLLER NAME ( TO DO )
-
-
 
 		Stage stage = new Stage();
 		stage.setScene(new Scene(root));
@@ -224,7 +226,14 @@ public class HomeController implements SceneInterface {
 		stage.setMinHeight(200);
 		stage.setMaxWidth(400);
 		stage.setMinWidth(400);
+		handleTransactionController controller = new handleTransactionController();
+		if(resource.equals(TransactionType.DEPOSIT)){
+			controller.initDeposit(generalDatabase, username);
 
+		}
+		if(resource.equals(TransactionType.WITHDRAWAL)){
+
+		}
 		// controller stuff;
 		AtomicReference<Double> xOffset = new AtomicReference<>((double) 0);
 		AtomicReference<Double> yOffset = new AtomicReference<>((double) 0);
@@ -236,6 +245,8 @@ public class HomeController implements SceneInterface {
 			stage.setX(event.getScreenX() - xOffset.get());
 			stage.setY(event.getScreenY() - yOffset.get());
 		});
+		stage.initModality(Modality.APPLICATION_MODAL);
+		stage.show();
 
 
 	}
