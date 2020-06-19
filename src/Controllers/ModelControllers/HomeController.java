@@ -147,6 +147,8 @@ public class HomeController implements SceneInterface {
 	@FXML
 	public void handleSettingButton(ActionEvent press) {
 		if (press.getSource().equals(setting)) {
+
+
 			FXMLLoader loader = new FXMLLoader();
 
 			loader.setLocation(getClass().getResource(SETTINGS_PAGE));
@@ -212,10 +214,39 @@ public class HomeController implements SceneInterface {
 
 	}
 
+	@FXML
+	public void handleWithdrawl(ActionEvent event) throws IOException {
+
+		if (event.getSource().equals(withdraw)) {
+
+			handleSceneChange(event, TransactionType.WITHDRAWAL);
 
 
+		}
+	}
+
+	@FXML
+	public void handleTransferIn(ActionEvent event) throws IOException{
+
+		if (event.getSource().equals(transferWithinAccount)){
+
+			handleSceneChange(event, TransactionType.TRANSFERWITHIN);
+
+		}
+	}
+
+
+	@FXML
+	public void handleTransferOut(ActionEvent event) throws IOException{
+
+		if(event.getSource().equals(transferToAnother)){
+			handleSceneChange(event, TransactionType.TRANSFEROUT);
+
+		}
+	}
 	//actionEvent and resource get apssed
 	public void handleSceneChange(ActionEvent actionEvent, TransactionType resource) throws IOException {
+
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(TRANSACTION_PAGE));
 		Parent root = (Parent) fxmlLoader.load();
 
@@ -227,13 +258,9 @@ public class HomeController implements SceneInterface {
 		stage.setMaxWidth(400);
 		stage.setMinWidth(400);
 		handleTransactionController controller = new handleTransactionController();
-		if(resource.equals(TransactionType.DEPOSIT)){
-			controller.initDeposit(generalDatabase, username);
+		controller.init(generalDatabase,username,resource);
 
-		}
-		if(resource.equals(TransactionType.WITHDRAWAL)){
 
-		}
 		// controller stuff;
 		AtomicReference<Double> xOffset = new AtomicReference<>((double) 0);
 		AtomicReference<Double> yOffset = new AtomicReference<>((double) 0);
@@ -245,7 +272,6 @@ public class HomeController implements SceneInterface {
 			stage.setX(event.getScreenX() - xOffset.get());
 			stage.setY(event.getScreenY() - yOffset.get());
 		});
-		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.show();
 
 
