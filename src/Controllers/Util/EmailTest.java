@@ -18,20 +18,22 @@ public class EmailTest
 		String emailM = "mani.shah23@gmail.com";
 		String emailD = "";
 
-		System.out.print("Subject: ");
-		String subject = scanner.nextLine();
-
-		System.out.print("Content:");
-		String content = scanner.nextLine();
+//		System.out.print("Subject: ");
+//		String subject = scanner.nextLine();
+//
+//		System.out.print("Content:");
+//		String content = scanner.nextLine();
 
 		List<String> attachments = new ArrayList<>(2);
 		//attachments.add("filepath");
-
-		System.out.println("Creating email");
-		Email email = new Email(emailM,subject,content,attachments);
-		System.out.println("Sending email");
-		EmailSender emailSender = new EmailSender(email);
-		emailSender.send();
-		System.out.println("Sent");
+		for(int i = 0; i < 1; i++) {
+			System.out.println("Creating email");
+			Email email = new Email("mani.shah23@gmail.com", "MAAKS", "MAAKS", attachments);
+			System.out.println("Sending email");
+			EmailSender emailSender = new EmailSender(email);
+			if(emailSender.send()) {
+				System.out.println("Sent");
+			}
+		}
 	}
 }

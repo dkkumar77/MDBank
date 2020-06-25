@@ -18,6 +18,8 @@ public class EmailSender
 	private Email email;
 	private static List<String> adminInfo = AdminDatabase.returnAdminInfo("admin1");
 
+	private boolean isEmailSent = false;
+
 	public EmailSender(Email email)
 	{
 		this.email = email;
@@ -67,12 +69,17 @@ public class EmailSender
 				message.setContent(multipart);
 				Transport.send(message);
 				System.out.println("Email Sent");
+				isEmailSent = true;
 			}catch (MessagingException | RuntimeException runMsgEx){
 				runMsgEx.printStackTrace();
 			}
 		};
 		Thread mailThread = new Thread(emailTask,"EMAIL_THREAD");
 		mailThread.start();
-		return true;
+		while(true){
+			if(isEmailSent) {
+				return true;
+			}
+		}
 	}
 }
