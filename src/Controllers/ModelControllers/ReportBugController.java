@@ -2,8 +2,8 @@ package Controllers.ModelControllers;
 
 import Controllers.Util.EmailSender;
 import Model.Databases.AdminDatabase;
-import Model.Definitions.Date;
-import Model.Definitions.Email;
+import Model.Objects.Date;
+import Model.Objects.Email;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.events.JFXDialogEvent;

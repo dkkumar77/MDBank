@@ -57,6 +57,12 @@ public class handleTransactionController {
 
     }
 
+    public void init(GeneralDatabase generalDatabase, String username)
+    {
+        this.gd = generalDatabase;
+        this.username = username;
+    }
+
     public void init(GeneralDatabase gd,String username, TransactionType type){
         this.gd = gd;
         this.username = username;

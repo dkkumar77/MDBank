@@ -1,4 +1,4 @@
-package Model.Definitions;
+package Model.Objects;
 
 import Model.Databases.GeneralDatabase;
 

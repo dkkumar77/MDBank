@@ -1,8 +1,6 @@
-package Model.Definitions;
+package Model.Objects;
 
 import java.io.*;
-import java.io.*;
-import java.nio.charset.*;
 import java.util.Scanner;
 
 

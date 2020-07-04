@@ -3,13 +3,12 @@ package Controllers.ModelControllers;
 import Controllers.Util.EmailSender;
 import Model.Databases.AdminDatabase;
 import Model.Databases.GeneralDatabase;
-import Model.Definitions.Email;
-import Model.Definitions.SceneInterface;
+import Model.Objects.Email;
+import Model.Objects.SceneInterface;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.events.JFXDialogEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +17,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import Controllers.Util.DialogAlert;
-import Model.Constants.FilePaths;
 
 
 import Controllers.Util.Encrypter;
@@ -27,7 +25,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 import static Model.Constants.FilePaths.HOME_FXML;
-import static Model.Constants.FilePaths.LOGIN_FXML;
 
 public class SettingController implements SceneInterface {
 

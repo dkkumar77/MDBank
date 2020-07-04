@@ -1,7 +1,7 @@
 package Model.Databases;
 
-import Model.Definitions.Date;
-import Model.Definitions.Transaction;
+import Model.Objects.Date;
+import Model.Objects.Transaction;
 import Model.Constants.UserDbColumns;
 import Model.Constants.TransactionType;
 

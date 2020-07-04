@@ -1,7 +1,7 @@
 package Controllers.Util;
 
 
-import Model.Definitions.Email;
+import Model.Objects.Email;
 
 import java.util.ArrayList;
 import java.util.List;

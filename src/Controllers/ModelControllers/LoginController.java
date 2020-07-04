@@ -2,7 +2,7 @@ package Controllers.ModelControllers;
 
 import Controllers.Util.DialogAlert;
 import Model.Databases.GeneralDatabase;
-import Model.Definitions.PatchUpdate;
+import Model.Objects.PatchUpdate;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.events.JFXDialogEvent;
 import javafx.animation.Animation;

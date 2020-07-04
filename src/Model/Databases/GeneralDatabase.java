@@ -9,14 +9,15 @@ package Model.Databases;
  * <p>
  * Brief Description:
  */
+import Controllers.Util.DialogAlert;
 import Model.Constants.DatabaseType;
 
-import Model.Definitions.Customer;
+import Model.Objects.Customer;
+import Model.Objects.TransferTransaction;
 import com.amazonaws.regions.Regions;
 import Model.Constants.GeneralDbColumns;
 import com.amazonaws.services.dynamodbv2.document.*;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
 import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.dynamodbv2.model.ReturnValue;
@@ -27,7 +28,7 @@ import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
 
-import java.lang.reflect.Array;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -118,6 +119,28 @@ public class GeneralDatabase {
     }
 
 
+    public void transferMoney(TransferTransaction transferTransaction)
+    {
+
+        Map<String,String> transfersMap = getCurrentTransfers(transferTransaction.getRecipientUsername());
+        if(transfersMap == null){
+            transfersMap = new HashMap<>();
+        }
+        transfersMap.put(transferTransaction.getSenderUsername(),transferTransaction.getAmountToTransfer());
+        try {
+            UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), transferTransaction.getRecipientUsername())
+                    .withUpdateExpression("set transfers = :t")
+                    .withValueMap(new ValueMap().withMap(":t", transfersMap))
+                    .withReturnValues(ReturnValue.UPDATED_NEW);
+            table.updateItem(updateItemSpec);
+
+
+        }catch (Exception e){
+            System.err.println("Unsuccessful transfer");
+            e.printStackTrace();
+        }
+    }
+
     public long createUniqueAccountNumber() {
         char[] sequenceWriter = new char[12];
         Random random = new Random();
@@ -128,6 +151,14 @@ public class GeneralDatabase {
         return Long.parseLong(new String(sequenceWriter));
 
     }
+
+    private Map<String,String> getCurrentTransfers(String username)
+    {
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
+        Item outcome = table.getItem(spec);
+        return outcome.getMap(GeneralDbColumns.transfers.name());
+    }
+
 
     public double getCurrentBalance(String username) {
         GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);

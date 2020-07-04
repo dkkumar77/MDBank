@@ -1,7 +1,6 @@
-package Model.Definitions;
+package Model.Objects;
 
 import Model.Constants.TransactionType;
-import Model.Definitions.Date;
 
 /**
  * THIS CLASS SHOULD DEFINE A TRANSACTION

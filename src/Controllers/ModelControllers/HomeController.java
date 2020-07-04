@@ -3,7 +3,7 @@ package Controllers.ModelControllers;
 
 import Model.Constants.TransactionType;
 import Model.Databases.GeneralDatabase;
-import Model.Definitions.SceneInterface;
+import Model.Objects.SceneInterface;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -26,7 +26,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static Model.Constants.FilePaths.*;
-import static Model.Definitions.Date.getGreeting;
+import static Model.Objects.Date.getGreeting;
 
 
 // Every controller class will implement SceneInterface
@@ -237,42 +237,66 @@ public class HomeController implements SceneInterface {
 
 
 	@FXML
-	public void handleTransferOut(ActionEvent event) throws IOException{
+	public void handleTransferOut(ActionEvent actionEvent) throws IOException{
 
-		if(event.getSource().equals(transferToAnother)){
-			handleSceneChange(event, TransactionType.TRANSFEROUT);
+		if(actionEvent.getSource().equals(transferToAnother)){
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(TRANSACTION_PAGE));
+			Parent root = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root));
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.setMaxHeight(400);
+			stage.setMinHeight(400);
+			stage.setMaxWidth(600);
+			stage.setMinWidth(600);
+			TransferController controller = fxmlLoader.getController();
+			controller.init(generalDatabase,username);
+
+			AtomicReference<Double> xOffset = new AtomicReference<>((double) 0);
+			AtomicReference<Double> yOffset = new AtomicReference<>((double) 0);
+			root.setOnMousePressed(event -> {
+				xOffset.set(event.getSceneX());
+				yOffset.set(event.getSceneY());
+			});
+			//move around here
+			root.setOnMouseDragged(event -> {
+				stage.setX(event.getScreenX() - xOffset.get());
+				stage.setY(event.getScreenY() - yOffset.get());
+			});
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.show();
 
 		}
 	}
 	//actionEvent and resource get apssed
 	public void handleSceneChange(ActionEvent actionEvent, TransactionType resource) throws IOException {
 
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(TRANSACTION_PAGE));
-		Parent root = (Parent) fxmlLoader.load();
-
-		Stage stage = new Stage();
-		stage.setScene(new Scene(root));
-		stage.initStyle(StageStyle.UNDECORATED);
-		stage.setMaxHeight(200);
-		stage.setMinHeight(200);
-		stage.setMaxWidth(400);
-		stage.setMinWidth(400);
-		handleTransactionController controller = new handleTransactionController();
-		controller.init(generalDatabase,username,resource);
-
-
-		// controller stuff;
-		AtomicReference<Double> xOffset = new AtomicReference<>((double) 0);
-		AtomicReference<Double> yOffset = new AtomicReference<>((double) 0);
-		root.setOnMousePressed(event -> {
-			xOffset.set(event.getSceneX());
-			yOffset.set(event.getSceneY());
-		});
-		root.setOnMouseDragged(event -> {
-			stage.setX(event.getScreenX() - xOffset.get());
-			stage.setY(event.getScreenY() - yOffset.get());
-		});
-		stage.show();
+//		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(TRANSACTION_PAGE));
+//		Parent root = (Parent) fxmlLoader.load();
+//
+//		Stage stage = new Stage();
+//		stage.setScene(new Scene(root));
+//		stage.initStyle(StageStyle.UNDECORATED);
+//		stage.setMaxHeight(200);
+//		stage.setMinHeight(200);
+//		stage.setMaxWidth(400);
+//		stage.setMinWidth(400);
+//		handleTransactionController controller = new handleTransactionController();
+//		controller.init(generalDatabase,username,resource);
+//
+//
+//		// controller stuff;
+//		AtomicReference<Double> xOffset = new AtomicReference<>((double) 0);
+//		AtomicReference<Double> yOffset = new AtomicReference<>((double) 0);
+//		root.setOnMousePressed(event -> {
+//			xOffset.set(event.getSceneX());
+//			yOffset.set(event.getSceneY());
+//		});
+//		root.setOnMouseDragged(event -> {
+//			stage.setX(event.getScreenX() - xOffset.get());
+//			stage.setY(event.getScreenY() - yOffset.get());
+//		});
+//		stage.show();
 
 
 	}

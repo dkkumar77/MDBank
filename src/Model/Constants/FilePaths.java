@@ -8,7 +8,7 @@ public class FilePaths
 	public final static String SIGN_UP_SHEET_FXML = "/View/signUpSheet.fxml";
 	public final static String CONTACT_US_PAGE = "/View/ContactUsPage.fxml";
 	public final static String SETTINGS_PAGE = "/View/SettingPage.fxml";
-	public final static String TRANSACTION_PAGE = "/View/handleTransactions.fxml";
+	public final static String TRANSACTION_PAGE = "/View/TransferScene.fxml";
 
 
 

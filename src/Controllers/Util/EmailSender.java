@@ -2,7 +2,7 @@ package Controllers.Util;
 
 
 import Model.Databases.AdminDatabase;
-import Model.Definitions.Email;
+import Model.Objects.Email;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
