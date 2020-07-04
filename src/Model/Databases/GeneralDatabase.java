@@ -12,7 +12,9 @@ package Model.Databases;
 import Controllers.Util.DialogAlert;
 import Model.Constants.DatabaseType;
 
+import Model.Constants.TransactionType;
 import Model.Objects.Customer;
+import Model.Objects.Transaction;
 import Model.Objects.TransferTransaction;
 import com.amazonaws.regions.Regions;
 import Model.Constants.GeneralDbColumns;
@@ -122,23 +124,30 @@ public class GeneralDatabase {
     public void transferMoney(TransferTransaction transferTransaction)
     {
 
-        Map<String,String> transfersMap = getCurrentTransfers(transferTransaction.getRecipientUsername());
-        if(transfersMap == null){
-            transfersMap = new HashMap<>();
-        }
+        Map<String,String> transfersMap = new HashMap<>();
         transfersMap.put(transferTransaction.getSenderUsername(),transferTransaction.getAmountToTransfer());
         try {
-            UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), transferTransaction.getRecipientUsername())
-                    .withUpdateExpression("set transfers = :t")
-                    .withValueMap(new ValueMap().withMap(":t", transfersMap))
-                    .withReturnValues(ReturnValue.UPDATED_NEW);
-            table.updateItem(updateItemSpec);
+//            UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), transferTransaction.getRecipientUsername())
+//                    .withUpdateExpression("set transfers = :t")
+//                    .withValueMap(new ValueMap().withMap(":t", transfersMap))
+//                    .withReturnValues(ReturnValue.UPDATED_NEW);
+//            table.updateIadmin    tem(updateItemSpec);
 
+            UserDatabase userDatabase = new UserDatabase(transferTransaction.getRecipientUsername(),this);
+            updateRecipientAccount(userDatabase, transferTransaction);
 
         }catch (Exception e){
             System.err.println("Unsuccessful transfer");
             e.printStackTrace();
         }
+    }
+
+    private void updateRecipientAccount(UserDatabase userDatabase,TransferTransaction transferTransaction)
+    {
+            Transaction transaction = new Transaction(Double.parseDouble(transferTransaction.getAmountToTransfer()),TransactionType.TRANSFERIN);
+            double newBalance = getCurrentBalance(transferTransaction.getRecipientUsername())
+                    + transaction.getAmount();
+            userDatabase.logTransaction(transaction,newBalance);
     }
 
     public long createUniqueAccountNumber() {

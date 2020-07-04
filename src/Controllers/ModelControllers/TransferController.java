@@ -1,8 +1,11 @@
 package Controllers.ModelControllers;
 
 import Controllers.Util.DialogAlert;
+import Model.Constants.TransactionType;
 import Model.Databases.GeneralDatabase;
+import Model.Databases.UserDatabase;
 import Model.Objects.SceneInterface;
+import Model.Objects.Transaction;
 import Model.Objects.TransferTransaction;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -68,6 +71,11 @@ public class TransferController implements SceneInterface
 			DialogAlert.showOKDialog(stackPane,"Transferred $"+transferTransaction.getAmountToTransfer()
 					+"\nTo: "+transferTransaction.getRecipientUsername());
 			clearFields();
+
+			UserDatabase userDatabase = new UserDatabase(username,generalDatabase);
+			double balance = generalDatabase.getCurrentBalance(username) - Double.parseDouble(transferTransaction.getAmountToTransfer());
+			Transaction transaction = new Transaction(balance, TransactionType.TRANSFEROUT);
+			userDatabase.logTransaction(transaction,balance);
 		}
 	}
 

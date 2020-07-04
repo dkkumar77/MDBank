@@ -230,7 +230,7 @@ public class HomeController implements SceneInterface {
 
 		if (event.getSource().equals(transferWithinAccount)){
 
-			handleSceneChange(event, TransactionType.TRANSFERWITHIN);
+			handleSceneChange(event, TransactionType.TRANSFERIN);
 
 		}
 	}

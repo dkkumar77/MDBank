@@ -29,9 +29,9 @@
                      <children>
                         <AnchorPane prefHeight="60.0" prefWidth="600.0">
                            <children>
-                              <JFXButton fx:id="transferButton" contentDisplay="CENTER" onAction="#handleTransfer" layoutX="176.0" layoutY="18.0" styleClass="jfx-text-field" stylesheets="@ui.css" text="Transfer" />
-                              <JFXButton fx:id="cancelButton" contentDisplay="CENTER" layoutX="400.0" onAction="#handleCancel" layoutY="18.0" styleClass="jfx-text-field" stylesheets="@ui.css" text="Cancel" />
-                              <JFXButton fx:id="resetButton" contentDisplay="CENTER" layoutX="300.0" onAction="#handleReset" layoutY="18.0" styleClass="jfx-text-field" stylesheets="@ui.css" text="Reset" />
+                              <JFXButton fx:id="transferButton" contentDisplay="CENTER" layoutX="176.0" layoutY="18.0" onAction="#handleTransfer" styleClass="jfx-text-field" stylesheets="@ui.css" text="Transfer" />
+                              <JFXButton fx:id="cancelButton" contentDisplay="CENTER" layoutX="400.0" layoutY="18.0" onAction="#handleCancel" styleClass="jfx-text-field" stylesheets="@ui.css" text="Cancel" />
+                              <JFXButton fx:id="resetButton" contentDisplay="CENTER" layoutX="300.0" layoutY="18.0" onAction="#handleReset" styleClass="jfx-text-field" stylesheets="@ui.css" text="Reset" />
                            </children>
                         </AnchorPane>
                      </children>

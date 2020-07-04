@@ -8,7 +8,7 @@ public enum TransactionType
 {
 	DEPOSIT,
 	WITHDRAWAL,
-	TRANSFERWITHIN,
+	TRANSFERIN,
 	TRANSFEROUT
 
 }
