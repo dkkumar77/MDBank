@@ -6,4 +6,6 @@ Patch 1.02 - Patch Update is fully functional
 Patch 1.03 - User can send inquiries thru settings page
 06/10/2020-
 Patch 1.04 - User can recieve their monthly statement through settings page
+07/04/2020-
+Patch 1.05 - Users can now transfer money with each other
 
