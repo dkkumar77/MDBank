@@ -20,6 +20,7 @@ import com.amazonaws.regions.Regions;
 import Model.Constants.GeneralDbColumns;
 import com.amazonaws.services.dynamodbv2.document.*;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
 import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.dynamodbv2.model.ReturnValue;
@@ -105,6 +106,18 @@ public class GeneralDatabase {
         GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
         Item outcome = table.getItem(spec);
         return outcome.getInt("lastTransactionID");
+    }
+
+    public boolean deleteUser(String username)
+    {
+        DeleteItemSpec deleteItemSpec = new DeleteItemSpec().withPrimaryKey(GeneralDbColumns.username.name(),username);
+        try {
+            table.deleteItem(deleteItemSpec);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     // We can generalize the for loop part by adding code that will traverse the table

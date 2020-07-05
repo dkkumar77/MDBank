@@ -67,7 +67,7 @@ public class SignUpController
         if(event.getSource().equals(submit)) {
             GeneralDatabase generalDatabase = new GeneralDatabase();
             if (allFieldsFilled()) {
-                if (generalDatabase.avoidDuplicate(userName.getText())) {
+                //if (generalDatabase.avoidDuplicate(userName.getText())) {
                     if (passwordMatches()) {
                         String fullName = firstName.getText() + " " + lastName.getText();
                         Customer c = new Customer(userName.getText(), fullName, email.getText()
@@ -76,7 +76,7 @@ public class SignUpController
                         loadLogin(event);
                     }
                     showDialog("Password does not match");
-                }
+                //}
             } else {
                 showDialog("Please enter all information");
             }

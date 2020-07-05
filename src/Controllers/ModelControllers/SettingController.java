@@ -3,6 +3,7 @@ package Controllers.ModelControllers;
 import Controllers.Util.EmailSender;
 import Model.Databases.AdminDatabase;
 import Model.Databases.GeneralDatabase;
+import Model.Databases.UserDatabase;
 import Model.Objects.Email;
 import Model.Objects.SceneInterface;
 import com.jfoenix.controls.JFXButton;
@@ -25,9 +26,16 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 import static Model.Constants.FilePaths.HOME_FXML;
+import static Model.Constants.FilePaths.LOGIN_FXML;
 
 public class SettingController implements SceneInterface {
 
+    @FXML
+    public JFXButton submitCloseAccountButton;
+    @FXML
+    public JFXPasswordField confirmPasswordFieldForDelete;
+    @FXML
+    public JFXPasswordField passwordFieldDelete;
     @FXML
     private StackPane stackpanePass;
 
@@ -137,12 +145,12 @@ public class SettingController implements SceneInterface {
 
 
     void displayDocumentedInformation(){
-       String [] array =  generalDatabase.grabBulk(username);
-       nameForAccountInfo.setText(array[0]);
-       accountNumberForAccountInfo.setText(array[1]);
-       emailForAccountInfo.setText(array[2]);
-       dobForAccountInfo.setText(array[3]);
-       joinDateAccountInfo.setText(array[4]);
+        String [] array =  generalDatabase.grabBulk(username);
+        nameForAccountInfo.setText(array[0]);
+        accountNumberForAccountInfo.setText(array[1]);
+        emailForAccountInfo.setText(array[2]);
+        dobForAccountInfo.setText(array[3]);
+        joinDateAccountInfo.setText(array[4]);
 
 
     }
@@ -218,11 +226,6 @@ public class SettingController implements SceneInterface {
     void handleAccountInformation(ActionEvent event) {
 
         if (event.getSource().equals(accountInformation)) {
-//            stackpaneCloseAccount.toBack();
-//            stackpaneEmailUpdate.toBack();
-//            stackpaneInquiry.toBack();
-//            stackpaneStatement.toBack();
-//            stackpanePass.toBack();
 
             sendStackPanesToBack(stackpaneCloseAccount, stackpaneEmailUpdate, stackpaneInquiry, stackpaneStatement,
                     stackpanePass);
@@ -236,11 +239,6 @@ public class SettingController implements SceneInterface {
     void handleChangePassword(ActionEvent event) {
 
         if (event.getSource().equals(changePassword)) {
-//            stackpaneAccountInfo.toBack();
-//            stackpaneCloseAccount.toBack();
-//            stackpaneEmailUpdate.toBack();
-//            stackpaneInquiry.toBack();
-//            stackpaneStatement.toBack();
 
             sendStackPanesToBack(stackpaneAccountInfo, stackpaneCloseAccount, stackpaneEmailUpdate, stackpaneInquiry,
                     stackpaneStatement);
@@ -255,18 +253,44 @@ public class SettingController implements SceneInterface {
     void handleCloseAccount(ActionEvent event) {
 
         if (event.getSource().equals(closeAccount)) {
-//            stackpaneAccountInfo.toBack();
-//            stackpaneEmailUpdate.toBack();
-//            stackpaneInquiry.toBack();
-//            stackpaneStatement.toBack();
-//            stackpanePass.toBack();
-
             sendStackPanesToBack(stackpaneAccountInfo, stackpaneEmailUpdate, stackpaneInquiry,
                     stackpaneStatement, stackpanePass);
-
             stackpaneCloseAccount.toFront();
-
-
+        }
+        if(event.getSource().equals(submitCloseAccountButton)){
+            if(confirmPasswordFieldForDelete.getText().equals(passwordFieldDelete.getText())){
+                if(generalDatabase.verifyCredentials(username,Encrypter.getEncryptedPassword(passwordFieldDelete.getText()))){
+                    String emailAddress = generalDatabase.returnEmail(username);
+                    if(generalDatabase.deleteUser(username)){
+                        UserDatabase userDatabase = new UserDatabase(username,generalDatabase);
+                        if(userDatabase.deleteTable()){
+                            FXMLLoader loader = new FXMLLoader();
+                            loader.setLocation(getClass().getResource(LOGIN_FXML));
+                            Parent loginParent = null;
+                            try {
+                                loginParent = loader.load();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            assert loginParent != null;
+                            Scene currScene = new Scene(loginParent);
+                            Stage homeWindow;
+                            homeWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                            homeWindow.setScene(currScene);
+                            homeWindow.show();
+                            DialogAlert.showOKDialog(stackpaneCloseAccount,"Thank you for banking with us\nYour account is closed");
+                        }else{
+                            DialogAlert.showOKDialog(stackpaneCloseAccount,"Unable to delete Account");
+                        }
+                    }else{
+                        DialogAlert.showOKDialog(stackpaneCloseAccount,"Unable to delete Account");
+                    }
+                }else{
+                    DialogAlert.showOKDialog(stackpaneCloseAccount,"Incorrect Password");
+                }
+            }else{
+                DialogAlert.showOKDialog(stackpaneCloseAccount,"Passwords do not match");
+            }
         }
     }
 
@@ -274,11 +298,6 @@ public class SettingController implements SceneInterface {
     void handleRecieveStatement(ActionEvent event) {
 
         if (event.getSource().equals(recieveStatement)) {
-//            stackpaneAccountInfo.toBack();
-//            stackpaneEmailUpdate.toBack();
-//            stackpaneInquiry.toBack();
-//            stackpanePass.toBack();
-//            stackpaneCloseAccount.toBack();
 
             sendStackPanesToBack(stackpaneAccountInfo, stackpaneEmailUpdate, stackpaneInquiry, stackpanePass,
                     stackpaneCloseAccount);
@@ -349,7 +368,7 @@ public class SettingController implements SceneInterface {
             Scene currScene = new Scene(loginParent);
             HomeController controller = loader.getController();
             controller.init(generalDatabase,username);
-            
+
 
 
             Stage homeWindow;
@@ -368,11 +387,6 @@ public class SettingController implements SceneInterface {
         if (event.getSource().equals(updateEmail)) {
             sendStackPanesToBack(stackpaneAccountInfo, stackpaneInquiry, stackpanePass, stackpaneCloseAccount,
                     stackpaneStatement);
-//            stackpaneAccountInfo.toBack();
-//            stackpaneInquiry.toBack();
-//            stackpanePass.toBack();
-//            stackpaneCloseAccount.toBack();
-//            stackpaneStatement.toBack();
             stackpaneEmailUpdate.toFront();
 
         }
@@ -391,12 +405,6 @@ public class SettingController implements SceneInterface {
         if (event.getSource().equals(reportInquiry)) {
             sendStackPanesToBack(stackpaneAccountInfo, stackpanePass, stackpaneCloseAccount, stackpaneStatement,
                     stackpaneEmailUpdate);
-
-//            stackpaneAccountInfo.toBack();
-//            stackpanePass.toBack();
-//            stackpaneCloseAccount.toBack();
-//            stackpaneStatement.toBack();
-//            stackpaneEmailUpdate.toBack();
 
             stackpaneInquiry.toFront();
 

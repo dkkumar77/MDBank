@@ -219,6 +219,19 @@ public class UserDatabase
 		}
 	}
 
+	public boolean deleteTable()
+	{
+		loadTable();
+		table.delete();
+		try {
+			table.waitForDelete();
+			return true;
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 	public void saveStatementToPdf(File file) throws FileNotFoundException
 	{
 		String date, type, amount,  currBal, tID;

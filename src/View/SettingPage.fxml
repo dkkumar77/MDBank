@@ -83,7 +83,12 @@
                   <Insets />
                </StackPane.margin>
             </Rectangle>
-            <AnchorPane prefHeight="634.0" prefWidth="912.0" />
+            <AnchorPane prefHeight="634.0" prefWidth="912.0">
+               <children>
+                  <JFXPasswordField fx:id="passwordFieldDelete" layoutX="181.0" layoutY="63.0" promptText="password" alignment="CENTER" styleClass="jfx-password-field" stylesheets="@ui.css" />
+                  <JFXPasswordField fx:id="confirmPasswordFieldForDelete" promptText="confirm password" layoutX="181" layoutY="144" styleClass="jfx-password-field" alignment="CENTER" stylesheets="@ui.css" />
+                  <JFXButton fx:id="submitCloseAccountButton" layoutX="228" layoutY="216" onAction="#handleCloseAccount" text="Submit" styleClass="regular-text-field" stylesheets="@ui.css"/>
+               </children></AnchorPane>
          </children>
       </StackPane>
       <StackPane fx:id="stackpanePass" layoutX="463.0" layoutY="111.0" prefHeight="395.0" prefWidth="484.0">
