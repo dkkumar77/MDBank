@@ -63,19 +63,36 @@ public class TransferController implements SceneInterface
 	}
 
 	@FXML
-	public void handleTransfer(ActionEvent event)
+	public synchronized void handleTransfer(ActionEvent event)
 	{
 		if(event.getSource().equals(transferButton)){
-			TransferTransaction transferTransaction = new TransferTransaction(username,usernameField.getText(),amountField.getText());
-			generalDatabase.transferMoney(transferTransaction);
-			DialogAlert.showOKDialog(stackPane,"Transferred $"+transferTransaction.getAmountToTransfer()
-					+"\nTo: "+transferTransaction.getRecipientUsername());
-			clearFields();
+			double balance;
+			try{
+				balance = Double.parseDouble(amountField.getText());
+			}catch (NumberFormatException e){
+				DialogAlert.showOKDialog(stackPane,"Invalid Amount: " + amountField.getText());
+				amountField.clear();
+				return;
+			}
+			if(generalDatabase.avoidDuplicate(usernameField.getText())){
+				DialogAlert.showOKDialog(stackPane,"Recipient Does not exist");
+				clearFields();
+				return;
+			}
+			if(generalDatabase.getCurrentBalance(username) <= balance){
+				DialogAlert.showOKDialog(stackPane,"Amount must be less than the balance");
+			}else{
+				TransferTransaction transferTransaction = new TransferTransaction(username, usernameField.getText(), amountField.getText());
+				generalDatabase.transferMoney(transferTransaction);
+				DialogAlert.showOKDialog(stackPane, "Transferred $" + transferTransaction.getAmountToTransfer()
+						+ "\nTo: " + transferTransaction.getRecipientUsername());
+				clearFields();
 
-			UserDatabase userDatabase = new UserDatabase(username,generalDatabase);
-			double balance = generalDatabase.getCurrentBalance(username) - Double.parseDouble(transferTransaction.getAmountToTransfer());
-			Transaction transaction = new Transaction(balance, TransactionType.TRANSFEROUT);
-			userDatabase.logTransaction(transaction,balance);
+				UserDatabase userDatabase = new UserDatabase(username, generalDatabase);
+				double newbalance = generalDatabase.getCurrentBalance(username) - Double.parseDouble(transferTransaction.getAmountToTransfer());
+				Transaction transaction = new Transaction(Double.parseDouble(transferTransaction.getAmountToTransfer()), TransactionType.TRANSFEROUT);
+				userDatabase.logTransaction(transaction, newbalance);
+			}
 		}
 	}
 

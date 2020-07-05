@@ -121,18 +121,9 @@ public class GeneralDatabase {
     }
 
 
-    public void transferMoney(TransferTransaction transferTransaction)
+    public synchronized void transferMoney(TransferTransaction transferTransaction)
     {
-
-        Map<String,String> transfersMap = new HashMap<>();
-        transfersMap.put(transferTransaction.getSenderUsername(),transferTransaction.getAmountToTransfer());
         try {
-//            UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), transferTransaction.getRecipientUsername())
-//                    .withUpdateExpression("set transfers = :t")
-//                    .withValueMap(new ValueMap().withMap(":t", transfersMap))
-//                    .withReturnValues(ReturnValue.UPDATED_NEW);
-//            table.updateIadmin    tem(updateItemSpec);
-
             UserDatabase userDatabase = new UserDatabase(transferTransaction.getRecipientUsername(),this);
             updateRecipientAccount(userDatabase, transferTransaction);
 
@@ -142,12 +133,13 @@ public class GeneralDatabase {
         }
     }
 
-    private void updateRecipientAccount(UserDatabase userDatabase,TransferTransaction transferTransaction)
+    private synchronized void updateRecipientAccount(UserDatabase userDatabase,TransferTransaction transferTransaction)
     {
             Transaction transaction = new Transaction(Double.parseDouble(transferTransaction.getAmountToTransfer()),TransactionType.TRANSFERIN);
             double newBalance = getCurrentBalance(transferTransaction.getRecipientUsername())
                     + transaction.getAmount();
             userDatabase.logTransaction(transaction,newBalance);
+
     }
 
     public long createUniqueAccountNumber() {

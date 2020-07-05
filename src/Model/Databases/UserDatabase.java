@@ -66,6 +66,9 @@ public class UserDatabase
 		this.username = username;
 		databaseName = username.toUpperCase()+"_TABLE";
 		generalDatabase = genDatabase;
+		if(table != null){
+			table = null;
+		}
 	}
 
 	public void createUserDb()
