@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+
+<StackPane fx:id="stackpane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ModelControllers.DepositController">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <image>
+                  <Image url="@../Images/800252.png" />
+               </image>
+            </ImageView>
+            <HBox layoutX="14.0" layoutY="14.0" prefHeight="84.0" prefWidth="600.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane prefHeight="84.0" prefWidth="600.0">
+                     <children>
+                        <Label alignment="CENTER" layoutX="256.0" layoutY="34.0" prefHeight="17.0" prefWidth="88.0" styleClass="jfx-text-area" stylesheets="@ui.css" text="DEPOSIT" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </HBox>
+            <JFXRadioButton fx:id="checkingRadio" onAction="#handleRadioButtons" layoutX="192.0" layoutY="192.0" styleClass="jfx-text-field" stylesheets="@ui.css" text="Checkings" />
+            <JFXRadioButton fx:id="savingRadio" onAction="#handleRadioButtons" layoutX="347.0" layoutY="192.0" styleClass="jfx-text-field" stylesheets="@ui.css" text="Savings" />
+            <JFXButton fx:id="depositButton" onAction="#handleDeposit" layoutX="232.0" layoutY="281.0" styleClass="regular-text-field" stylesheets="@ui.css" text="DEPOSIT" />
+            <TextField fx:id="balanceInputField" alignment="CENTER" layoutX="232.0" layoutY="238.0" promptText="\$00.00" />
+            <JFXButton fx:id="cancelButton"  onAction="#handleCancel" layoutX="321.0" layoutY="281.0" styleClass="regular-text-field" stylesheets="@ui.css" text="CANCEL" />
+            <Label layoutX="150.0" layoutY="84.0" styleClass="jfx-text-field" stylesheets="@ui.css" text="Checkings Account" />
+            <Label layoutX="374.0" layoutY="84.0" styleClass="jfx-text-field" stylesheets="@ui.css" text="Savings Account" />
+            <Label fx:id="currCheckBalLabel" layoutX="148.0" layoutY="119.0" prefHeight="17.0" prefWidth="101.0" styleClass="jfx-text-field" stylesheets="@ui.css" />
+            <Label fx:id="currSavBalLabel" layoutX="377.0" layoutY="119.0" prefHeight="17.0" prefWidth="87.0" styleClass="jfx-text-field" stylesheets="@ui.css" />
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

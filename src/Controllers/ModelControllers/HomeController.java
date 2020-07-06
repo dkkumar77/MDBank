@@ -207,9 +207,35 @@ public class HomeController implements SceneInterface {
 	public void handleDeposit(ActionEvent actionEvent) throws IOException {
 
 		if(actionEvent.getSource().equals(deposit)){
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(DEPOSIT_PAGE));
+			Parent root = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root));
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.setMaxHeight(400);
+			stage.setMinHeight(400);
+			stage.setMaxWidth(600);
+			stage.setMinWidth(600);
+			DepositController controller = fxmlLoader.getController();
+			controller.init(generalDatabase,username);
 
-			handleSceneChange(actionEvent, TransactionType.DEPOSIT);
+			AtomicReference<Double> xOffset = new AtomicReference<>((double) 0);
+			AtomicReference<Double> yOffset = new AtomicReference<>((double) 0);
+			root.setOnMousePressed(event -> {
+				xOffset.set(event.getSceneX());
+				yOffset.set(event.getSceneY());
+			});
+			//move around here
+			root.setOnMouseDragged(event -> {
+				stage.setX(event.getScreenX() - xOffset.get());
+				stage.setY(event.getScreenY() - yOffset.get());
+			});
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.showAndWait();
 
+			if(!stage.isShowing()){
+				currentBal.setText(Double.toString(generalDatabase.getCurrentBalance(username)));
+			}
 
 		}
 
@@ -220,7 +246,35 @@ public class HomeController implements SceneInterface {
 
 		if (event.getSource().equals(withdraw)) {
 
-			handleSceneChange(event, TransactionType.WITHDRAWAL);
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(WITHDRAW_PAGE));
+			Parent root = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root));
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.setMaxHeight(400);
+			stage.setMinHeight(400);
+			stage.setMaxWidth(600);
+			stage.setMinWidth(600);
+			WithdrawController controller = fxmlLoader.getController();
+			controller.init(generalDatabase,username);
+
+			AtomicReference<Double> xOffset = new AtomicReference<>((double) 0);
+			AtomicReference<Double> yOffset = new AtomicReference<>((double) 0);
+			root.setOnMousePressed(Mevent -> {
+				xOffset.set(Mevent.getSceneX());
+				yOffset.set(Mevent.getSceneY());
+			});
+			//move around here
+			root.setOnMouseDragged(Mevent -> {
+				stage.setX(Mevent.getScreenX() - xOffset.get());
+				stage.setY(Mevent.getScreenY() - yOffset.get());
+			});
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.showAndWait();
+
+			if(!stage.isShowing()){
+				currentBal.setText(Double.toString(generalDatabase.getCurrentBalance(username)));
+			}
 
 
 		}
@@ -265,7 +319,11 @@ public class HomeController implements SceneInterface {
 				stage.setY(event.getScreenY() - yOffset.get());
 			});
 			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.show();
+			stage.showAndWait();
+
+			if(!stage.isShowing()){
+				currentBal.setText(Double.toString(generalDatabase.getCurrentBalance(username)));
+			}
 
 		}
 	}
