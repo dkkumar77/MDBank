@@ -48,7 +48,7 @@ public class HomeController implements SceneInterface {
 	public String fullname;
 
 	@FXML
-	private JFXTextField welcomeMessage, currentBal;
+	private JFXTextField welcomeMessage, currentBal,currentSave;
 
 
 	@FXML
@@ -114,6 +114,7 @@ public class HomeController implements SceneInterface {
 	public void setUserCurrentBalance() {
 
 		currentBal.setText(Double.toString((generalDatabase.getCurrentBalance(username))));
+		currentSave.setText(Double.toString((generalDatabase.getSavingBalance(username))));
 
 
 	}

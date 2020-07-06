@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="stackPane" prefHeight="730.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ModelControllers.HomeController">
+<StackPane fx:id="stackPane" prefHeight="730.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ModelControllers.HomeController">
    <children>
       <ImageView fitHeight="732.0" fitWidth="1001.0">
          <image>
@@ -24,14 +24,14 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7b7d80" height="313.0" layoutX="12.0" layoutY="92.0" opacity="0.39" stroke="BLACK" strokeType="INSIDE" width="491.0" />
             <JFXTextField fx:id="welcomeMessage" alignment="CENTER" editable="false" layoutX="142.0" layoutY="14.0" prefHeight="65.0" prefWidth="709.0" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424">
                <font>
-                  <Font name="Optima Bold Italic" size="25.0" />
+                  <Font name="Optima Bold" size="25.0" />
                </font></JFXTextField>
             <JFXTextArea fx:id="quotearea" editable="false" layoutX="164.0" layoutY="652.0" prefHeight="65.0" prefWidth="689.0" styleClass="jfx-text-area" stylesheets="@ui.css" unFocusColor="#282424">
                <font>
                   <Font name="Optima Italic" size="13.0" />
                </font></JFXTextArea>
-            <JFXTextField fx:id="currentBal" alignment="CENTER" editable="false" layoutX="244.0" layoutY="144.0" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424" />
-            <JFXTextField layoutX="244.0" layoutY="222.0" unFocusColor="WHITE" />
+            <JFXTextField fx:id="currentBal" alignment="CENTER" editable="false" layoutX="234.0" layoutY="145.0" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424" />
+            <JFXTextField fx:id="currentSave" alignment="CENTER" editable="false" layoutX="234.0" layoutY="222.0" styleClass="jfx-text-field" stylesheets="@ui.css" unFocusColor="#282424"  />
             <ImageView fitHeight="37.0" fitWidth="42.0" layoutX="904.0" layoutY="27.0" opacity="0.38">
                <image>
                   <Image url="@../Images/84-840900_create-transparent-background-photoshop-transparent-settings-icon-hd.png" />

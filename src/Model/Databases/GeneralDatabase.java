@@ -91,6 +91,7 @@ public class GeneralDatabase {
                             .withInt(GeneralDbColumns.loginAttempts.name(), 0)
                             .withString(GeneralDbColumns.currentBalance.name(), "0.00")
                             .withBoolean(GeneralDbColumns.isLoggedOn.name(), false)
+                            .withString(GeneralDbColumns.savingsBalance.name(), "0.00")
                             .withInt("lastTransactionID", 0));
             PutItemResult result = outcome.getPutItemResult();
             if (result != null) {
@@ -107,6 +108,18 @@ public class GeneralDatabase {
         Item outcome = table.getItem(spec);
         return outcome.getInt("lastTransactionID");
     }
+
+
+    public double getSavingBalance(String username){
+
+        GetItemSpec spec = new GetItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username);
+        Item outcome = table.getItem(spec);
+        return Double.parseDouble(outcome.getString(GeneralDbColumns.savingsBalance.name()));
+    }
+
+
+
+
 
     public boolean deleteUser(String username)
     {
@@ -237,6 +250,15 @@ public class GeneralDatabase {
                 .withReturnValues(ReturnValue.UPDATED_NEW);
         table.updateItem(updateItemSpec);
     }
+
+    public void updateSavingsBalance(String username, String amount) {
+        UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username)
+                .withUpdateExpression("set savingsBalance = :l")
+                .withValueMap(new ValueMap().withString(":l", amount))
+                .withReturnValues(ReturnValue.UPDATED_NEW);
+        table.updateItem(updateItemSpec);
+    }
+
 
 
     public void updateTransactionID(String username, int id) {

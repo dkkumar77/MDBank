@@ -13,5 +13,7 @@ public enum GeneralDbColumns
 	isLoggedOn,
 	loginAttempts,
 	currentBalance,
-	transfers
+	transfers,
+	savingsBalance
+
 }

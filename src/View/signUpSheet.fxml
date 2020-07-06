@@ -14,7 +14,7 @@
 
 <StackPane fx:id="stackPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ModelControllers.SignUpController">
    <children>
-      <AnchorPane prefHeight="730.0" prefWidth="1000.0" >
+      <AnchorPane prefHeight="730.0" prefWidth="1000.0">
          <children>
             <ImageView fitHeight="738.0" fitWidth="1001.0" layoutX="-1.0" layoutY="-7.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-7.0">
                <image>
@@ -32,9 +32,9 @@
                   <Font name="Optima Regular" size="13.0" />
                </font>
             </JFXPasswordField>
-            <JFXPasswordField fx:id="confPassField" alignment="CENTER" layoutX="575.0" layoutY="325.0" promptText="Confirm Password" styleClass="jfx-password-field" stylesheets="@ui.css">
+            <JFXPasswordField fx:id="confPassField" alignment="CENTER" labelFloat="true" layoutX="575.0" layoutY="325.0" promptText="Confirm Password" styleClass="jfx-password-field" stylesheets="@ui.css">
                <font>
-                  <Font size="13.0" />
+                  <Font name="Optima Regular" size="13.0" />
                </font></JFXPasswordField>
             <JFXButton fx:id="submit" buttonType="RAISED" layoutX="466.0" layoutY="458.0" onAction="#handleSubmit" prefHeight="40.0" prefWidth="67.0" ripplerFill="#906666" text="Submit" textFill="WHITE" />
             <Label disable="true" layoutX="447.0" layoutY="595.0" prefHeight="19.0" prefWidth="237.0" text="MD Software Corporation" textFill="#c6c2c2">
