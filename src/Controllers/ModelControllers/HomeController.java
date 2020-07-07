@@ -325,6 +325,8 @@ public class HomeController implements SceneInterface {
 
 			if(!stage.isShowing()){
 				currentBal.setText(Double.toString(generalDatabase.getCurrentBalance(username)));
+				currentSave.setText(Double.toString(generalDatabase.getSavingBalance(username)));
+
 			}
 
 		}
