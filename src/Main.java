@@ -9,18 +9,18 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("View/ApplicationBootScene.fxml"));
-        primaryStage.setTitle("lol_lol");
 
+        Parent root = FXMLLoader.load(getClass().getResource("View/ApplicationBootScene.fxml"));
+        primaryStage.setTitle("MD Bank");
         primaryStage.setScene(new Scene(root, ScreenDimensions.WIDTH, ScreenDimensions.HEIGHT));
         primaryStage.setMinWidth(ScreenDimensions.WIDTH);
         primaryStage.setMinHeight(ScreenDimensions.HEIGHT);
         primaryStage.setMaxWidth(ScreenDimensions.WIDTH);
         primaryStage.setMaxHeight(ScreenDimensions.HEIGHT);
-
-
         primaryStage.show();
     }
+
+
 
 
 

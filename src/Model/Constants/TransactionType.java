@@ -6,9 +6,13 @@ package Model.Constants;
  */
 public enum TransactionType
 {
-	DEPOSIT,
+	DEPOSIT_CHECKING,
 	WITHDRAWAL,
 	TRANSFERIN,
-	TRANSFEROUT
+	TRANSFEROUT,
+	DEPOSIT_SAVING,
+	WITHDRAWAL_SAVINGS
+
+	
 
 }

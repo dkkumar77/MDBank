@@ -6,7 +6,6 @@ import Model.Databases.GeneralDatabase;
 import Model.Databases.UserDatabase;
 import Model.Objects.SceneInterface;
 import Model.Objects.Transaction;
-import com.amazonaws.services.ec2.model.UserData;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import javafx.event.ActionEvent;
@@ -91,25 +90,43 @@ public class DepositController implements SceneInterface
 	{
 		if(event.getSource().equals(depositButton)) {
 			double amountToDeposit = 0;
-			try {
-				amountToDeposit = Double.parseDouble(balanceInputField.getText());
-			} catch (NumberFormatException e) {
-				DialogAlert.showOKDialog(stackpane, "Invalid Amount $" + balanceInputField.getText());
-				return;
-			}
-			if (amountToDeposit <= 0 || balanceInputField.getText().isEmpty()) {
-				DialogAlert.showOKDialog(stackpane, "Amount must be greater that $0.00");
-				return;
-			}
-			double currentBalance = generalDatabase.getCurrentBalance(username);
-			double newBalance = currentBalance + amountToDeposit;
 
-			Transaction transaction = new Transaction(amountToDeposit, TransactionType.DEPOSIT);
-			userDatabase.logTransaction(transaction, newBalance);
-			DialogAlert.showOKDialog(stackpane, "Amount $" + amountToDeposit + " deposited to your account.");
-			currCheckBalLabel.setText(Double.toString(this.generalDatabase.getCurrentBalance(username)));
-			currSavBalLabel.setText(Double.toString(this.generalDatabase.getSavingBalance(username)));
+				try {
+					amountToDeposit = Double.parseDouble(balanceInputField.getText());
+				} catch (NumberFormatException e) {
+					DialogAlert.showOKDialog(stackpane, "Invalid Amount $" + balanceInputField.getText());
+					return;
+				}
+
+
+
+				if (amountToDeposit <= 0 || balanceInputField.getText().isEmpty()) {
+					DialogAlert.showOKDialog(stackpane, "Amount must be greater that $0.00");
+					return;
+				}
+
+
+			if (checkingsAccountSelected == true) {
+				double currentBalance = generalDatabase.getCurrentBalance(username);
+				double newBalance = currentBalance + amountToDeposit;
+
+				Transaction transaction = new Transaction(amountToDeposit, TransactionType.DEPOSIT_CHECKING);
+				userDatabase.logTransaction(transaction, newBalance);
+				DialogAlert.showOKDialog(stackpane, "Amount $" + amountToDeposit + " deposited to your account.");
+				currCheckBalLabel.setText(Double.toString(this.generalDatabase.getCurrentBalance(username)));
+				currSavBalLabel.setText(Double.toString(this.generalDatabase.getSavingBalance(username)));
+			}
+			else{
+				double currentSavings = generalDatabase.getSavingBalance(username);
+				Transaction trans = new Transaction(amountToDeposit,TransactionType.DEPOSIT_SAVING);
+				userDatabase.logTransaction(trans, currentSavings + amountToDeposit);
+				DialogAlert.showOKDialog(stackpane,"Amount $ " + amountToDeposit + " was deposited into your Savings");
+				currSavBalLabel.setText(Double.toString(generalDatabase.getSavingBalance(username)));
+
+
+			}
 		}
+
 	}
 
 	@FXML
@@ -120,4 +137,5 @@ public class DepositController implements SceneInterface
 			currStage.close();
 		}
 	}
+
 }

@@ -203,6 +203,8 @@ public class UserDatabase
 
 		loadTable();
 
+
+
 		try {
 			PutItemOutcome outcome = table
 					.putItem(new Item().withPrimaryKey(UserDbColumns.accountID.name(),generalDatabase.getAccountID(this.username))
@@ -213,7 +215,20 @@ public class UserDatabase
 					.withNumber(transactionID.name(),(lastTransID+1)));
 			outcome.getPutItemResult();
 			generalDatabase.updateTransactionID(this.username,(lastTransID+1));
-			generalDatabase.updateBalance(this.username,Double.toString(newBalance));
+			if(transaction.getType() == TransactionType.DEPOSIT_CHECKING) {
+				generalDatabase.updateBalance(this.username, Double.toString(newBalance));
+			}
+			if(transaction.getType() == TransactionType.DEPOSIT_SAVING){
+				generalDatabase.updateSavingsBalance(this.username,Double.toString(newBalance));
+			}
+			if(transaction.getType() == TransactionType.WITHDRAWAL){
+				generalDatabase.updateBalance(this.username,Double.toString(newBalance));
+			}
+			if(transaction.getType() == TransactionType.WITHDRAWAL_SAVINGS){
+				generalDatabase.updateSavingsBalance(this.username, Double.toString(newBalance));
+
+
+			}
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -306,7 +321,7 @@ public class UserDatabase
 			System.err.println("Unable to create table: ");
 			System.err.println(e.getMessage());
 		}
-		Transaction transaction = new Transaction(0,TransactionType.DEPOSIT);
+		Transaction transaction = new Transaction(0,TransactionType.DEPOSIT_CHECKING);
 		this.logTransaction(transaction,0.00);
 	}
 }

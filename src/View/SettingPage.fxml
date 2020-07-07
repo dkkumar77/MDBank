@@ -28,12 +28,12 @@
             </Rectangle>
             <AnchorPane prefHeight="634.0" prefWidth="912.0">
                <children>
-                  <JFXTextArea editable="false" layoutX="52.0" layoutY="42.0" prefHeight="159.0" prefWidth="407.0" promptText="Get your monthly statement" styleClass="jfx-text-area" stylesheets="@ui.css" unFocusColor="#282424">
+                  <JFXTextArea editable="false" layoutX="52.0" layoutY="42.0" prefHeight="159.0" prefWidth="407.0" promptText="The email that you provided will recieve your current monthly statement." styleClass="jfx-text-area" stylesheets="@ui.css" unFocusColor="#282424">
                      <font>
                         <Font name="Optima Regular" size="13.0" />
                      </font>
                   </JFXTextArea>
-                  <JFXButton fx:id="submitStatementQuery" layoutX="160.0" layoutY="244.0" onAction="#handleSubmitStatementQuery" text="SEND EMAIL STATEMNET" textFill="WHITE" />
+                  <JFXButton fx:id="submitStatementQuery" layoutX="160.0" layoutY="244.0" onAction="#handleSubmitStatementQuery" text="Send Statement to Email" textFill="WHITE" />
                </children>
             </AnchorPane>
          </children>
@@ -85,8 +85,8 @@
             </Rectangle>
             <AnchorPane prefHeight="634.0" prefWidth="912.0">
                <children>
-                  <JFXPasswordField fx:id="passwordFieldDelete" alignment="CENTER" layoutX="181.0" layoutY="63.0" promptText="password" styleClass="jfx-password-field" stylesheets="@ui.css" />
-                  <JFXPasswordField fx:id="confirmPasswordFieldForDelete" alignment="CENTER" layoutX="181" layoutY="144" promptText="confirm password" styleClass="jfx-password-field" stylesheets="@ui.css" />
+                  <JFXPasswordField fx:id="passwordFieldDelete" alignment="CENTER" layoutX="181.0" layoutY="63.0" promptText="Password" styleClass="jfx-password-field" stylesheets="@ui.css" />
+                  <JFXPasswordField fx:id="confirmPasswordFieldForDelete" alignment="CENTER" layoutX="181" layoutY="144" promptText="Confirm Password" styleClass="jfx-password-field" stylesheets="@ui.css" />
                   <JFXButton fx:id="submitCloseAccountButton" layoutX="228" layoutY="216" onAction="#handleCloseAccount" styleClass="regular-text-field" stylesheets="@ui.css" text="Submit" />
                </children></AnchorPane>
          </children>

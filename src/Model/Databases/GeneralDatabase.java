@@ -251,7 +251,7 @@ public class GeneralDatabase {
         table.updateItem(updateItemSpec);
     }
 
-    public void updateSavingsBalance(String username, String amount) {
+    public static void updateSavingsBalance(String username, String amount) {
         UpdateItemSpec updateItemSpec = new UpdateItemSpec().withPrimaryKey(GeneralDbColumns.username.name(), username)
                 .withUpdateExpression("set savingsBalance = :l")
                 .withValueMap(new ValueMap().withString(":l", amount))
@@ -342,6 +342,12 @@ public class GeneralDatabase {
 
 
 
+    }
+
+    public static void main(String[] args) {
+
+        GeneralDatabase e = new GeneralDatabase();
+        e.updateSavingsBalance("dkkumar77","100.00");
     }
 
 

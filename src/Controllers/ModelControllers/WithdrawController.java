@@ -101,15 +101,25 @@ public class WithdrawController implements SceneInterface
 				return;
 			}
 			double currentBalance = generalDatabase.getCurrentBalance(username);
-			double newBalance = currentBalance - amountToWithdraw;
+			if(checkingsAccountSelected == true) {
+				double newBalance = currentBalance - amountToWithdraw;
 
-			Transaction transaction = new Transaction(amountToWithdraw, TransactionType.WITHDRAWAL);
-			userDatabase.logTransaction(transaction, newBalance);
-			DialogAlert.showOKDialog(stackpane, "Amount $" + amountToWithdraw + " withdrawn from your account.");
-			currCheckBalLabel.setText(Double.toString(this.generalDatabase.getCurrentBalance(username)));
-			currSavBalLabel.setText(Double.toString(this.generalDatabase.getSavingBalance(username)));
+				Transaction transaction = new Transaction(amountToWithdraw, TransactionType.WITHDRAWAL);
+				userDatabase.logTransaction(transaction, newBalance);
+				DialogAlert.showOKDialog(stackpane, "Amount $" + amountToWithdraw + " withdrawn from your account.");
+				currCheckBalLabel.setText(Double.toString(this.generalDatabase.getCurrentBalance(username)));
+				currSavBalLabel.setText(Double.toString(this.generalDatabase.getSavingBalance(username)));
+			}
+			else{
+				double currentSave = generalDatabase.getSavingBalance(username);
+				Transaction trans = new Transaction(amountToWithdraw, TransactionType.WITHDRAWAL_SAVINGS);
+				userDatabase.logTransaction(trans, currentSave-amountToWithdraw);
+				DialogAlert.showOKDialog(stackpane, "Amount of $ " + amountToWithdraw + " was taken away from your Savings");
+				currSavBalLabel.setText(Double.toString(this.generalDatabase.getSavingBalance(username)));
+			}
+
+			}
 		}
-	}
 
 	@FXML
 	public void handleCancel(ActionEvent event)

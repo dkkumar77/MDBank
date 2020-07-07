@@ -67,7 +67,7 @@ public class handleTransactionController {
         this.gd = gd;
         this.username = username;
 
-        if(type.equals(TransactionType.DEPOSIT)){
+        if(type.equals(TransactionType.DEPOSIT_CHECKING)){
 
 
 
