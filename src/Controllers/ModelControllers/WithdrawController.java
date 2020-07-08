@@ -91,11 +91,15 @@ public class WithdrawController implements SceneInterface
 		if(event.getSource().equals(withdrawButton)) {
 			double amountToWithdraw = 0;
 			try {
-				amountToWithdraw = Double.parseDouble(balanceInputField.getText());
+
+				amountToWithdraw = Math.floor(Double.parseDouble(balanceInputField.getText()) * 100)/100;
+
 			} catch (NumberFormatException e) {
 				DialogAlert.showOKDialog(stackpane, "Invalid Amount $" + balanceInputField.getText());
 				return;
 			}
+
+
 			if (amountToWithdraw <= 0 || balanceInputField.getText().isEmpty()) {
 				DialogAlert.showOKDialog(stackpane, "Amount must be greater that $0.00");
 				return;
@@ -105,15 +109,16 @@ public class WithdrawController implements SceneInterface
 				double newBalance = currentBalance - amountToWithdraw;
 
 				Transaction transaction = new Transaction(amountToWithdraw, TransactionType.WITHDRAWAL);
-				userDatabase.logTransaction(transaction, newBalance);
-				DialogAlert.showOKDialog(stackpane, "Amount $" + amountToWithdraw + " withdrawn from your account.");
+				userDatabase.logTransaction(transaction, Math.floor((newBalance)*100)/100);
+				DialogAlert.showOKDialog(stackpane, "Amount $ " + amountToWithdraw + " withdrawn from your account.");
 				currCheckBalLabel.setText(Double.toString(this.generalDatabase.getCurrentBalance(username)));
 				currSavBalLabel.setText(Double.toString(this.generalDatabase.getSavingBalance(username)));
 			}
 			else{
 				double currentSave = generalDatabase.getSavingBalance(username);
+
 				Transaction trans = new Transaction(amountToWithdraw, TransactionType.WITHDRAWAL_SAVINGS);
-				userDatabase.logTransaction(trans, currentSave-amountToWithdraw);
+				userDatabase.logTransaction(trans, Math.floor((currentSave-amountToWithdraw)*100)/100);
 				DialogAlert.showOKDialog(stackpane, "Amount of $ " + amountToWithdraw + " was taken away from your Savings");
 				currSavBalLabel.setText(Double.toString(this.generalDatabase.getSavingBalance(username)));
 			}

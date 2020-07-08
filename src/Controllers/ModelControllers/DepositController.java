@@ -92,7 +92,7 @@ public class DepositController implements SceneInterface
 			double amountToDeposit = 0;
 
 				try {
-					amountToDeposit = Double.parseDouble(balanceInputField.getText());
+					amountToDeposit = Math.floor(Double.parseDouble(balanceInputField.getText()) * 100)/100;
 				} catch (NumberFormatException e) {
 					DialogAlert.showOKDialog(stackpane, "Invalid Amount $" + balanceInputField.getText());
 					return;
@@ -108,8 +108,9 @@ public class DepositController implements SceneInterface
 
 			if (checkingsAccountSelected == true) {
 				double currentBalance = generalDatabase.getCurrentBalance(username);
-				double newBalance = currentBalance + amountToDeposit;
 
+				double newBalance = currentBalance + amountToDeposit;
+				newBalance = Math.floor(newBalance*100)/100;
 				Transaction transaction = new Transaction(amountToDeposit, TransactionType.DEPOSIT_CHECKING);
 				userDatabase.logTransaction(transaction, newBalance);
 				DialogAlert.showOKDialog(stackpane, "Amount $" + amountToDeposit + " deposited to your account.");
@@ -119,7 +120,7 @@ public class DepositController implements SceneInterface
 			else{
 				double currentSavings = generalDatabase.getSavingBalance(username);
 				Transaction trans = new Transaction(amountToDeposit,TransactionType.DEPOSIT_SAVING);
-				userDatabase.logTransaction(trans, currentSavings + amountToDeposit);
+				userDatabase.logTransaction(trans, Math.floor((currentSavings + amountToDeposit)*100)/100);
 				DialogAlert.showOKDialog(stackpane,"Amount $ " + amountToDeposit + " was deposited into your Savings");
 				currSavBalLabel.setText(Double.toString(generalDatabase.getSavingBalance(username)));
 
